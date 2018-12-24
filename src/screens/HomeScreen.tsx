@@ -80,7 +80,7 @@ class HomeScreen extends React.Component {
           />
           <Title style={{ fontSize: 28, color: "white" }}>{TITLE}</Title>
         </View>
-        <View style={styles.allScreenContainer}>
+        <View style={{ backgroundColor: "black" }}>
           <Button
             rounded
             light
@@ -96,6 +96,7 @@ class HomeScreen extends React.Component {
         </View>
         <View
           style={{
+            backgroundColor: "orange",
             flex: 1,
             justifyContent: "flex-start"
           }}
@@ -147,7 +148,6 @@ interface Style {
   gradientBackground: ViewStyle;
   welcomeImage: ImageStyle;
   welcomeContainer: ViewStyle;
-  allScreenContainer: ViewStyle;
   tabBarInfoContainer: ViewStyle;
   tabBarInfoText: TextStyle;
   helpLink: ViewStyle;
@@ -174,17 +174,7 @@ const styles = StyleSheet.create<Style>({
   welcomeContainer: {
     backgroundColor: "red",
     flex: 1,
-    marginTop: 25
-  },
-  allScreenContainer: {
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "center",
-    alignItems: "center"
+    marginTop: "7%"
   },
   tabBarInfoContainer: {
     position: "absolute",
