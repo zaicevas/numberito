@@ -136,7 +136,13 @@ class HomeScreen extends React.Component {
           onPress={this.handleHelpPress}
           style={styles.helpLink}
         >
-          <View style={styles.tabBarInfoContainer}>
+          <View
+            style={
+              Platform.OS === "ios"
+                ? styles.tabBarInfoContainer
+                : styles.tabBarInfoContainerAndroid
+            }
+          >
             <Text style={styles.helpLinkText}>{ABOUT_TITLE}</Text>
           </View>
         </TouchableOpacity>
@@ -151,6 +157,7 @@ interface Style {
   welcomeImage: ImageStyle;
   welcomeContainer: ViewStyle;
   tabBarInfoContainer: ViewStyle;
+  tabBarInfoContainerAndroid: ViewStyle;
   tabBarInfoText: TextStyle;
   helpLink: ViewStyle;
   helpLinkText: TextStyle;
@@ -189,6 +196,16 @@ const styles = StyleSheet.create<Style>({
     alignItems: "center",
     backgroundColor: "#fbfbfb",
     paddingVertical: 12
+  },
+  tabBarInfoContainerAndroid: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    backgroundColor: "#fbfbfb",
+    paddingVertical: 12,
+    elevation: 20
   },
   tabBarInfoText: {
     fontSize: 17,
