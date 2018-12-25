@@ -19,6 +19,7 @@ type BackgroundProps = Omit<LinearGradientProps, "colors" | "style">;
 
 const TITLE = "GUESS THE NUMBER";
 const ABOUT_TITLE = "ABOUT";
+const STATUS_BAR_HEIGHT = 20;
 
 // sadly there's native-base but regarding ViewStyle types (https://github.com/GeekyAnts/NativeBase/issues/2346)
 // so we'll have to rely on inline styles
@@ -78,9 +79,9 @@ class HomeScreen extends React.Component {
             source={require("../../assets/icon.png")}
             style={styles.welcomeImage}
           />
-          <Title style={{ fontSize: 28, color: "white" }}>{TITLE}</Title>
+          <Title style={{ fontSize: 28, color: "black" }}>{TITLE}</Title>
         </View>
-        <View style={{ backgroundColor: "black" }}>
+        <View>
           <Button
             rounded
             light
@@ -96,7 +97,6 @@ class HomeScreen extends React.Component {
         </View>
         <View
           style={{
-            backgroundColor: "orange",
             flex: 1,
             justifyContent: "flex-start"
           }}
@@ -106,28 +106,30 @@ class HomeScreen extends React.Component {
             light
             large
             style={{
-              height: "15%",
+              backgroundColor: "#444",
+              height: "16.5%",
               alignSelf: "center",
               width: "55%",
               justifyContent: "center",
-              marginTop: Layout.height * 0.07,
+              marginTop: Layout.height * 0.04,
               marginBottom: Layout.height * 0.02
             }}
           >
-            <Text>Tutorial</Text>
+            <Text style={{ color: "white" }}>History</Text>
           </Button>
           <Button
             rounded
             light
             large
             style={{
-              height: "15%",
+              backgroundColor: "#444",
+              height: "16.5%",
               alignSelf: "center",
-              width: "45%",
+              width: "55%",
               justifyContent: "center"
             }}
           >
-            <Text>History</Text>
+            <Text style={{ color: "white" }}>Tutorial</Text>
           </Button>
         </View>
         <TouchableOpacity
@@ -172,9 +174,8 @@ const styles = StyleSheet.create<Style>({
     alignSelf: "center"
   },
   welcomeContainer: {
-    backgroundColor: "red",
     flex: 1,
-    marginTop: "7%"
+    paddingTop: STATUS_BAR_HEIGHT + 5
   },
   tabBarInfoContainer: {
     position: "absolute",
