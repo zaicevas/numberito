@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   View,
   ViewStyle,
@@ -9,6 +8,9 @@ import {
 } from "react-native";
 import { Button, Text } from "native-base";
 import Layout from "../../constants/Layout";
+
+// sadly there's native-base but regarding ViewStyle types (https://github.com/GeekyAnts/NativeBase/issues/2346)
+// so we'll have to rely on inline styles
 
 type CssStyle = {
   style: ViewStyle | TextStyle | ImageStyle;
