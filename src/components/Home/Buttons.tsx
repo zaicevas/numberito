@@ -7,7 +7,7 @@ import {
   GestureResponderEvent
 } from "react-native";
 import { Button, Text } from "native-base";
-import Layout from "../../constants/Layout";
+import Layout from "../../utils/constants/Layout";
 
 // sadly there's native-base but regarding ViewStyle types (https://github.com/GeekyAnts/NativeBase/issues/2346)
 // so we'll have to rely on inline styles

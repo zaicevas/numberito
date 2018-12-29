@@ -19,9 +19,13 @@ const Background: React.SFC<BackgroundProps> = props => (
   />
 );
 
-export default class WholeHomeScreen extends React.Component {
+export default class WholeHomeScreen extends React.Component<
+  { navigation: { navigate: Function } },
+  any
+> {
   handlePlayPress() {
     console.log("play pressed");
+    console.log(this.props.navigation);
   }
 
   handleHistoryPress() {

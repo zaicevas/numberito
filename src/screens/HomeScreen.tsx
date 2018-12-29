@@ -1,9 +1,9 @@
 import * as React from "react";
 import WholeHomeScreen from "../components/Home/WholeHomeScreen";
 
-class HomeScreen extends React.Component {
+class HomeScreen extends React.Component<{ navigation: any }, any> {
   render() {
-    return <WholeHomeScreen />;
+    return <WholeHomeScreen navigation={this.props.navigation} />;
   }
 }
 
