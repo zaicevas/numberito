@@ -22,9 +22,9 @@ const CustomButton: React.SFC<CssStyle> = props => (
 );
 
 interface ButtonsProps {
-  onPlayPress: Function;
-  onHistoryPress: Function;
-  onTutorialPress: Function;
+  onPlayPress: (e: GestureResponderEvent) => void;
+  onHistoryPress: (e: GestureResponderEvent) => void;
+  onTutorialPress: (e: GestureResponderEvent) => void;
 }
 
 const Buttons: React.SFC<ButtonsProps> = props => {

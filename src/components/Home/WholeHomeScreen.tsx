@@ -1,28 +1,17 @@
 import * as React from "react";
 import { View, StyleSheet, ViewStyle } from "react-native";
-import { LinearGradient, LinearGradientProps } from "expo";
-import { Omit } from "../../utils/types";
 import WelcomeBar from "./WelcomeBar";
 import Buttons from "./Buttons";
 import Footbar from "./Footbar";
 import { SCREEN_PLAY } from "../../utils/constants/screens";
+import Background from "../../utils/background";
 
 const TITLE = "GUESS THE NUMBER";
 const FOOTBAR_TITLE = "ABOUT";
 
-type BackgroundProps = Omit<LinearGradientProps, "colors" | "style">;
-
-const Background: React.SFC<BackgroundProps> = props => (
-  <LinearGradient
-    colors={["#9e49ff", "#6899e8"]}
-    style={styles.gradientBackground}
-    {...props}
-  />
-);
-
 export default class WholeHomeScreen extends React.Component<
-  { navigation: { navigate: Function } },
-  any
+  WholeHomeScreenProps,
+  {}
 > {
   handlePlayPress() {
     this.props.navigation.navigate(SCREEN_PLAY);
@@ -58,7 +47,6 @@ export default class WholeHomeScreen extends React.Component<
 
 interface Style {
   container: ViewStyle;
-  gradientBackground: ViewStyle;
 }
 
 interface WholeHomeScreenProps {
@@ -70,12 +58,5 @@ interface WholeHomeScreenProps {
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1
-  },
-  gradientBackground: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: "100%"
   }
 });
