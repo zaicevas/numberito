@@ -24,8 +24,7 @@ export default class WholeHomeScreen extends React.Component<
   any
 > {
   handlePlayPress() {
-    console.log("play pressed");
-    console.log(this.props.navigation);
+    this.props.navigation.navigate("Play");
   }
 
   handleHistoryPress() {
@@ -46,9 +45,9 @@ export default class WholeHomeScreen extends React.Component<
         <Background />
         <WelcomeBar title={TITLE} />
         <Buttons
-          onPlayPress={this.handlePlayPress}
-          onHistoryPress={this.handleHistoryPress}
-          onTutorialPress={this.handleTutorialPress}
+          onPlayPress={() => this.handlePlayPress()}
+          onHistoryPress={() => this.handleHistoryPress()}
+          onTutorialPress={() => this.handleTutorialPress()}
         />
         <Footbar title={FOOTBAR_TITLE} onFootbarPress={this.handleHelpPress} />
       </View>

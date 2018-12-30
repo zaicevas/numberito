@@ -32,7 +32,7 @@ const Buttons: React.SFC<ButtonsProps> = props => {
     <>
       <View>
         <CustomButton
-          onPress={() => props.onPlayPress()}
+          onPress={props.onPlayPress}
           style={{
             alignSelf: "center",
             width: "70%",
@@ -49,7 +49,7 @@ const Buttons: React.SFC<ButtonsProps> = props => {
         }}
       >
         <CustomButton
-          onPress={() => props.onHistoryPress()}
+          onPress={props.onHistoryPress}
           style={{
             backgroundColor: "#444",
             height: "16.5%",
@@ -63,7 +63,7 @@ const Buttons: React.SFC<ButtonsProps> = props => {
           <Text style={{ color: "white" }}>History</Text>
         </CustomButton>
         <CustomButton
-          onPress={() => props.onTutorialPress()}
+          onPress={props.onTutorialPress}
           style={{
             backgroundColor: "#444",
             height: "16.5%",
