@@ -5,6 +5,7 @@ import { Omit } from "../../utils/types";
 import WelcomeBar from "./WelcomeBar";
 import Buttons from "./Buttons";
 import Footbar from "./Footbar";
+import { SCREEN_PLAY } from "../../utils/constants/screens";
 
 const TITLE = "GUESS THE NUMBER";
 const FOOTBAR_TITLE = "ABOUT";
@@ -24,7 +25,7 @@ export default class WholeHomeScreen extends React.Component<
   any
 > {
   handlePlayPress() {
-    this.props.navigation.navigate("Play");
+    this.props.navigation.navigate(SCREEN_PLAY);
   }
 
   handleHistoryPress() {
@@ -58,6 +59,12 @@ export default class WholeHomeScreen extends React.Component<
 interface Style {
   container: ViewStyle;
   gradientBackground: ViewStyle;
+}
+
+interface WholeHomeScreenProps {
+  navigation: {
+    navigate: Function;
+  };
 }
 
 const styles = StyleSheet.create<Style>({
