@@ -3,8 +3,8 @@ import { View, StyleSheet, ViewStyle } from "react-native";
 import WelcomeBar from "./WelcomeBar";
 import Buttons from "./Buttons";
 import Footbar from "./Footbar";
-import { SCREEN_PLAY } from "../../utils/constants/screens";
-import Background from "../../utils/background";
+import { SCREEN_PLAY } from "../../utils/constants/Screens";
+import Background from "../../utils/Background";
 
 const TITLE = "GUESS THE NUMBER";
 const FOOTBAR_TITLE = "ABOUT";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, StyleSheet, ViewStyle } from "react-native";
 import { Text } from "native-base";
-import Background from "../../utils/background";
+import Background from "../../utils/Background";
 
 class WholePlayScreen extends React.Component {
   render() {
