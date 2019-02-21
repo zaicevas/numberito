@@ -9,7 +9,8 @@ const AppNavigator = createStackNavigator(
       navigationOptions: () => ({ header: null })
     },
     Play: {
-      screen: PlayScreen
+      screen: PlayScreen,
+      navigationOptions: () => ({    headerTintColor: 'black'})
     }
   },
   {
