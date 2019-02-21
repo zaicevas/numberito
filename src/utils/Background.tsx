@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 import { LinearGradient, LinearGradientProps } from "expo";
-import { Omit } from "./types";
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type BackgroundProps = Omit<LinearGradientProps, "colors" | "style">;
 
 const Background: React.SFC<BackgroundProps> = props => (

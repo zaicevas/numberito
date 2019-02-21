@@ -2,6 +2,7 @@ import * as React from "react";
 import { View, StyleSheet, ViewStyle } from "react-native";
 import Background from "../../utils/Background";
 import GuessInput from "./GuessInput";
+import NumberButton from "./NumberButton";
 
 class WholePlayScreen extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class WholePlayScreen extends React.Component {
       <View style={styles.container}>
         <Background />
         <GuessInput />
+        <NumberButton operator={1} handleButtonPress={() => {}} />
       </View>
     );
   }
