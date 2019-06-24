@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, TextStyle, TextInput } from "react-native";
 import Layout from "../../utils/constants/Layout";
 
-const INITIAL_TEXTINPUT_TEXT = "?";
+const INITIAL_TEXTINPUT_TEXT = "_ _ _ _";
 
 class GuessInput extends React.Component {
   state = { textInputText: INITIAL_TEXTINPUT_TEXT };
@@ -38,7 +38,7 @@ interface Style {
 }
 const styles = StyleSheet.create<Style>({
   textInput: {
-    height: 250,
+    height: '20%',
     fontSize: 42,
     textAlign: "center",
     color: "white",

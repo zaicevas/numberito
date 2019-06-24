@@ -10,7 +10,7 @@ const AppNavigator = createStackNavigator(
     },
     Play: {
       screen: PlayScreen,
-      navigationOptions: () => ({    headerTintColor: 'black'})
+      navigationOptions: () => ({headerTintColor: 'black' })
     }
   },
   {
