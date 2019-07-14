@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   shadow: {
     shadowColor: Theme.colors.black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.25,
     shadowRadius: 10,
   },
   accent: { backgroundColor: Theme.colors.accent },
@@ -91,14 +91,12 @@ const styles = StyleSheet.create({
   white: { backgroundColor: Theme.colors.white },
   gray: { backgroundColor: Theme.colors.gray },
   gray2: { backgroundColor: Theme.colors.gray2 },
-  gray3: { backgroundColor: Theme.colors.gray3 },
-  gray4: { backgroundColor: Theme.colors.gray4 },
 });
 
 interface ButtonProps {
   style: StyleMedia;
   opacity: number;
-  gradient: Boolean;
+  gradient: boolean;
   color: string;
   startColor: string;
   endColor: string;
@@ -106,7 +104,7 @@ interface ButtonProps {
   end: [number, number];
   locations: number[];
   shadow: {
-    shadowColor: Theme.colors.black,
+    shadowColor: string,
     shadowOffset: { width: number, height: number },
     shadowOpacity: number,
     shadowRadius: number,
