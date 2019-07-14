@@ -7,7 +7,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@types/react-navigation": "^3.0.1",
     "expo": "^31.0.2",
     "native-base": "^2.9.3",
     "react": "16.5.0",
@@ -20,6 +19,7 @@
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@types/react-native": "^0.57.20",
+    "@types/react-navigation": "^3.0.1",
     "tslint": "^5.12.0",
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.2"

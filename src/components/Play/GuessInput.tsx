@@ -1,13 +1,12 @@
-import * as React from "react";
-import { StyleSheet, TextStyle, TextInput } from "react-native";
-import Layout from "../../utils/constants/Layout";
+import React from 'react';
+import { StyleSheet, TextInput, TextStyle } from 'react-native';
 
-const INITIAL_TEXTINPUT_TEXT = "_ _ _ _";
+const INITIAL_TEXTINPUT_TEXT = '_ _ _ _';
 
 class GuessInput extends React.Component {
-  state = { textInputText: INITIAL_TEXTINPUT_TEXT };
-  textInput: null | TextInput = null;
-  render() {
+  public state = { textInputText: INITIAL_TEXTINPUT_TEXT };
+  public textInput: null | TextInput = null;
+  public render() {
     return (
       <TextInput
         ref={input => {
@@ -25,8 +24,9 @@ class GuessInput extends React.Component {
           if (
             this.state.textInputText === INITIAL_TEXTINPUT_TEXT &&
             this.textInput
-          )
+          ) {
             this.textInput.clear();
+          }
         }}
       />
     );
@@ -40,10 +40,10 @@ const styles = StyleSheet.create<Style>({
   textInput: {
     height: '20%',
     fontSize: 42,
-    textAlign: "center",
-    color: "white",
-    padding: 10
-  }
+    textAlign: 'center',
+    color: 'white',
+    padding: 10,
+  },
 });
 
 export default GuessInput;

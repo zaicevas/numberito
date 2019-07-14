@@ -1,11 +1,5 @@
-import * as React from "react";
-import {
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-  TouchableOpacity
-} from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface ButtonProps {
   operator: Number;
@@ -29,16 +23,16 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    margin: 1
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    margin: 1,
   },
 
   item: {
-    color: "#fff",
-    fontSize: 26
-  }
+    color: '#fff',
+    fontSize: 26,
+  },
 });
 
 export default NumberButton;

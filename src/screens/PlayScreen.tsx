@@ -1,10 +1,28 @@
-import * as React from "react";
-import WholePlayScreen from "../components/Play/WholePlayScreen";
+import React from 'react';
+import { StyleSheet, View, ViewStyle } from 'react-native';
+import Background from '../components/Background';
+import GuessInput from '../components/Play/GuessInput';
+import NumberButton from '../components/Play/NumberButton';
 
 class PlayScreen extends React.Component {
-  render() {
-    return <WholePlayScreen />;
+  public render() {
+    return (
+      <View style={styles.container}>
+        <Background />
+        <GuessInput />
+        <NumberButton operator={1} handleButtonPress={() => { }} />
+      </View>
+    );
   }
 }
+
+interface Style {
+  container: ViewStyle;
+}
+const styles = StyleSheet.create<Style>({
+  container: {
+    flex: 1,
+  },
+});
 
 export default PlayScreen;

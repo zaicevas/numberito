@@ -1,21 +1,21 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
-import HomeScreen from "../screens/HomeScreen";
-import PlayScreen from "../screens/PlayScreen";
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+import HomeScreen from '../screens/HomeScreen';
+import PlayScreen from '../screens/PlayScreen';
 
 const AppNavigator = createStackNavigator(
   {
     Home: {
+      navigationOptions: () => ({ header: null }),
       screen: HomeScreen,
-      navigationOptions: () => ({ header: null })
     },
     Play: {
+      navigationOptions: () => ({ headerTintColor: 'black' }),
       screen: PlayScreen,
-      navigationOptions: () => ({headerTintColor: 'black' })
-    }
+    },
   },
   {
-    initialRouteName: "Home"
-  }
+    initialRouteName: 'Home',
+  },
 );
 
 export default createAppContainer(AppNavigator);

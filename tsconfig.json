@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es2015", "esnext.asynciterable"],
+    "target": "es2017",
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
     "jsx": "react-native",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-        /* 
-       Enables emit interoperability between CommonJS and ES Modules 
-       via creation of namespace objects for all imports. 
-       Implies 'allowSyntheticDefaultImports'. 
-    */
-    "esModuleInterop": true
+    "allowSyntheticDefaultImports": true,
   }
 }

@@ -1,13 +1,6 @@
-import * as React from "react";
-import {
-  View,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-  ViewStyle,
-  TextStyle
-} from "react-native";
-import { Text } from "native-base";
+import { Text } from 'native-base';
+import React from 'react';
+import { Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 interface FootbarProps {
   onFootbarPress: Function;
@@ -21,7 +14,7 @@ const Footbar: React.SFC<FootbarProps> = props => (
   >
     <View
       style={
-        Platform.OS === "ios"
+        Platform.OS === 'ios'
           ? styles.tabBarInfoContainer
           : styles.tabBarInfoContainerAndroid
       }
@@ -40,35 +33,35 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   helpLink: {
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   helpLinkText: {
     fontSize: 14,
-    color: "#2e78b7"
+    color: '#2e78b7'
   },
   tabBarInfoContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    shadowColor: "black",
+    shadowColor: 'black',
     shadowOffset: { height: -5, width: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 12
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 12,
   },
   tabBarInfoContainerAndroid: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
     paddingVertical: 12,
-    elevation: 20
-  }
+    elevation: 20,
+  },
 });
 
 export default Footbar;

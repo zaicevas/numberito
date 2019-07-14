@@ -1,5 +1,5 @@
-import * as React from "react";
-import { StyleSheet, View, StatusBar, Platform } from "react-native";
+import React from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import AppContainer from "./navigation/AppContainer";
 
 export default class App extends React.Component {
