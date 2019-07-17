@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Layout } from '../../constants/index';
 import Text from '../Text';
 
 const STATUS_BAR_HEIGHT = 20;
@@ -26,7 +27,6 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
     return (
       <View style={styles.welcomeContainer}>
         <TouchableOpacity onPress={() => {
-          console.log(this.state.currentIndex);
           this.setState({ currentIndex: this.state.currentIndex + 1 });
         }
         }>
@@ -41,18 +41,6 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
   }
 }
 
-// const WelcomeBar = ({ title }: WelcomeBarProps) => (
-//   <View style={styles.welcomeContainer}>
-//     <Image
-//       resizeMode="contain"
-//       source={photos[0]}
-//       style={styles.welcomeImage}
-//       onPress = {() => }
-//     />
-//     <Title style={styles.title}>{title}</Title>
-//   </View>
-// );
-
 interface Style {
   welcomeImage: ImageStyle;
   welcomeContainer: ViewStyle;
@@ -61,7 +49,7 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   welcomeImage: {
-    height: 160,
+    height: Layout.height * 0.25,
     marginBottom: '4%',
     alignSelf: 'center',
   },

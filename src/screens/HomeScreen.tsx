@@ -1,5 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { Platform, StyleSheet, ViewStyle } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import Block from '../components/Block';
 import Button from '../components/Button';
@@ -9,9 +10,15 @@ import { Theme } from '../constants/index';
 import { SCREEN_PLAY } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
-const FOOTBAR_TITLE = 'ABOUT';
 
 class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
+  public static navigationOptions = {
+    header: null,
+    tabBarIcon: ({ tintColor }) => (
+      <Ionicons name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'} size={28} color={tintColor} />
+    ),
+  };
+
   public handlePlayPress() {
     this.props.navigation.navigate(SCREEN_PLAY);
   }
@@ -33,7 +40,7 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
       <>
         <WelcomeBar title={TITLE} />
         <Block flex={1} margin={[0, Theme.sizes.padding * 2]}>
-          <Button gradient >
+          <Button gradient onPress={() => this.handlePlayPress()}>
             <Text center bold white>Play</Text>
           </Button>
           <Button shadow >
