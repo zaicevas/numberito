@@ -1,30 +1,23 @@
-import * as React from "react";
-import {
-  View,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-  GestureResponderEvent
-} from "react-native";
-import { Button, Text } from "native-base";
-import Layout from "../../constants/Layout";
+import { Button, Text } from 'native-base';
+import React from 'react';
+import { GestureResponderEvent, ImageStyle, TextStyle, View, ViewStyle } from 'react-native';
+import { Layout } from '../../constants/index';
 
-// sadly there's native-base but regarding ViewStyle types (https://github.com/GeekyAnts/NativeBase/issues/2346)
-// so we'll have to rely on inline styles
+// we'll have to rely on inline styles (https://github.com/GeekyAnts/NativeBase/issues/2346)
 
-type CssStyle = {
+interface CssStyle {
   style: ViewStyle | TextStyle | ImageStyle;
   onPress: (e: GestureResponderEvent) => void;
-};
+}
 
 const CustomButton: React.SFC<CssStyle> = props => (
   <Button rounded light large {...props} />
 );
 
 interface ButtonsProps {
-  onPlayPress: Function;
-  onHistoryPress: Function;
-  onTutorialPress: Function;
+  onPlayPress: (e: GestureResponderEvent) => void;
+  onHistoryPress: (e: GestureResponderEvent) => void;
+  onTutorialPress: (e: GestureResponderEvent) => void;
 }
 
 const Buttons: React.SFC<ButtonsProps> = props => {
@@ -32,11 +25,12 @@ const Buttons: React.SFC<ButtonsProps> = props => {
     <>
       <View>
         <CustomButton
-          onPress={() => props.onPlayPress()}
+          onPress={props.onPlayPress}
           style={{
-            alignSelf: "center",
-            width: "70%",
-            justifyContent: "center"
+            alignSelf: 'center',
+            width: '70%',
+            justifyContent: 'center',
+            borderRadius: 4,
           }}
         >
           <Text>PLAY</Text>
@@ -45,34 +39,34 @@ const Buttons: React.SFC<ButtonsProps> = props => {
       <View
         style={{
           flex: 1,
-          justifyContent: "flex-start"
+          justifyContent: 'flex-start',
         }}
       >
         <CustomButton
-          onPress={() => props.onHistoryPress()}
+          onPress={props.onHistoryPress}
           style={{
-            backgroundColor: "#444",
-            height: "16.5%",
-            alignSelf: "center",
-            width: "55%",
-            justifyContent: "center",
+            backgroundColor: '#444',
+            height: '16.5%',
+            alignSelf: 'center',
+            width: '55%',
+            justifyContent: 'center',
             marginTop: Layout.height * 0.04,
-            marginBottom: Layout.height * 0.02
+            marginBottom: Layout.height * 0.02,
           }}
         >
-          <Text style={{ color: "white" }}>History</Text>
+          <Text style={{ color: 'white' }}>History</Text>
         </CustomButton>
         <CustomButton
-          onPress={() => props.onTutorialPress()}
+          onPress={props.onTutorialPress}
           style={{
-            backgroundColor: "#444",
-            height: "16.5%",
-            alignSelf: "center",
-            width: "55%",
-            justifyContent: "center"
+            backgroundColor: '#444',
+            height: '16.5%',
+            alignSelf: 'center',
+            width: '55%',
+            justifyContent: 'center',
           }}
         >
-          <Text style={{ color: "white" }}>Tutorial</Text>
+          <Text style={{ color: 'white' }}>Tutorial</Text>
         </CustomButton>
       </View>
     </>
