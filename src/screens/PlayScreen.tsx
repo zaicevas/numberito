@@ -7,13 +7,12 @@ import { Layout } from '../constants/index';
 const INPUT_LINE_WIDTH = 0.17;
 
 const NumberInput: React.SFC = () => {
-  return (
-    <View style={styles.underlineStyle} />);
+  return <View style={styles.underlineStyle} />;
 };
 
 class PlayScreen extends React.PureComponent {
   public static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => (
+    tabBarIcon: ({ tintColor }: { tintColor: string }) => (
       <SimpleLineIcons name="book-open" size={24} color={tintColor} />
     ),
   };
@@ -30,7 +29,7 @@ class PlayScreen extends React.PureComponent {
         <View style={{ height: '85%' }}>
           <Keyboard Size={9} />
         </View>
-      </View >
+      </View>
     );
   }
 }

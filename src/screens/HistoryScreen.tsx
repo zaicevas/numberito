@@ -4,7 +4,7 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 
 class HistoryScreen extends React.PureComponent {
   public static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => (
+    tabBarIcon: ({ tintColor }: { tintColor: string }) => (
       <SimpleLineIcons name="book-open" size={24} color={tintColor} />
     ),
   };

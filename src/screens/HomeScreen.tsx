@@ -13,8 +13,12 @@ const TITLE = 'NUMBERITO';
 
 class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
   public static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => (
-      <Ionicons name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'} size={28} color={tintColor} />
+    tabBarIcon: ({ tintColor }: { tintColor: string }) => (
+      <Ionicons
+        name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
+        size={28}
+        color={tintColor}
+      />
     ),
   };
 
@@ -40,10 +44,14 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
         <WelcomeBar title={TITLE} />
         <Block flex={1} margin={[0, Theme.sizes.padding * 2]}>
           <Button gradient onPress={() => this.handlePlayPress()}>
-            <Text center bold white>Play</Text>
+            <Text center bold white>
+              Play
+            </Text>
           </Button>
           <Button gradient startColor={'#0AC4BA'} endColor={'#2BDA8E'}>
-            <Text center semibold white>Tutorial</Text>
+            <Text center semibold white>
+              Tutorial
+            </Text>
           </Button>
         </Block>
       </>

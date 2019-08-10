@@ -33,7 +33,7 @@ const BottomTabNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Home',
-    defaultNavigationOptions: ({ navigation }) => ({
+    defaultNavigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
