@@ -1,6 +1,12 @@
 import { Button, Text } from 'native-base';
 import React from 'react';
-import { GestureResponderEvent, ImageStyle, TextStyle, View, ViewStyle } from 'react-native';
+import {
+  GestureResponderEvent,
+  ImageStyle,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { Layout } from '../../constants/index';
 
 // we'll have to rely on inline styles (https://github.com/GeekyAnts/NativeBase/issues/2346)

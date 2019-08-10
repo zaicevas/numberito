@@ -104,10 +104,10 @@ interface ButtonProps {
   end: [number, number];
   locations: number[];
   shadow: {
-    shadowColor: string,
-    shadowOffset: { width: number, height: number },
-    shadowOpacity: number,
-    shadowRadius: number,
+    shadowColor: string;
+    shadowOffset: { width: number; height: number };
+    shadowOpacity: number;
+    shadowRadius: number;
   };
   children: JSX.Element[];
 }

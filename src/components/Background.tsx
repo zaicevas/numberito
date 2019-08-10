@@ -1,13 +1,13 @@
-import * as React from "react";
-import { StyleSheet, ViewStyle } from "react-native";
-import { LinearGradient, LinearGradientProps } from "expo";
+import { LinearGradient, LinearGradientProps } from 'expo';
+import React from 'react';
+import { StyleSheet, ViewStyle } from 'react-native';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type BackgroundProps = Omit<LinearGradientProps, "colors" | "style">;
+type BackgroundProps = Omit<LinearGradientProps, 'colors' | 'style'>;
 
 const Background: React.SFC<BackgroundProps> = props => (
   <LinearGradient
-    colors={["#9e49ff", "#6899e8"]}
+    colors={['#9e49ff', '#6899e8']}
     style={styles.gradientBackground}
     {...props}
   />
@@ -19,12 +19,12 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   gradientBackground: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    height: "100%"
-  }
+    height: '100%',
+  },
 });
 
 export default Background;
