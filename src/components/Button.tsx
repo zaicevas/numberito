@@ -6,7 +6,7 @@ import { Theme } from '../constants/index';
 class Button extends React.Component<ButtonProps, {}> {
   public static defaultProps = {
     startColor: Theme.colors.primary,
-    endColor: Theme.colors.secondary,
+    endColor: Theme.colors.primaryShadow,
     start: { x: 0, y: 0 },
     end: { x: 1, y: 1 },
     locations: [0.1, 0.9],
