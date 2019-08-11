@@ -1,8 +1,9 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
+import History from '../components/Play/History';
 import Keyboard from '../components/Play/Keyboard';
-import { Layout } from '../constants/index';
+import { Layout, Theme } from '../constants/index';
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -26,8 +27,11 @@ class PlayScreen extends React.PureComponent {
           <NumberInput />
           <NumberInput />
         </View>
-        <View style={{ height: '85%' }}>
-          <Keyboard Size={9} />
+        <View style={styles.history}>
+          <History />
+        </View>
+        <View>
+          <Keyboard />
         </View>
       </View>
     );
@@ -38,6 +42,7 @@ interface Style {
   container: ViewStyle;
   underlineStyle: ViewStyle;
   horizontalContainer: ViewStyle;
+  history: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -55,6 +60,14 @@ const styles = StyleSheet.create<Style>({
     paddingTop: '20%',
     width: '85%',
     alignSelf: 'center',
+  },
+  history: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    backgroundColor: Theme.colors.tertiary,
+    padding: Layout.height * 0.04,
+    marginTop: 10,
   },
 });
 

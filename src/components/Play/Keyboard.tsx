@@ -50,7 +50,7 @@ export default class Keyboard extends React.Component {
       return (
         <TouchableOpacity key={index}>
           <View style={[styles.touchStyle]}>
-            {getIcon(key[0])}
+            {getIcon(keyType)}
             <Text style={[styles.buttonText]}>{text}</Text>
           </View>
         </TouchableOpacity>
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     width: ButtonSize,
   },
   keyboardStyle: {
-    paddingTop: 50,
     alignItems: 'center',
   },
   buttonText: {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   numberCircle: {
-    borderRadius: ButtonSize / 2,
+    borderRadius: 100,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.1)',
   },
