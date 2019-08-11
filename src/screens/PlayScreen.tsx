@@ -1,7 +1,7 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import Keyboard from '../components/Play/RoundKeyboard';
+import Keyboard from '../components/Play/Keyboard';
 import { Layout } from '../constants/index';
 
 const INPUT_LINE_WIDTH = 0.17;
@@ -39,6 +39,7 @@ interface Style {
   underlineStyle: ViewStyle;
   horizontalContainer: ViewStyle;
 }
+
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
