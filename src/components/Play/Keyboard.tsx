@@ -27,33 +27,22 @@ const getIcon = (keyType: KeyType) => {
   );
 };
 
+const keys = [
+  [KeyType.Number, '1'],
+  [KeyType.Number, '2'],
+  [KeyType.Number, '3'],
+  [KeyType.Number, '4'],
+  [KeyType.Number, '5'],
+  [KeyType.Number, '6'],
+  [KeyType.Number, '7'],
+  [KeyType.Number, '8'],
+  [KeyType.Number, '9'],
+  [KeyType.Check, 'check'],
+  [KeyType.Number, '0'],
+  [KeyType.Delete, 'delete'],
+];
+
 export default class Keyboard extends React.Component {
-  public static defaultProps = {
-    TextColor: '#4a4b4d',
-    PinColor: 'rgba(0,0,0,0.1)',
-    Size: 4,
-    Random: false,
-    FontSize: 30,
-    ImageSize: { height: 15, width: 20 },
-  };
-
-  public getKeyboard = () => {
-    return [
-      [KeyType.Number, '1'],
-      [KeyType.Number, '2'],
-      [KeyType.Number, '3'],
-      [KeyType.Number, '4'],
-      [KeyType.Number, '5'],
-      [KeyType.Number, '6'],
-      [KeyType.Number, '7'],
-      [KeyType.Number, '8'],
-      [KeyType.Number, '9'],
-      [KeyType.Check, 'check'],
-      [KeyType.Number, '0'],
-      [KeyType.Delete, 'delete'],
-    ];
-  }
-
   public renderTouchable = (key: [KeyType, string], index: number) => {
     const keyType = key[0];
     const text = key[1];
@@ -79,9 +68,7 @@ export default class Keyboard extends React.Component {
     return (
       <View style={[styles.keyboardStyle]}>
         <View style={[styles.container, { width: WIDTH }]}>
-          {this.getKeyboard().map((key, index) =>
-            this.renderTouchable(key, index),
-          )}
+          {keys.map((key, index) => this.renderTouchable(key, index))}
         </View>
       </View>
     );
@@ -96,7 +83,7 @@ const styles = StyleSheet.create({
   touchStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: Layout.width * 0.04,
+    marginHorizontal: 13,
     marginVertical: 8,
     height: ButtonSize,
     width: ButtonSize,
@@ -109,7 +96,7 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     marginTop: 5,
     color: 'black',
-    opacity: 0.7,
+    opacity: 0.5,
   },
   numberCircle: {
     borderRadius: ButtonSize / 2,
