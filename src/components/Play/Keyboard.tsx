@@ -2,15 +2,10 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Layout, Theme } from '../../constants/index';
+import { KeyType } from '../../types/index';
 
 const ButtonSize = Layout.width * 0.2;
 const WIDTH = (13 * 2 + ButtonSize) * 3;
-
-enum KeyType {
-  Number,
-  Check,
-  Delete,
-}
 
 const getIcon = (keyType: KeyType) => {
   const props = {
@@ -27,7 +22,8 @@ const getIcon = (keyType: KeyType) => {
   );
 };
 
-const keys = [
+const keys: Array<[KeyType, string]> = [
+  // why does it have to be explicit?
   [KeyType.Number, '1'],
   [KeyType.Number, '2'],
   [KeyType.Number, '3'],
@@ -42,33 +38,61 @@ const keys = [
   [KeyType.Delete, 'delete'],
 ];
 
-export default class Keyboard extends React.Component {
-  public renderTouchable = (key: [KeyType, string], index: number) => {
-    const keyType = key[0];
-    const text = key[1];
-    if (keyType !== KeyType.Number) {
-      return (
-        <TouchableOpacity key={index}>
-          <View style={[styles.touchStyle]}>
-            {getIcon(keyType)}
-            <Text style={[styles.buttonText]}>{text}</Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }
+interface TouchableProps {
+  inputKey: [KeyType, string];
+  onPress: (inputKey: [KeyType, string]) => void;
+  disabled: boolean;
+}
+
+const Touchable: React.FC<TouchableProps> = ({
+  inputKey,
+  onPress,
+  disabled,
+}) => {
+  const keyType = inputKey[0];
+  const text = inputKey[1];
+  if (keyType !== KeyType.Number) {
     return (
-      <TouchableOpacity key={index}>
-        <View style={[styles.touchStyle, styles.numberCircle]}>
-          <Text style={[styles.numberText]}>{text}</Text>
-        </View>
+      <TouchableOpacity onPress={() => onPress(inputKey)}>
+        <View style={[styles.touchStyle]}>{getIcon(keyType)}</View>
       </TouchableOpacity>
     );
   }
+  return (
+    <TouchableOpacity onPress={() => onPress(inputKey)}>
+      <View style={[styles.touchStyle, styles.numberCircle]}>
+        <Text
+          style={{
+            color: disabled ? Theme.colors.gray2 : Theme.colors.black,
+            fontSize: 30,
+          }}
+        >
+          {text}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+interface KeyboardProps {
+  onPress: (inputKey: [KeyType, string]) => void;
+  disabledKeys: string;
+}
+
+export default class Keyboard extends React.Component<KeyboardProps, {}> {
   public render() {
+    const { onPress, disabledKeys } = this.props;
     return (
       <View style={[styles.keyboardStyle]}>
         <View style={[styles.container, { width: WIDTH }]}>
-          {keys.map((key, index) => this.renderTouchable(key, index))}
+          {keys.map((key, index) => (
+            <Touchable
+              inputKey={key}
+              key={index}
+              onPress={onPress}
+              disabled={disabledKeys.includes(key[1])}
+            />
+          ))}
         </View>
       </View>
     );
@@ -103,7 +127,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.1)',
   },
   numberText: {
-    color: '#4a4b4d',
+    color: Theme.colors.black,
     fontSize: 30,
   },
 });

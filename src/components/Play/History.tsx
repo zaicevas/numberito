@@ -16,9 +16,7 @@ const getGuessStyles = (backgroundColor: string) => {
   return {
     backgroundColor,
     borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
+    padding: '5%',
   };
 };
 
@@ -30,5 +28,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+    color: 'black',
   },
 });

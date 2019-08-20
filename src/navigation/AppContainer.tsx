@@ -6,9 +6,13 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
+import { Layout } from '../constants/index';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
+
+const FOOTBAR_HEIGHT = Layout.height * 0.07;
+const FOOTBAR_ICON_HEIGHT = Layout.height * 0.05;
 
 const HomeStackNavigator = createStackNavigator(
   {
@@ -33,11 +37,17 @@ const BottomTabNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Home',
+    tabBarOptions: {
+      showLabel: false,
+      style: {
+        height: FOOTBAR_HEIGHT,
+      },
+    },
     defaultNavigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
-          size={28}
+          size={FOOTBAR_ICON_HEIGHT}
           color={tintColor}
         />
       ),

@@ -2,36 +2,64 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import History from '../components/Play/History';
-import Keyboard from '../components/Play/Keyboard';
+import Input from '../components/Play/Input';
+import CustomKeyboard from '../components/Play/Keyboard';
 import { Layout, Theme } from '../constants/index';
+import { KeyType } from '../types/index';
 
 const INPUT_LINE_WIDTH = 0.17;
+const MAX_DIGITS = 4;
 
-const NumberInput: React.SFC = () => {
-  return <View style={styles.underlineStyle} />;
-};
-
-class PlayScreen extends React.PureComponent {
+class PlayScreen extends React.Component {
   public static navigationOptions = {
     tabBarIcon: ({ tintColor }: { tintColor: string }) => (
       <SimpleLineIcons name="book-open" size={24} color={tintColor} />
     ),
   };
 
+  public state = {
+    input: '',
+  };
+
+  public onKeyboardPress = (key: [KeyType, string]) => {
+    const { input } = this.state;
+    if (key[0] === KeyType.Number) {
+      if (
+        input.length < MAX_DIGITS &&
+        new Set(input + key[1]).size === (input + key[1]).length
+      ) {
+        this.setState({ input: input + key[1] });
+      }
+    } else if (key[0] === KeyType.Delete) {
+      this.setState({ input: input.slice(0, input.length - 1) });
+    }
+  }
+
   public render() {
+    const { input } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.horizontalContainer}>
-          <NumberInput />
-          <NumberInput />
-          <NumberInput />
-          <NumberInput />
+          <Input
+            cellStyle={{
+              borderBottomWidth: 2.5,
+              width: Layout.width * 0.18,
+              borderColor: Theme.colors.gray,
+            }}
+            cellStyleFocused={{
+              borderColor: 'black',
+            }}
+            value={input}
+          />
         </View>
         <View style={styles.history}>
           <History />
         </View>
         <View>
-          <Keyboard />
+          <CustomKeyboard
+            onPress={key => this.onKeyboardPress(key)}
+            disabledKeys={input}
+          />
         </View>
       </View>
     );
@@ -55,10 +83,9 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: 'black',
   },
   horizontalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: '20%',
-    width: '85%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: '3%',
     alignSelf: 'center',
   },
   history: {
@@ -66,7 +93,7 @@ const styles = StyleSheet.create<Style>({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     backgroundColor: Theme.colors.tertiary,
-    padding: Layout.height * 0.04,
+    paddingRight: Layout.width * 0.05,
     marginTop: 10,
   },
 });
