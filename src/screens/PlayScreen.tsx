@@ -4,11 +4,9 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
-import { Layout, Theme } from '../constants/index';
+import { Layout, MAX_DIGITS, Theme } from '../constants/index';
 import { KeyType } from '../types/index';
-
 const INPUT_LINE_WIDTH = 0.17;
-const MAX_DIGITS = 4;
 
 class PlayScreen extends React.Component {
   public static navigationOptions = {

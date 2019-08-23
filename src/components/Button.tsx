@@ -1,4 +1,4 @@
-import { LinearGradient } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Theme } from '../constants/index';

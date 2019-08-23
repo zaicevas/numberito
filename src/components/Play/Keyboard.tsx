@@ -23,7 +23,7 @@ const getIcon = (keyType: KeyType) => {
 };
 
 const keys: Array<[KeyType, string]> = [
-  // why does it have to be explicit?
+  // why does type have to be explicit?
   [KeyType.Number, '1'],
   [KeyType.Number, '2'],
   [KeyType.Number, '3'],

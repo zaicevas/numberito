@@ -1,4 +1,6 @@
 import * as Layout from './Layout';
 import * as Theme from './Theme';
 
-export { Theme, Layout };
+const MAX_DIGITS = 4;
+
+export { Theme, Layout, MAX_DIGITS };

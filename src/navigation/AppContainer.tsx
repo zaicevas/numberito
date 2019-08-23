@@ -12,7 +12,7 @@ import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
 
 const FOOTBAR_HEIGHT = Layout.height * 0.07;
-const FOOTBAR_ICON_HEIGHT = Layout.height * 0.05;
+const FOOTBAR_ICON_HEIGHT = Layout.height * 0.06;
 
 const HomeStackNavigator = createStackNavigator(
   {

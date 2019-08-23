@@ -1,4 +1,5 @@
-import { LinearGradient, LinearGradientProps } from 'expo';
+import { LinearGradientProps } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 
