@@ -5,22 +5,12 @@ import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
 import { Layout, MAX_DIGITS, Theme } from '../constants/index';
 import { KeyType, SingleGuess } from '../types/index';
+import {
+  getRandomAnswer,
+  getBulls,
+  getCows,
+} from '../helpers/InputsManipulation';
 const INPUT_LINE_WIDTH = 0.17;
-
-const getRandomAnswer = () => {
-  const shuffledNumbers = [...Array(10).keys()].sort(() => Math.random() - 0.5);
-  return shuffledNumbers.slice(0, MAX_DIGITS).join('');
-};
-
-const getBulls = (input: string, answer: string) =>
-  answer.split('').filter((char, index) => char === input.charAt(index)).length;
-
-const getCows = (input: string, answer: string) =>
-  answer
-    .split('')
-    .filter(
-      (char, index) => input.includes(char) && input.charAt(index) != char,
-    ).length;
 
 interface PlayScreenState {
   input: string;
@@ -60,7 +50,7 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
     const bulls = getBulls(input, answer);
     const cows = getCows(input, answer);
     const guess = { input, bulls, cows };
-    this.setState({ guesses: [...guesses, guess] });
+    this.setState({ guesses: [...guesses, guess], input: '' });
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {

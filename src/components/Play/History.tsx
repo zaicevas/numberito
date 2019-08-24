@@ -46,7 +46,7 @@ const getGuessStyles = (backgroundColor: string): ViewStyle => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: '1%',
+    paddingRight: '15%',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
