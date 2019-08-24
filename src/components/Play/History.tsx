@@ -7,27 +7,32 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Theme } from '../../constants/index';
+import { SingleGuess } from '../../types/index';
 
-export default () => {
+interface HistoryProps {
+  guesses?: SingleGuess[];
+}
+
+const renderGuesses = (guesses?: SingleGuess[]) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity key={1} style={getGuessStyles(Theme.colors.white)}>
-        <Text style={styles.text}>0164 0B 1C</Text>
-      </TouchableOpacity>
-      <TouchableOpacity key={2} style={getGuessStyles(Theme.colors.white)}>
-        <Text style={styles.text}>0164 0B 1C</Text>
-      </TouchableOpacity>
-      <TouchableOpacity key={3} style={getGuessStyles(Theme.colors.white)}>
-        <Text style={styles.text}>0164 0B 1C</Text>
-      </TouchableOpacity>
-      <TouchableOpacity key={4} style={getGuessStyles(Theme.colors.white)}>
-        <Text style={styles.text}>0164 0B 1C</Text>
-      </TouchableOpacity>
-      <TouchableOpacity key={5} style={getGuessStyles(Theme.colors.white)}>
-        <Text style={styles.text}>0164 0B 1C</Text>
-      </TouchableOpacity>
-    </View>
+    guesses &&
+    guesses.map((guess, index) => {
+      return (
+        <TouchableOpacity
+          key={index}
+          style={getGuessStyles(Theme.colors.white)}
+        >
+          <Text style={styles.text}>
+            {guess.input} {guess.bulls}B {guess.cows}C
+          </Text>
+        </TouchableOpacity>
+      );
+    })
   );
+};
+
+const History: React.FC<HistoryProps> = ({ guesses }) => {
+  return <View style={styles.container}>{renderGuesses(guesses)}</View>;
 };
 
 const getGuessStyles = (backgroundColor: string): ViewStyle => {
@@ -50,3 +55,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default History;

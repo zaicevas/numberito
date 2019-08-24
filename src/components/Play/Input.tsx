@@ -215,32 +215,6 @@ class Input extends React.Component {
             );
           })}
         </View>
-        <TextInput
-          value={value}
-          ref={this.inputRef}
-          onChangeText={this._inputCode}
-          onKeyPress={this._keyPress}
-          onFocus={() => this._onFocused(true)}
-          onBlur={() => this._onFocused(false)}
-          spellCheck={false}
-          autoFocus={autoFocus}
-          keyboardType={keyboardType}
-          numberOfLines={1}
-          caretHidden
-          maxLength={codeLength}
-          selection={{
-            start: value.length,
-            end: value.length,
-          }}
-          style={{
-            flex: 1,
-            opacity: 0,
-            textAlign: 'center',
-          }}
-          testID={testID || undefined}
-          editable={editable}
-          {...inputProps}
-        />
       </Animatable.View>
     );
   }
