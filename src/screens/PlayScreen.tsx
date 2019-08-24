@@ -9,12 +9,6 @@ import { KeyType } from '../types/index';
 const INPUT_LINE_WIDTH = 0.17;
 
 class PlayScreen extends React.Component {
-  public static navigationOptions = {
-    tabBarIcon: ({ tintColor }: { tintColor: string }) => (
-      <SimpleLineIcons name="book-open" size={24} color={tintColor} />
-    ),
-  };
-
   public state = {
     input: '',
   };
@@ -84,15 +78,12 @@ const styles = StyleSheet.create<Style>({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '3%',
+    marginBottom: '3%',
     alignSelf: 'center',
   },
   history: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
     backgroundColor: Theme.colors.tertiary,
-    paddingRight: Layout.width * 0.05,
-    marginTop: 10,
   },
 });
 

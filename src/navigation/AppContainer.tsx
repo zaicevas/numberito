@@ -6,13 +6,12 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import { Layout } from '../constants/index';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
 
-const FOOTBAR_HEIGHT = Layout.height * 0.07;
-const FOOTBAR_ICON_HEIGHT = Layout.height * 0.06;
+const FOOTBAR_HEIGHT = 50;
+const FOOTBAR_ICON_HEIGHT = 30;
 
 const HomeStackNavigator = createStackNavigator(
   {
