@@ -54,7 +54,9 @@ const Touchable: React.FC<TouchableProps> = ({
   if (keyType !== KeyType.Number) {
     return (
       <TouchableOpacity onPress={() => onPress(inputKey)}>
-        <View style={[styles.touchStyle]}>{getIcon(keyType)}</View>
+        <View style={[styles.touchStyle, styles.iconCircle]}>
+          {getIcon(keyType)}
+        </View>
       </TouchableOpacity>
     );
   }
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
   },
   keyboardStyle: {
     alignItems: 'center',
+    marginBottom: '0%',
   },
   buttonText: {
     fontWeight: '200',
@@ -129,5 +132,9 @@ const styles = StyleSheet.create({
   numberText: {
     color: Theme.colors.black,
     fontSize: 30,
+  },
+  iconCircle: {
+    marginTop: 50,
+    paddingTop: 35,
   },
 });

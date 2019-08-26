@@ -1,5 +1,13 @@
 import React from 'react';
-import { Image, ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import {
+  Image,
+  ImageStyle,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { Layout } from '../../constants/index';
 import Text from '../Text';
 
@@ -26,18 +34,22 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
     const { title } = this.props;
     return (
       <View style={styles.welcomeContainer}>
-        <TouchableOpacity onPress={() => {
-          this.setState({ currentIndex: this.state.currentIndex + 1 });
-        }
-        }>
+        <Text bold center h1 style={{ marginBottom: '10%', marginTop: '5%' }}>
+          {title}
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            this.setState({ currentIndex: this.state.currentIndex + 1 });
+          }}
+        >
           <Image
             resizeMode="contain"
             source={photos[currentIndex % 4]}
             style={styles.welcomeImage}
           />
         </TouchableOpacity>
-        <Text bold center h1>{title}</Text>
-      </View>);
+      </View>
+    );
   }
 }
 

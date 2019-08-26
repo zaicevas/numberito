@@ -1,6 +1,5 @@
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 import {
   createAppContainer,
   createBottomTabNavigator,
@@ -9,19 +8,22 @@ import {
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
+import {
+  SimpleLineIcons,
+  MaterialCommunityIcons,
+  Ionicons,
+} from '@expo/vector-icons';
+import { Theme } from '../constants/index';
+import NavigationButton from '../components/Play/NavigationButton';
 
 const FOOTBAR_HEIGHT = 50;
-const FOOTBAR_ICON_HEIGHT = 30;
+const FOOTBAR_ICON_SIZE = 30;
 
 const HomeStackNavigator = createStackNavigator(
   {
     Home: {
       navigationOptions: () => ({ header: null }),
       screen: HomeScreen,
-    },
-    Play: {
-      navigationOptions: () => ({ headerTintColor: 'black' }),
-      screen: PlayScreen,
     },
   },
   {
@@ -32,12 +34,37 @@ const HomeStackNavigator = createStackNavigator(
 const BottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeStackNavigator,
-    History: HistoryScreen,
+    Play: {
+      screen: PlayScreen,
+      navigationOptions: () => ({
+        tabBarIcon: ({
+          focused,
+          tintColor,
+        }: {
+          focused: boolean;
+          tintColor: string;
+        }) => (
+          <NavigationButton
+            isFocused={focused}
+            backgroundColor={focused ? tintColor : Theme.colors.primary}
+          />
+        ),
+      }),
+    },
+    History: {
+      screen: HistoryScreen,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor }: { tintColor: string }) => (
+          <SimpleLineIcons name="book-open" size={24} color={tintColor} />
+        ),
+      }),
+    },
   },
   {
     initialRouteName: 'Home',
     tabBarOptions: {
       showLabel: false,
+      activeTintColor: Theme.colors.tertiaryShadow,
       style: {
         height: FOOTBAR_HEIGHT,
       },
@@ -46,7 +73,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       tabBarIcon: ({ tintColor }) => (
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
-          size={FOOTBAR_ICON_HEIGHT}
+          size={FOOTBAR_ICON_SIZE}
           color={tintColor}
         />
       ),

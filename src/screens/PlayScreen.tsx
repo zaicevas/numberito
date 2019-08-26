@@ -11,6 +11,7 @@ import {
   getCows,
 } from '../helpers/InputsManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
@@ -66,7 +67,7 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
     const { input, guesses } = this.state;
     return (
       <View style={styles.container}>
-        <View style={styles.horizontalContainer}>
+        <View style={styles.inputContainer}>
           <Input
             cellStyle={{
               borderBottomWidth: 2.5,
@@ -103,7 +104,7 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
 interface Style {
   container: ViewStyle;
   underlineStyle: ViewStyle;
-  horizontalContainer: ViewStyle;
+  inputContainer: ViewStyle;
   historyGradient: ViewStyle;
   historyContainer: ViewStyle;
 }
@@ -117,11 +118,11 @@ const styles = StyleSheet.create<Style>({
     height: Layout.width * 0.01,
     backgroundColor: 'black',
   },
-  horizontalContainer: {
+  inputContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '3%',
-    marginBottom: '3%',
+    paddingTop: '20%',
+    marginBottom: '1.5%',
     alignSelf: 'center',
   },
   historyGradient: {
@@ -129,6 +130,7 @@ const styles = StyleSheet.create<Style>({
     width: '95%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',
+    paddingBottom: 65,
   },
   historyContainer: {
     flex: 1,
