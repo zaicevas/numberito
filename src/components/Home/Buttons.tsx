@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { Layout } from '../../constants/index';
+import { Layout, Theme } from '../../constants/index';
 
 // we'll have to rely on inline styles (https://github.com/GeekyAnts/NativeBase/issues/2346)
 
@@ -36,7 +36,7 @@ const Buttons: React.SFC<ButtonsProps> = props => {
             alignSelf: 'center',
             width: '70%',
             justifyContent: 'center',
-            borderRadius: 4,
+            borderRadius: Theme.sizes.radius,
           }}
         >
           <Text>PLAY</Text>

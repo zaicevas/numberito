@@ -10,6 +10,7 @@ import {
   getBulls,
   getCows,
 } from '../helpers/InputsManipulation';
+import { LinearGradient } from 'expo-linear-gradient';
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
@@ -78,9 +79,16 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
             value={input}
           />
         </View>
-        <View style={styles.history}>
-          <History guesses={guesses} />
-        </View>
+        <LinearGradient
+          colors={['#6191FF', '#4439A7']}
+          start={[0.1, 0.1]}
+          end={[1, 1]}
+          style={styles.historyGradient}
+        >
+          <View style={styles.historyContainer}>
+            <History guesses={guesses} />
+          </View>
+        </LinearGradient>
         <View>
           <CustomKeyboard
             onPress={key => this.onKeyboardPress(key)}
@@ -96,7 +104,8 @@ interface Style {
   container: ViewStyle;
   underlineStyle: ViewStyle;
   horizontalContainer: ViewStyle;
-  history: ViewStyle;
+  historyGradient: ViewStyle;
+  historyContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -115,9 +124,17 @@ const styles = StyleSheet.create<Style>({
     marginBottom: '3%',
     alignSelf: 'center',
   },
-  history: {
+  historyGradient: {
+    flex: 0.5,
+    width: '95%',
+    borderRadius: Theme.sizes.radius,
+    alignSelf: 'center',
+  },
+  historyContainer: {
     flex: 1,
-    backgroundColor: Theme.colors.tertiary,
+    width: '100%',
+    borderRadius: Theme.sizes.radius,
+    alignSelf: 'center',
   },
 });
 
