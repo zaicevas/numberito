@@ -11,7 +11,6 @@ import {
   getCows,
 } from '../helpers/InputsManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
@@ -75,7 +74,7 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
               borderColor: Theme.colors.gray,
             }}
             cellStyleFocused={{
-              borderColor: 'black',
+              borderColor: Theme.colors.black,
             }}
             value={input}
           />
@@ -90,7 +89,7 @@ class PlayScreen extends React.Component<never, PlayScreenState> {
             <History guesses={guesses} />
           </View>
         </LinearGradient>
-        <View>
+        <View style={styles.keyboardContainer}>
           <CustomKeyboard
             onPress={key => this.onKeyboardPress(key)}
             disabledKeys={input}
@@ -107,6 +106,7 @@ interface Style {
   inputContainer: ViewStyle;
   historyGradient: ViewStyle;
   historyContainer: ViewStyle;
+  keyboardContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -116,27 +116,29 @@ const styles = StyleSheet.create<Style>({
   underlineStyle: {
     width: Layout.width * INPUT_LINE_WIDTH,
     height: Layout.width * 0.01,
-    backgroundColor: 'black',
+    backgroundColor: Theme.colors.black,
   },
   inputContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '20%',
-    marginBottom: '1.5%',
     alignSelf: 'center',
   },
   historyGradient: {
-    flex: 0.5,
+    flex: 1,
     width: '95%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',
-    paddingBottom: 65,
   },
   historyContainer: {
     flex: 1,
     width: '100%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',
+  },
+  keyboardContainer: {
+    marginTop: '3%',
+    paddingBottom: '12%',
   },
 });
 

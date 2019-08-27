@@ -6,9 +6,12 @@ import {
   ScrollView,
   ViewStyle,
   FlatList,
+  View,
+  Image,
 } from 'react-native';
 import { Theme } from '../../constants/index';
 import { SingleGuess } from '../../types/index';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface HistoryProps {
   guesses?: SingleGuess[];
@@ -32,12 +35,27 @@ const renderGuesses = (guesses?: SingleGuess[]) => {
   );
 };
 
+const img = require('../../../assets/bull.svg');
+
 const renderGuess = (guess: SingleGuess) => {
   return (
     <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
-      <Text style={styles.text}>
-        {guess.input} {guess.bulls}B {guess.cows}C
-      </Text>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <Text style={styles.text}>{guess.input}</Text>
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <Text>{guess.bulls}</Text>
+          <Image
+            source={img}
+            style={{ width: 30, height: 30, borderWidth: 5 }}
+          />
+          <Text>{guess.cows}</Text>
+          <MaterialCommunityIcons
+            name="cow"
+            color={Theme.colors.secondaryShadow}
+            size={18}
+          />
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -65,7 +83,7 @@ const History: React.FC<HistoryProps> = ({ guesses }) => {
       showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.container}
       data={guesses}
-      keyExtractor={(item, index) => `${index}`}
+      keyExtractor={(_, index) => `${index}`}
       renderItem={({ item }) => renderGuess(item)}
     />
   );
@@ -84,12 +102,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingLeft: '5%',
   },
   text: {
     fontSize: 18,
     color: 'black',
-    alignSelf: 'center',
   },
 });
 

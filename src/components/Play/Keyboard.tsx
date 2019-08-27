@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   iconCircle: {
-    marginTop: 50,
-    paddingTop: 35,
+    paddingTop: '45%',
   },
 });
