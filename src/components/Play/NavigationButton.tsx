@@ -2,6 +2,7 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
+import { StyleSheet, ViewStyle } from 'react-native';
 
 interface NavigationButtonProps {
   isFocused?: boolean;
@@ -14,23 +15,20 @@ class NavigationButton extends React.Component<NavigationButtonProps, {}> {
     return (
       <Animatable.View
         easing="ease-out"
-        animation="pulse"
+        animation="tada"
         iterationCount="infinite"
-        duration={isFocused ? 1 : 750}
+        duration={isFocused ? 1 : 1500}
         useNativeDriver={true}
-        style={{
-          height: 70,
-          width: 70,
-          borderColor: 'lightgrey',
-          borderRadius: 100,
-          justifyContent: 'center',
-          marginBottom: 50,
-          backgroundColor,
-        }}
+        style={[
+          {
+            backgroundColor,
+          },
+          styles.container,
+        ]}
       >
         <MaterialCommunityIcons
           size={48}
-          style={{ alignSelf: 'center', paddingTop: '5%' }}
+          style={styles.icon}
           active
           name="chili-mild"
           color={Theme.colors.white}
@@ -39,5 +37,22 @@ class NavigationButton extends React.Component<NavigationButtonProps, {}> {
     );
   }
 }
+
+interface Style {
+  container: ViewStyle;
+  icon: ViewStyle;
+}
+
+const styles = StyleSheet.create<Style>({
+  container: {
+    height: 70,
+    width: 70,
+    borderColor: 'lightgrey',
+    borderRadius: 100,
+    justifyContent: 'center',
+    marginBottom: 50,
+  },
+  icon: { alignSelf: 'center', paddingTop: '5%' },
+});
 
 export default NavigationButton;

@@ -132,7 +132,6 @@ const styles = StyleSheet.create<Style>({
   },
   historyContainer: {
     flex: 1,
-    width: '100%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',
   },
