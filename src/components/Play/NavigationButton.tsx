@@ -14,11 +14,10 @@ interface NavigationButtonProps {
   backgroundColor: string;
 }
 
-const CURRENT_SCREEN = SCREEN_PLAY;
-
-const NavigationButton: React.FC<
-  NavigationInjectedProps & NavigationButtonProps
-> = ({ backgroundColor, isFocused, navigation }) => {
+const NavigationButton: React.FC<NavigationButtonProps> = ({
+  backgroundColor,
+  isFocused,
+}) => {
   return (
     <Animatable.View
       easing="ease-out"
@@ -31,6 +30,7 @@ const NavigationButton: React.FC<
           backgroundColor,
         },
         styles.container,
+        styles.shadow,
       ]}
     >
       {getIcon(isFocused)}
@@ -48,15 +48,10 @@ const getIcon = (isFocused?: boolean) => (
   />
 );
 
-const handlePress = (navigation: NavigationScreenProp<any>) => {
-  navigation.navigate(CURRENT_SCREEN, {
-    shouldRefresh: navigation.isFocused(),
-  });
-};
-
 interface Style {
   container: ViewStyle;
   icon: ViewStyle;
+  shadow: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -69,7 +64,19 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
     marginBottom: 50,
   },
-  icon: { alignSelf: 'center', paddingTop: '5%' },
+  icon: {
+    alignSelf: 'center',
+    paddingTop: '5%',
+  },
+  shadow: {
+    shadowColor: Theme.colors.black,
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+  },
 });
 
 export default NavigationButton;
