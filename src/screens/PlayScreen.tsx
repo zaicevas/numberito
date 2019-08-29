@@ -11,6 +11,7 @@ import {
   getCows,
 } from '../helpers/InputManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NavigationScreenProps } from 'react-navigation';
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
@@ -19,15 +20,27 @@ interface PlayScreenState {
   guesses: SingleGuess[];
 }
 
-class PlayScreen extends React.Component<never, PlayScreenState> {
-  public state = {
-    input: '',
-    guesses: [],
-    answer: '',
-  };
+class PlayScreen extends React.Component<
+  NavigationScreenProps<{ onFocus: () => void }>,
+  PlayScreenState
+> {
+  public static getEmptyState = () => {
+    return {
+      input: '',
+      guesses: [],
+      answer: getRandomAnswer(),
+    };
+  }
+
+  public state = PlayScreen.getEmptyState();
+
+  public refreshState = () => this.setState(PlayScreen.getEmptyState());
 
   public componentDidMount() {
-    this.setState({ answer: getRandomAnswer(), guesses: [] });
+    const { navigation } = this.props;
+    navigation.setParams({
+      onFocus: this.refreshState,
+    });
   }
 
   public handleNumberPress = (key: [KeyType, string]) => {

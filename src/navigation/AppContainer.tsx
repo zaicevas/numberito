@@ -4,15 +4,18 @@ import {
   createAppContainer,
   createBottomTabNavigator,
   createStackNavigator,
+  NavigationInjectedProps,
+  NavigationScreenProp,
+  NavigationState,
+  NavigationParams,
+  NavigationScreenProps,
+  NavigationBottomTabScreenOptions,
+  NavigationRoute,
 } from 'react-navigation';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
-import {
-  SimpleLineIcons,
-  MaterialCommunityIcons,
-  Ionicons,
-} from '@expo/vector-icons';
+import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
 import NavigationButton from '../components/Play/NavigationButton';
 
@@ -36,7 +39,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     Home: HomeStackNavigator,
     Play: {
       screen: PlayScreen,
-      navigationOptions: () => ({
+      navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
         tabBarIcon: ({
           focused,
           tintColor,
@@ -47,8 +50,19 @@ const BottomTabNavigator = createBottomTabNavigator(
           <NavigationButton
             isFocused={focused}
             backgroundColor={focused ? tintColor : Theme.colors.primary}
+            navigation={navigation}
           />
         ),
+        tabBarOnPress: ({
+          navigation,
+          defaultHandler,
+        }: {
+          navigation: NavigationScreenProp<NavigationRoute>;
+          defaultHandler: () => void;
+        }) => {
+          if (navigation.isFocused()) navigation.state.params.onFocus();
+          else defaultHandler();
+        },
       }),
     },
     History: {

@@ -2,39 +2,57 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
+import {
+  NavigationInjectedProps,
+  NavigationScreenProp,
+} from 'react-navigation';
+import { SCREEN_PLAY } from '../../constants/Screens';
 
 interface NavigationButtonProps {
-  isFocused?: boolean;
+  isFocused: boolean;
   backgroundColor: string;
 }
 
-const NavigationButton: React.FC<NavigationButtonProps> = ({
-  backgroundColor,
-  isFocused,
-}) => (
-  <Animatable.View
-    easing="ease-out"
-    animation="tada"
-    iterationCount="infinite"
-    duration={isFocused ? 1 : 1500}
-    useNativeDriver={true}
-    style={[
-      {
-        backgroundColor,
-      },
-      styles.container,
-    ]}
-  >
-    <MaterialCommunityIcons
-      size={48}
-      style={styles.icon}
-      active
-      name="chili-mild"
-      color={Theme.colors.white}
-    />
-  </Animatable.View>
+const CURRENT_SCREEN = SCREEN_PLAY;
+
+const NavigationButton: React.FC<
+  NavigationInjectedProps & NavigationButtonProps
+> = ({ backgroundColor, isFocused, navigation }) => {
+  return (
+    <Animatable.View
+      easing="ease-out"
+      animation="tada"
+      iterationCount="infinite"
+      duration={isFocused ? 1 : 1500}
+      useNativeDriver={true}
+      style={[
+        {
+          backgroundColor,
+        },
+        styles.container,
+      ]}
+    >
+      {getIcon(isFocused)}
+    </Animatable.View>
+  );
+};
+
+const getIcon = (isFocused?: boolean) => (
+  <MaterialCommunityIcons
+    size={isFocused ? 36 : 48}
+    style={styles.icon}
+    active
+    name={isFocused ? 'restart' : 'chili-mild'}
+    color={Theme.colors.white}
+  />
 );
+
+const handlePress = (navigation: NavigationScreenProp<any>) => {
+  navigation.navigate(CURRENT_SCREEN, {
+    shouldRefresh: navigation.isFocused(),
+  });
+};
 
 interface Style {
   container: ViewStyle;
@@ -48,6 +66,7 @@ const styles = StyleSheet.create<Style>({
     borderColor: 'lightgrey',
     borderRadius: 100,
     justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 50,
   },
   icon: { alignSelf: 'center', paddingTop: '5%' },

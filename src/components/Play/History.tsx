@@ -6,6 +6,7 @@ import {
   ViewStyle,
   FlatList,
   View,
+  ImageBackground,
 } from 'react-native';
 import { Theme, Layout } from '../../constants/index';
 import { SingleGuess } from '../../types/index';
@@ -16,20 +17,31 @@ interface HistoryProps {
   guesses: SingleGuess[];
 }
 
+const bullBackground = require('../../../assets/bull-cow.png');
+
 const History: React.FC<HistoryProps> = ({ guesses }) => {
   const flatList = React.useRef();
   return (
-    <FlatList
-      ref={flatList}
-      horizontal={true}
-      scrollEnabled
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.container}
-      data={guesses}
-      keyExtractor={(_, index) => `${index}`}
-      renderItem={({ item }) => renderGuess(item)}
-      onContentSizeChange={() => flatList.current.scrollToEnd()}
-    />
+    <ImageBackground
+      resizeMode="cover"
+      source={bullBackground}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      <FlatList
+        ref={flatList}
+        horizontal={true}
+        scrollEnabled
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={styles.container}
+        data={guesses}
+        keyExtractor={(_, index) => `${index}`}
+        renderItem={({ item }) => renderGuess(item)}
+        onContentSizeChange={() => flatList.current.scrollToEnd()}
+      />
+    </ImageBackground>
   );
 };
 
