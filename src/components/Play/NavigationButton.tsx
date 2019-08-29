@@ -9,34 +9,32 @@ interface NavigationButtonProps {
   backgroundColor: string;
 }
 
-class NavigationButton extends React.Component<NavigationButtonProps, {}> {
-  public render() {
-    const { backgroundColor, isFocused } = this.props;
-    return (
-      <Animatable.View
-        easing="ease-out"
-        animation="tada"
-        iterationCount="infinite"
-        duration={isFocused ? 1 : 1500}
-        useNativeDriver={true}
-        style={[
-          {
-            backgroundColor,
-          },
-          styles.container,
-        ]}
-      >
-        <MaterialCommunityIcons
-          size={48}
-          style={styles.icon}
-          active
-          name="chili-mild"
-          color={Theme.colors.white}
-        />
-      </Animatable.View>
-    );
-  }
-}
+const NavigationButton: React.FC<NavigationButtonProps> = ({
+  backgroundColor,
+  isFocused,
+}) => (
+  <Animatable.View
+    easing="ease-out"
+    animation="tada"
+    iterationCount="infinite"
+    duration={isFocused ? 1 : 1500}
+    useNativeDriver={true}
+    style={[
+      {
+        backgroundColor,
+      },
+      styles.container,
+    ]}
+  >
+    <MaterialCommunityIcons
+      size={48}
+      style={styles.icon}
+      active
+      name="chili-mild"
+      color={Theme.colors.white}
+    />
+  </Animatable.View>
+);
 
 interface Style {
   container: ViewStyle;
