@@ -133,7 +133,6 @@ const styles = StyleSheet.create<Style>({
   historyContainer: {
     flex: 1,
     borderRadius: Theme.sizes.radius,
-    alignSelf: 'center',
   },
   keyboardContainer: {
     marginTop: '3%',

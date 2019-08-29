@@ -25,39 +25,50 @@ interface HistoryProps {
   guesses: SingleGuess[];
 }
 
-const renderGuess = (guess: SingleGuess) => {
-  return (
-    <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
-        <Text style={styles.text}>{guess.input}</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}>
-          <Text>{guess.bulls}</Text>
-          <SvgBull />
-          <Text>{guess.cows}</Text>
-          <MaterialCommunityIcons
-            name="cow"
-            color={Theme.colors.secondaryShadow}
-            size={19}
-          />
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+class History extends React.Component<HistoryProps, never> {
+  constructor(props) {
+    super(props);
+    this.flatList = React.createRef();
+  }
 
-const History: React.FC<HistoryProps> = ({ guesses }) => {
-  return (
-    <FlatList
-      horizontal={true}
-      scrollEnabled
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.container}
-      data={guesses}
-      keyExtractor={(_, index) => `${index}`}
-      renderItem={({ item }) => renderGuess(item)}
-    />
-  );
-};
+  public renderGuess(guess: SingleGuess) {
+    return (
+      <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <Text style={styles.text}>{guess.input}</Text>
+          <View
+            style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}
+          >
+            <Text>{guess.bulls}</Text>
+            <SvgBull />
+            <Text>{guess.cows}</Text>
+            <MaterialCommunityIcons
+              name="cow"
+              color={Theme.colors.secondaryShadow}
+              size={19}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  public render() {
+    return (
+      <FlatList
+        ref={this.flatList}
+        horizontal={true}
+        scrollEnabled
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={styles.container}
+        data={this.props.guesses}
+        keyExtractor={(_, index) => `${index}`}
+        renderItem={({ item }) => this.renderGuess(item)}
+        onContentSizeChange={() => this.flatList.current.scrollToEnd()}
+      />
+    );
+  }
+}
 
 const getGuessStyles = (backgroundColor: string): ViewStyle => {
   return {
@@ -71,7 +82,7 @@ const getGuessStyles = (backgroundColor: string): ViewStyle => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
   text: {
     fontSize: 18,
