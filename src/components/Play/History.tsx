@@ -12,6 +12,27 @@ import { SingleGuess } from '../../types/index';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Svg, { Path } from 'react-native-svg';
 
+interface HistoryProps {
+  guesses: SingleGuess[];
+}
+
+const History: React.FC<HistoryProps> = ({ guesses }) => {
+  const flatList = React.useRef();
+  return (
+    <FlatList
+      ref={flatList}
+      horizontal={true}
+      scrollEnabled
+      showsHorizontalScrollIndicator={true}
+      contentContainerStyle={styles.container}
+      data={guesses}
+      keyExtractor={(_, index) => `${index}`}
+      renderItem={({ item }) => renderGuess(item)}
+      onContentSizeChange={() => flatList.current.scrollToEnd()}
+    />
+  );
+};
+
 const SvgBull = () => (
   <Svg width={17} height={17} viewBox="0 0 512 512">
     <Path
@@ -21,54 +42,25 @@ const SvgBull = () => (
   </Svg>
 );
 
-interface HistoryProps {
-  guesses: SingleGuess[];
-}
-
-class History extends React.Component<HistoryProps, never> {
-  constructor(props) {
-    super(props);
-    this.flatList = React.createRef();
-  }
-
-  public renderGuess(guess: SingleGuess) {
-    return (
-      <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Text style={styles.text}>{guess.input}</Text>
-          <View
-            style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}
-          >
-            <Text>{guess.bulls}</Text>
-            <SvgBull />
-            <Text>{guess.cows}</Text>
-            <MaterialCommunityIcons
-              name="cow"
-              color={Theme.colors.secondaryShadow}
-              size={19}
-            />
-          </View>
+const renderGuess = (guess: SingleGuess) => {
+  return (
+    <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <Text style={styles.text}>{guess.input}</Text>
+        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}>
+          <Text>{guess.bulls}</Text>
+          <SvgBull />
+          <Text>{guess.cows}</Text>
+          <MaterialCommunityIcons
+            name="cow"
+            color={Theme.colors.secondaryShadow}
+            size={19}
+          />
         </View>
-      </TouchableOpacity>
-    );
-  }
-
-  public render() {
-    return (
-      <FlatList
-        ref={this.flatList}
-        horizontal={true}
-        scrollEnabled
-        showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.container}
-        data={this.props.guesses}
-        keyExtractor={(_, index) => `${index}`}
-        renderItem={({ item }) => this.renderGuess(item)}
-        onContentSizeChange={() => this.flatList.current.scrollToEnd()}
-      />
-    );
-  }
-}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const getGuessStyles = (backgroundColor: string): ViewStyle => {
   return {

@@ -7,6 +7,26 @@ import { KeyType } from '../../types/index';
 const ButtonSize = Layout.width * 0.2;
 const WIDTH = (13 * 2 + ButtonSize) * 3;
 
+interface KeyboardProps {
+  onPress: (inputKey: [KeyType, string]) => void;
+  disabledKeys: string;
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({ onPress, disabledKeys }) => (
+  <View style={[styles.keyboardStyle]}>
+    <View style={[styles.container, { width: WIDTH }]}>
+      {KEYS.map((key, index) => (
+        <Touchable
+          inputKey={key}
+          key={index}
+          onPress={onPress}
+          disabled={disabledKeys.includes(key[1])}
+        />
+      ))}
+    </View>
+  </View>
+);
+
 const getIcon = (keyType: KeyType) => {
   const props = {
     size: ButtonSize * 0.45,
@@ -22,7 +42,7 @@ const getIcon = (keyType: KeyType) => {
   );
 };
 
-const keys: Array<[KeyType, string]> = [
+const KEYS: Array<[KeyType, string]> = [
   // why does type have to be explicit?
   [KeyType.Number, '1'],
   [KeyType.Number, '2'],
@@ -76,31 +96,6 @@ const Touchable: React.FC<TouchableProps> = ({
   );
 };
 
-interface KeyboardProps {
-  onPress: (inputKey: [KeyType, string]) => void;
-  disabledKeys: string;
-}
-
-export default class Keyboard extends React.Component<KeyboardProps, {}> {
-  public render() {
-    const { onPress, disabledKeys } = this.props;
-    return (
-      <View style={[styles.keyboardStyle]}>
-        <View style={[styles.container, { width: WIDTH }]}>
-          {keys.map((key, index) => (
-            <Touchable
-              inputKey={key}
-              key={index}
-              onPress={onPress}
-              disabled={disabledKeys.includes(key[1])}
-            />
-          ))}
-        </View>
-      </View>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -137,3 +132,5 @@ const styles = StyleSheet.create({
     paddingTop: '45%',
   },
 });
+
+export default Keyboard;

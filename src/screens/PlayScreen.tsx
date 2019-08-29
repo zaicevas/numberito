@@ -9,7 +9,7 @@ import {
   getRandomAnswer,
   getBulls,
   getCows,
-} from '../helpers/InputsManipulation';
+} from '../helpers/InputManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
 const INPUT_LINE_WIDTH = 0.17;
 
