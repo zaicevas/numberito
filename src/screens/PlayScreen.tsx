@@ -22,7 +22,7 @@ interface PlayScreenState {
 }
 
 class PlayScreen extends React.Component<
-  NavigationScreenProps<{ onFocus: () => void }>,
+  NavigationScreenProps<{ refreshScreen: () => void }>,
   PlayScreenState
 > {
   public static getEmptyState = () => {
@@ -41,7 +41,7 @@ class PlayScreen extends React.Component<
   public componentDidMount() {
     const { navigation } = this.props;
     navigation.setParams({
-      onFocus: this.refreshState,
+      refreshScreen: this.refreshState,
     });
   }
 

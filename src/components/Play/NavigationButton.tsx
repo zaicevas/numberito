@@ -9,74 +9,48 @@ import { NavigationInjectedProps } from 'react-navigation';
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
   backgroundColor: string;
+  navigate: () => void;
+  refreshScreen: () => void;
 }
 
-class NavigationButtonClass extends React.Component<
-  NavigationButtonProps,
-  any
-> {
-  public state = {
-    menuVisible: true,
-  };
-  private items = [
-    { text: 'Menu Item 1' },
-    { text: 'Menu Item 2' },
-    { text: 'Menu Item 3' },
-  ];
-
+class NavigationButton extends React.Component<NavigationButtonProps, any> {
   public render() {
-    const { isFocused, backgroundColor } = this.props;
+    const { isFocused, backgroundColor, navigate } = this.props;
     return (
-      <Animatable.View
-        easing="ease-out"
-        animation="tada"
-        iterationCount="infinite"
-        duration={isFocused ? 1 : 1500}
-        useNativeDriver={true}
-        style={[
-          {
-            backgroundColor,
-          },
-          styles.container,
-          styles.shadow,
-        ]}
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={this.handlePress}
+        onLongPress={() => {
+          navigate();
+        }}
       >
-        {getIcon(isFocused)}
-      </Animatable.View>
+        <Animatable.View
+          easing="ease-out"
+          animation="tada"
+          iterationCount="infinite"
+          duration={isFocused ? 1 : 1500}
+          useNativeDriver={true}
+          style={[
+            {
+              backgroundColor,
+            },
+            styles.container,
+            styles.shadow,
+          ]}
+        >
+          {getIcon(isFocused)}
+        </Animatable.View>
+      </TouchableOpacity>
     );
   }
 
-  private onItemSelect = (index: number) => {
-    // Handle Menu Item selection
-  }
-
-  private toggleMenu = () => {
-    console.log('naaaw');
-    this.setState({ menuVisible: !this.state.menuVisible });
+  private handlePress = () => {
+    const { navigate, isFocused, refreshScreen } = this.props;
+    if (isFocused) {
+      refreshScreen();
+    } else navigate();
   }
 }
-
-const NavigationButton: React.FC<NavigationButtonProps> = ({
-  backgroundColor,
-  isFocused,
-}) => {
-  return (
-    <Animatable.View
-      easing="ease-out"
-      animation="tada"
-      iterationCount="infinite"
-      duration={isFocused ? 1 : 1500}
-      useNativeDriver={true}
-      style={[
-        {
-          backgroundColor,
-        },
-        styles.container,
-        styles.shadow,
-      ]}
-    ></Animatable.View>
-  );
-};
 
 const getIcon = (isFocused?: boolean) => (
   <MaterialCommunityIcons
@@ -119,4 +93,4 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-export default NavigationButtonClass;
+export default NavigationButton;

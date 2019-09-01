@@ -38,21 +38,6 @@ const BottomTabNavigator = createBottomTabNavigator(
     Home: HomeStackNavigator,
     Play: {
       screen: PlayScreen,
-      navigationOptions: ({ navigation }: NavigationInjectedProps) => ({
-        tabBarIcon: ({
-          focused,
-          tintColor,
-        }: {
-          focused: boolean;
-          tintColor: string;
-        }) => (
-          <NavigationButton
-            isFocused={focused}
-            backgroundColor={focused ? tintColor : Theme.colors.primary}
-            navigation={navigation}
-          />
-        ),
-      }),
     },
     History: {
       screen: HistoryScreen,
