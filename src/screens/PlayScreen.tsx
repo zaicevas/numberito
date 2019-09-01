@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle, Text } from 'react-native';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
@@ -141,7 +141,7 @@ const styles = StyleSheet.create<Style>({
     alignSelf: 'center',
   },
   historyGradient: {
-    flex: 1,
+    flex: 0.75,
     width: '95%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',

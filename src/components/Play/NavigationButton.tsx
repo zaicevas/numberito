@@ -3,10 +3,57 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
 import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
+import AddButton from './AddButton';
+import { NavigationInjectedProps } from 'react-navigation';
 
-interface NavigationButtonProps {
+interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
   backgroundColor: string;
+}
+
+class NavigationButtonClass extends React.Component<
+  NavigationButtonProps,
+  any
+> {
+  public state = {
+    menuVisible: true,
+  };
+  private items = [
+    { text: 'Menu Item 1' },
+    { text: 'Menu Item 2' },
+    { text: 'Menu Item 3' },
+  ];
+
+  public render() {
+    const { isFocused, backgroundColor } = this.props;
+    return (
+      <Animatable.View
+        easing="ease-out"
+        animation="tada"
+        iterationCount="infinite"
+        duration={isFocused ? 1 : 1500}
+        useNativeDriver={true}
+        style={[
+          {
+            backgroundColor,
+          },
+          styles.container,
+          styles.shadow,
+        ]}
+      >
+        {getIcon(isFocused)}
+      </Animatable.View>
+    );
+  }
+
+  private onItemSelect = (index: number) => {
+    // Handle Menu Item selection
+  }
+
+  private toggleMenu = () => {
+    console.log('naaaw');
+    this.setState({ menuVisible: !this.state.menuVisible });
+  }
 }
 
 const NavigationButton: React.FC<NavigationButtonProps> = ({
@@ -27,9 +74,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
         styles.container,
         styles.shadow,
       ]}
-    >
-      {getIcon(isFocused)}
-    </Animatable.View>
+    ></Animatable.View>
   );
 };
 
@@ -74,4 +119,4 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-export default NavigationButton;
+export default NavigationButtonClass;

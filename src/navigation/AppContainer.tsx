@@ -6,11 +6,9 @@ import {
   createStackNavigator,
   NavigationInjectedProps,
   NavigationScreenProp,
-  NavigationState,
-  NavigationParams,
-  NavigationScreenProps,
-  NavigationBottomTabScreenOptions,
   NavigationRoute,
+  TabBarBottom,
+  NavigationBottomTabScreenOptions,
 } from 'react-navigation';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -18,8 +16,9 @@ import PlayScreen from '../screens/PlayScreen';
 import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
 import NavigationButton from '../components/Play/NavigationButton';
+import { MultiBar } from './Multibar';
+import TabBar from './TabBar';
 
-const FOOTBAR_HEIGHT = 50;
 const FOOTBAR_ICON_SIZE = 30;
 
 const HomeStackNavigator = createStackNavigator(
@@ -53,16 +52,6 @@ const BottomTabNavigator = createBottomTabNavigator(
             navigation={navigation}
           />
         ),
-        tabBarOnPress: ({
-          navigation,
-          defaultHandler,
-        }: {
-          navigation: NavigationScreenProp<NavigationRoute>;
-          defaultHandler: () => void;
-        }) => {
-          if (navigation.isFocused()) navigation.state.params.onFocus();
-          else defaultHandler();
-        },
       }),
     },
     History: {
@@ -79,11 +68,12 @@ const BottomTabNavigator = createBottomTabNavigator(
     tabBarOptions: {
       showLabel: false,
       activeTintColor: Theme.colors.tertiaryShadow,
-      style: {
-        height: FOOTBAR_HEIGHT,
-      },
+      inactiveTintColor: Theme.colors.gray,
     },
-    defaultNavigationOptions: () => ({
+    tabBarComponent: TabBar,
+    tabBarPosition: 'bottom',
+
+    defaultNavigationOptions: (): NavigationBottomTabScreenOptions => ({
       tabBarIcon: ({ tintColor }) => (
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-home' : 'md-home'}
