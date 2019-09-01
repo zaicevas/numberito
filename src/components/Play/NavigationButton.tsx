@@ -3,11 +3,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
 import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
-import {
-  NavigationInjectedProps,
-  NavigationScreenProp,
-} from 'react-navigation';
-import { SCREEN_PLAY } from '../../constants/Screens';
 
 interface NavigationButtonProps {
   isFocused: boolean;

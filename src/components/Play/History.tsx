@@ -7,6 +7,7 @@ import {
   FlatList,
   View,
   ImageBackground,
+  TextStyle,
 } from 'react-native';
 import { Theme, Layout } from '../../constants/index';
 import { SingleGuess } from '../../types/index';
@@ -83,7 +84,12 @@ const getGuessStyles = (backgroundColor: string): ViewStyle => {
   };
 };
 
-const styles = StyleSheet.create({
+interface Style {
+  container: ViewStyle;
+  text: TextStyle;
+}
+
+const styles = StyleSheet.create<Style>({
   container: {
     alignItems: 'center',
     justifyContent: 'flex-start',

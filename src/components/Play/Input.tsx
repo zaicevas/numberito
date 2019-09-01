@@ -2,17 +2,27 @@
 import React from 'react';
 import { I18nManager, StyleSheet, Text, TextInput, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Theme } from '../../constants/index';
+import { Theme, Layout } from '../../constants/index';
 
 const styles = StyleSheet.create({
   containerDefault: {},
   cellDefault: {
+    borderBottomWidth: 2.5,
+    width: Layout.width * 0.18,
     borderColor: Theme.colors.gray,
-    borderWidth: 1,
   },
   cellFocusedDefault: {
     borderColor: Theme.colors.black,
-    borderWidth: 2,
+  },
+  cellInvalidDefault: {
+    borderBottomWidth: 2.5,
+    width: Layout.width * 0.18,
+    borderColor: Theme.colors.red,
+    opacity: 0.5,
+  },
+  cellInvalidFocused: {
+    borderColor: Theme.colors.red,
+    opacity: 1,
   },
   textStyleDefault: {
     color: Theme.colors.black,
@@ -79,7 +89,7 @@ class Input extends React.Component {
     }
 
     // handle password mask
-    const maskDelay = password && code.length > this.props.value.length; // only when input new char
+    const maskDelay = password && code.length > this.props.value.length;
     this.setState({ maskDelay });
 
     if (maskDelay) {
@@ -113,18 +123,14 @@ class Input extends React.Component {
       placeholder,
       password,
       mask,
-      autoFocus,
       containerStyle,
       cellStyle,
       cellStyleFocused,
       cellStyleFilled,
       textStyle,
       textStyleFocused,
-      keyboardType,
       animationFocused,
-      testID,
-      editable,
-      inputProps,
+      isValidInput,
     } = this.props;
     const { maskDelay, focused } = this.state;
     return (
@@ -191,8 +197,12 @@ class Input extends React.Component {
                     justifyContent: 'center',
                   },
                   cellStyle,
-                  cellFocused ? cellStyleFocused : {},
+                  cellFocused && isValidInput ? cellStyleFocused : {},
                   filled ? cellStyleFilled : {},
+                  !isValidInput && !cellFocused
+                    ? styles.cellInvalidDefault
+                    : {},
+                  cellFocused && !isValidInput ? styles.cellInvalidFocused : {},
                 ]}
                 animation={
                   idx === value.length && focused ? animationFocused : null

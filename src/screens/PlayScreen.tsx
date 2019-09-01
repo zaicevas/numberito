@@ -16,6 +16,7 @@ const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
   input: string;
+  isValidInput: boolean;
   answer: string;
   guesses: SingleGuess[];
 }
@@ -27,6 +28,7 @@ class PlayScreen extends React.Component<
   public static getEmptyState = () => {
     return {
       input: '',
+      isValidInput: true,
       guesses: [],
       answer: getRandomAnswer(),
     };
@@ -44,12 +46,15 @@ class PlayScreen extends React.Component<
   }
 
   public handleNumberPress = (key: [KeyType, string]) => {
-    const { input } = this.state;
+    const { input, isValidInput } = this.state;
     if (
       input.length < MAX_DIGITS &&
       new Set(input + key[1]).size === (input + key[1]).length
     ) {
-      this.setState({ input: input + key[1] });
+      this.setState({
+        input: input + key[1],
+        isValidInput: input.length === MAX_DIGITS - 1 || isValidInput,
+      });
     }
   }
 
@@ -60,11 +65,19 @@ class PlayScreen extends React.Component<
 
   public handleCheckPress = () => {
     const { input, answer, guesses } = this.state;
-    if (input.length < MAX_DIGITS) return;
-    const bulls = getBulls(input, answer);
-    const cows = getCows(input, answer);
-    const guess = { input, bulls, cows };
-    this.setState({ guesses: [...guesses, guess], input: '' });
+    if (input.length === MAX_DIGITS) {
+      const bulls = getBulls(input, answer);
+      const cows = getCows(input, answer);
+      const guess = { input, bulls, cows };
+      this.setState({
+        guesses: [...guesses, guess],
+        input: '',
+      });
+    } else this.handleInvalidInput();
+  }
+
+  public handleInvalidInput = () => {
+    this.setState({ isValidInput: false });
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
@@ -76,21 +89,11 @@ class PlayScreen extends React.Component<
   }
 
   public render() {
-    const { input, guesses } = this.state;
+    const { input, guesses, isValidInput } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Input
-            cellStyle={{
-              borderBottomWidth: 2.5,
-              width: Layout.width * 0.18,
-              borderColor: Theme.colors.gray,
-            }}
-            cellStyleFocused={{
-              borderColor: Theme.colors.black,
-            }}
-            value={input}
-          />
+          <Input value={input} isValidInput={isValidInput} />
         </View>
         <LinearGradient
           colors={['#6191FF', '#4439A7']}
