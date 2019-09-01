@@ -46,14 +46,14 @@ class PlayScreen extends React.Component<
   }
 
   public handleNumberPress = (key: [KeyType, string]) => {
-    const { input, isValidInput } = this.state;
+    const { input } = this.state;
     if (
       input.length < MAX_DIGITS &&
-      new Set(input + key[1]).size === (input + key[1]).length
+      new Set(input + key[1]).size === input.length + 1
     ) {
       this.setState({
         input: input + key[1],
-        isValidInput: input.length === MAX_DIGITS - 1 || isValidInput,
+        isValidInput: true,
       });
     }
   }
