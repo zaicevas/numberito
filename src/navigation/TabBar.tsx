@@ -52,9 +52,6 @@ const TabBar: React.FC<TabBarProps> = ({
           );
         }
 
-        // NOT: 795
-        // 1xx6
-
         return (
           <TouchableOpacity
             activeOpacity={isMiddleButtonScreen ? 0.5 : 1}

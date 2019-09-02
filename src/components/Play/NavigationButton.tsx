@@ -3,8 +3,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
 import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
-import AddButton from './AddButton';
+import AnimatedButton from './AnimatedButton';
 import { NavigationInjectedProps } from 'react-navigation';
+import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -16,31 +17,45 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 class NavigationButton extends React.Component<NavigationButtonProps, any> {
   public render() {
     const { isFocused, backgroundColor, navigate } = this.props;
+    if (!isFocused) {
+      return (
+        <TouchableOpacity activeOpacity={0.7} onPress={this.handlePress}>
+          <Animatable.View
+            easing="ease-out"
+            animation="tada"
+            iterationCount="infinite"
+            duration={isFocused ? 1 : 1500}
+            useNativeDriver={true}
+            style={[
+              {
+                backgroundColor,
+              },
+              styles.container,
+              styles.shadow,
+            ]}
+          >
+            {getIcon(isFocused)}
+          </Animatable.View>
+        </TouchableOpacity>
+      );
+    }
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={this.handlePress}
-        onLongPress={() => {
-          navigate();
-        }}
+      <Animatable.View
+        easing="ease-out"
+        animation="tada"
+        iterationCount="infinite"
+        duration={isFocused ? 1 : 1500}
+        useNativeDriver={true}
+        style={[
+          {
+            backgroundColor,
+          },
+          styles.container,
+          styles.shadow,
+        ]}
       >
-        <Animatable.View
-          easing="ease-out"
-          animation="tada"
-          iterationCount="infinite"
-          duration={isFocused ? 1 : 1500}
-          useNativeDriver={true}
-          style={[
-            {
-              backgroundColor,
-            },
-            styles.container,
-            styles.shadow,
-          ]}
-        >
-          {getIcon(isFocused)}
-        </Animatable.View>
-      </TouchableOpacity>
+        <AnimatedButton />
+      </Animatable.View>
     );
   }
 
@@ -70,8 +85,8 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    height: 70,
-    width: 70,
+    height: MIDDLE_BUTTON_SIZE,
+    width: MIDDLE_BUTTON_SIZE,
     borderColor: 'lightgrey',
     borderRadius: 100,
     justifyContent: 'center',

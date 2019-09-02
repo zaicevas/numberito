@@ -1,0 +1,3 @@
+const MIDDLE_BUTTON_SIZE = 70;
+
+export { MIDDLE_BUTTON_SIZE };
