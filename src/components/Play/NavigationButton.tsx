@@ -16,7 +16,7 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 
 class NavigationButton extends React.Component<NavigationButtonProps, any> {
   public render() {
-    const { isFocused, backgroundColor, navigate } = this.props;
+    const { isFocused, backgroundColor, navigate, refreshScreen } = this.props;
     if (!isFocused) {
       return (
         <TouchableOpacity activeOpacity={0.7} onPress={this.handlePress}>
@@ -54,7 +54,7 @@ class NavigationButton extends React.Component<NavigationButtonProps, any> {
           styles.shadow,
         ]}
       >
-        <AnimatedButton />
+        <AnimatedButton onRefresh={refreshScreen} />
       </Animatable.View>
     );
   }

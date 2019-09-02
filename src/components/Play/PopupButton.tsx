@@ -12,6 +12,7 @@ interface PopupButtonProps {
   x: AnimatedValue;
   y: AnimatedValue;
   opacity: AnimatedValue;
+  onPress?: () => void;
 }
 
 const PopupButton: React.FC<PopupButtonProps> = ({
@@ -19,6 +20,7 @@ const PopupButton: React.FC<PopupButtonProps> = ({
   y,
   opacity,
   children,
+  onPress,
 }) => {
   return (
     <Animated.View
@@ -30,7 +32,7 @@ const PopupButton: React.FC<PopupButtonProps> = ({
       }}
     >
       <TouchableHighlight
-        onPress={() => {}}
+        onPress={onPress}
         underlayColor="#434b61"
         style={styles.touchableHighlight}
       >

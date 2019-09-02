@@ -19,11 +19,18 @@ import PopupButton from './PopupButton';
 
 const AUTO_CLOSE = 15 * 1000;
 
+interface AnimatedButtonProps {
+  onRefresh: () => void;
+}
+
 interface AnimatedButtonState {
   timeout: number;
 }
 
-class AnimatedButton extends React.Component<never, AnimatedButtonState> {
+class AnimatedButton extends React.Component<
+  AnimatedButtonProps,
+  AnimatedButtonState
+> {
   public state = {
     timeout: 0,
   };
@@ -78,7 +85,9 @@ class AnimatedButton extends React.Component<never, AnimatedButtonState> {
       this.setState({ timeout: newTimeout });
     }
   }
+
   public render() {
+    const { onRefresh } = this.props;
     return (
       <View
         style={{
@@ -86,7 +95,12 @@ class AnimatedButton extends React.Component<never, AnimatedButtonState> {
           alignItems: 'center',
         }}
       >
-        <PopupButton x={this.firstX} y={this.firstY} opacity={this.opacity}>
+        <PopupButton
+          x={this.firstX}
+          y={this.firstY}
+          opacity={this.opacity}
+          onPress={() => this.wrapOnPress(onRefresh)}
+        >
           <Ionicons
             name={Platform.OS === 'ios' ? 'ios-refresh' : 'md-refresh'}
             size={16}
@@ -120,6 +134,11 @@ class AnimatedButton extends React.Component<never, AnimatedButtonState> {
         </TouchableHighlight>
       </View>
     );
+  }
+
+  private wrapOnPress = (onPress: () => void) => {
+    this.toggleView(false);
+    onPress();
   }
 }
 
