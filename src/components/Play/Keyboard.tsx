@@ -10,9 +10,14 @@ const WIDTH = (13 * 2 + ButtonSize) * 3;
 interface KeyboardProps {
   onPress: (inputKey: [KeyType, string]) => void;
   disabledKeys: string;
+  isProvidedAnswer: boolean;
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({ onPress, disabledKeys }) => (
+const Keyboard: React.FC<KeyboardProps> = ({
+  onPress,
+  disabledKeys,
+  isProvidedAnswer,
+}) => (
   <View style={[styles.keyboardStyle]}>
     <View style={[styles.container, { width: WIDTH }]}>
       {KEYS.map((key, index) => (
@@ -20,25 +25,77 @@ const Keyboard: React.FC<KeyboardProps> = ({ onPress, disabledKeys }) => (
           inputKey={key}
           key={index}
           onPress={onPress}
-          disabled={disabledKeys.includes(key[1])}
+          disabled={disabledKeys.includes(key[1]) || isProvidedAnswer}
+          isProvidedAnswer={isProvidedAnswer}
         />
       ))}
     </View>
   </View>
 );
 
-const getIcon = (keyType: KeyType) => {
+const getIcon = (keyType: KeyType, isDisabled: boolean) => {
   const props = {
     size: ButtonSize * 0.45,
     style: { opacity: 0.9 },
   };
   if (keyType === KeyType.Check) {
     return (
-      <AntDesign name="checkcircle" {...props} color={Theme.colors.secondary} />
+      <AntDesign
+        name="checkcircle"
+        {...props}
+        color={isDisabled ? Theme.colors.gray2 : Theme.colors.secondary}
+      />
     );
   }
   return (
-    <MaterialIcons name="backspace" {...props} color={Theme.colors.primary} />
+    <MaterialIcons
+      name="backspace"
+      {...props}
+      color={isDisabled ? Theme.colors.gray2 : Theme.colors.primary}
+    />
+  );
+};
+
+interface TouchableProps {
+  inputKey: [KeyType, string];
+  onPress: (inputKey: [KeyType, string]) => void;
+  disabled: boolean;
+  isProvidedAnswer: boolean;
+}
+
+const Touchable: React.FC<TouchableProps> = ({
+  inputKey,
+  onPress,
+  disabled,
+  isProvidedAnswer,
+}) => {
+  const keyType = inputKey[0];
+  const text = inputKey[1];
+  if (keyType !== KeyType.Number) {
+    return (
+      <TouchableOpacity
+        onPress={() => onPress(inputKey)}
+        disabled={isProvidedAnswer}
+      >
+        <View style={[styles.touchStyle, styles.iconCircle]}>
+          {getIcon(keyType, isProvidedAnswer)}
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  return (
+    <TouchableOpacity onPress={() => onPress(inputKey)} disabled={disabled}>
+      <View style={[styles.touchStyle, styles.numberCircle]}>
+        <Text
+          style={{
+            color: disabled ? Theme.colors.gray2 : Theme.colors.black,
+            fontSize: 30,
+          }}
+        >
+          {text}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -57,44 +114,6 @@ const KEYS: Array<[KeyType, string]> = [
   [KeyType.Number, '0'],
   [KeyType.Delete, 'delete'],
 ];
-
-interface TouchableProps {
-  inputKey: [KeyType, string];
-  onPress: (inputKey: [KeyType, string]) => void;
-  disabled: boolean;
-}
-
-const Touchable: React.FC<TouchableProps> = ({
-  inputKey,
-  onPress,
-  disabled,
-}) => {
-  const keyType = inputKey[0];
-  const text = inputKey[1];
-  if (keyType !== KeyType.Number) {
-    return (
-      <TouchableOpacity onPress={() => onPress(inputKey)}>
-        <View style={[styles.touchStyle, styles.iconCircle]}>
-          {getIcon(keyType)}
-        </View>
-      </TouchableOpacity>
-    );
-  }
-  return (
-    <TouchableOpacity onPress={() => onPress(inputKey)}>
-      <View style={[styles.touchStyle, styles.numberCircle]}>
-        <Text
-          style={{
-            color: disabled ? Theme.colors.gray2 : Theme.colors.black,
-            fontSize: 30,
-          }}
-        >
-          {text}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {

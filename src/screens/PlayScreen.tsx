@@ -12,17 +12,24 @@ import {
 } from '../helpers/InputManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationScreenProps } from 'react-navigation';
+
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
   input: string;
   isValidInput: boolean;
+  isProvidedAnswer: boolean;
   answer: string;
   guesses: SingleGuess[];
 }
 
+interface PlayScreenNavigationProps {
+  refreshScreen: () => void;
+  provideAnswer: () => void;
+}
+
 class PlayScreen extends React.Component<
-  NavigationScreenProps<{ refreshScreen: () => void }>,
+  NavigationScreenProps<PlayScreenNavigationProps>,
   PlayScreenState
 > {
   public static getEmptyState = () => {
@@ -31,6 +38,7 @@ class PlayScreen extends React.Component<
       isValidInput: true,
       guesses: [],
       answer: getRandomAnswer(),
+      isProvidedAnswer: false,
     };
   }
 
@@ -38,10 +46,16 @@ class PlayScreen extends React.Component<
 
   public refreshState = () => this.setState(PlayScreen.getEmptyState());
 
+  public provideAnswer = () => {
+    const { answer } = this.state;
+    this.setState({ input: answer, isProvidedAnswer: true });
+  }
+
   public componentDidMount() {
     const { navigation } = this.props;
     navigation.setParams({
       refreshScreen: this.refreshState,
+      provideAnswer: this.provideAnswer,
     });
   }
 
@@ -89,11 +103,15 @@ class PlayScreen extends React.Component<
   }
 
   public render() {
-    const { input, guesses, isValidInput } = this.state;
+    const { input, guesses, isValidInput, isProvidedAnswer } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Input value={input} isValidInput={isValidInput} />
+          <Input
+            value={input}
+            isValidInput={isValidInput}
+            isProvidedAnswer={isProvidedAnswer}
+          />
         </View>
         <LinearGradient
           colors={['#6191FF', '#4439A7']}
@@ -109,6 +127,7 @@ class PlayScreen extends React.Component<
           <CustomKeyboard
             onPress={key => this.onKeyboardPress(key)}
             disabledKeys={input}
+            isProvidedAnswer={isProvidedAnswer}
           />
         </View>
       </View>

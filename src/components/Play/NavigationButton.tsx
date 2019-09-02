@@ -12,11 +12,30 @@ interface NavigationButtonProps extends NavigationInjectedProps {
   backgroundColor: string;
   navigate: () => void;
   refreshScreen: () => void;
+  provideAnswer: () => void;
 }
 
-class NavigationButton extends React.Component<NavigationButtonProps, any> {
+interface NavigationButtonState {
+  animate: boolean;
+}
+
+class NavigationButton extends React.Component<
+  NavigationButtonProps,
+  NavigationButtonState
+> {
+  public state = {
+    animate: false,
+  };
+
   public render() {
-    const { isFocused, backgroundColor, navigate, refreshScreen } = this.props;
+    const {
+      isFocused,
+      backgroundColor,
+      navigate,
+      refreshScreen,
+      provideAnswer,
+    } = this.props;
+    const { animate } = this.state;
     if (!isFocused) {
       return (
         <TouchableOpacity activeOpacity={0.7} onPress={this.handlePress}>
@@ -24,7 +43,7 @@ class NavigationButton extends React.Component<NavigationButtonProps, any> {
             easing="ease-out"
             animation="tada"
             iterationCount="infinite"
-            duration={isFocused ? 1 : 1500}
+            duration={1500}
             useNativeDriver={true}
             style={[
               {
@@ -39,12 +58,13 @@ class NavigationButton extends React.Component<NavigationButtonProps, any> {
         </TouchableOpacity>
       );
     }
+    console.log(`animate: ${animate}`);
     return (
       <Animatable.View
         easing="ease-out"
-        animation="tada"
+        animation={animate ? 'tada' : ''}
         iterationCount="infinite"
-        duration={isFocused ? 1 : 1500}
+        duration={1500}
         useNativeDriver={true}
         style={[
           {
@@ -54,10 +74,22 @@ class NavigationButton extends React.Component<NavigationButtonProps, any> {
           styles.shadow,
         ]}
       >
-        <AnimatedButton onRefresh={refreshScreen} />
+        <AnimatedButton
+          onRefresh={() => {
+            this.stopAnimation();
+            refreshScreen();
+          }}
+          onProvideAnswer={() => {
+            this.startAnimation();
+            provideAnswer();
+          }}
+        />
       </Animatable.View>
     );
   }
+
+  private startAnimation = () => this.setState({ animate: true });
+  private stopAnimation = () => this.setState({ animate: false });
 
   private handlePress = () => {
     const { navigate, isFocused, refreshScreen } = this.props;

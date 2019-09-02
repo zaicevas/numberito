@@ -4,10 +4,6 @@ import {
   createAppContainer,
   createBottomTabNavigator,
   createStackNavigator,
-  NavigationInjectedProps,
-  NavigationScreenProp,
-  NavigationRoute,
-  TabBarBottom,
   NavigationBottomTabScreenOptions,
 } from 'react-navigation';
 import HistoryScreen from '../screens/HistoryScreen';
@@ -15,8 +11,6 @@ import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
 import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
-import NavigationButton from '../components/Play/NavigationButton';
-import { MultiBar } from './Multibar';
 import TabBar from './TabBar';
 
 const FOOTBAR_ICON_SIZE = 30;

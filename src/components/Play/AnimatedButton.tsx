@@ -8,11 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome';
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  Ionicons,
-} from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 import PopupButton from './PopupButton';
@@ -21,6 +17,7 @@ const AUTO_CLOSE = 15 * 1000;
 
 interface AnimatedButtonProps {
   onRefresh: () => void;
+  onProvideAnswer: () => void;
 }
 
 interface AnimatedButtonState {
@@ -87,7 +84,7 @@ class AnimatedButton extends React.Component<
   }
 
   public render() {
-    const { onRefresh } = this.props;
+    const { onRefresh, onProvideAnswer } = this.props;
     return (
       <View
         style={{
@@ -107,8 +104,13 @@ class AnimatedButton extends React.Component<
             color="#F8F8F8"
           />
         </PopupButton>
-        <PopupButton x={this.secondX} y={this.secondY} opacity={this.opacity}>
-          <Icon name="home" size={16} color="#F8F8F8" />
+        <PopupButton
+          x={this.secondX}
+          y={this.secondY}
+          opacity={this.opacity}
+          onPress={() => this.wrapOnPress(onProvideAnswer)}
+        >
+          <MaterialCommunityIcons name="numeric" size={16} color="#F8F8F8" />
         </PopupButton>
         <PopupButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
           <Icon name="archive" size={16} color="#F8F8F8" />

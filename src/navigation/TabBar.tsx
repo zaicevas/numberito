@@ -47,6 +47,7 @@ const TabBar: React.FC<TabBarProps> = ({
                 navigation={navigation}
                 navigate={() => onTabPress({ route })}
                 refreshScreen={() => route.params.refreshScreen()}
+                provideAnswer={() => route.params.provideAnswer()}
               />
             </View>
           );
