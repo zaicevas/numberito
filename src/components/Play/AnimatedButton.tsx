@@ -12,12 +12,15 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 import PopupButton from './PopupButton';
+import * as Animatable from 'react-native-animatable';
 
 const AUTO_CLOSE = 15 * 1000;
+const ANIMATION_LENGTH = 1000;
 
 interface AnimatedButtonProps {
   onRefresh: () => void;
   onProvideAnswer: () => void;
+  animate: boolean;
 }
 
 interface AnimatedButtonState {
@@ -84,7 +87,7 @@ class AnimatedButton extends React.Component<
   }
 
   public render() {
-    const { onRefresh, onProvideAnswer } = this.props;
+    const { onRefresh, onProvideAnswer, animate } = this.props;
     return (
       <View
         style={{
@@ -121,7 +124,12 @@ class AnimatedButton extends React.Component<
           underlayColor="#434b61"
           style={styles.touchableHighlight}
         >
-          <Animated.View
+          <Animatable.View
+            easing="ease-out"
+            animation={animate ? 'wobble' : ''}
+            iterationCount="infinite"
+            duration={ANIMATION_LENGTH}
+            useNativeDriver={true}
             style={{
               transform: [{ rotate: this.rotation }],
             }}
@@ -132,7 +140,7 @@ class AnimatedButton extends React.Component<
               name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'}
               color={Theme.colors.white}
             />
-          </Animated.View>
+          </Animatable.View>
         </TouchableHighlight>
       </View>
     );

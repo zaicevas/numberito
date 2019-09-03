@@ -2,7 +2,7 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
-import { StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
+import { StyleSheet, ViewStyle, TouchableOpacity, View } from 'react-native';
 import AnimatedButton from './AnimatedButton';
 import { NavigationInjectedProps } from 'react-navigation';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
@@ -18,6 +18,8 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 interface NavigationButtonState {
   animate: boolean;
 }
+
+const ANIMATION_LENGTH = 1500;
 
 class NavigationButton extends React.Component<
   NavigationButtonProps,
@@ -43,7 +45,7 @@ class NavigationButton extends React.Component<
             easing="ease-out"
             animation="tada"
             iterationCount="infinite"
-            duration={1500}
+            duration={ANIMATION_LENGTH}
             useNativeDriver={true}
             style={[
               {
@@ -58,14 +60,8 @@ class NavigationButton extends React.Component<
         </TouchableOpacity>
       );
     }
-    console.log(`animate: ${animate}`);
     return (
-      <Animatable.View
-        easing="ease-out"
-        animation={animate ? 'tada' : ''}
-        iterationCount="infinite"
-        duration={1500}
-        useNativeDriver={true}
+      <View
         style={[
           {
             backgroundColor,
@@ -83,8 +79,9 @@ class NavigationButton extends React.Component<
             this.startAnimation();
             provideAnswer();
           }}
+          animate={animate}
         />
-      </Animatable.View>
+      </View>
     );
   }
 

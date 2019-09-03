@@ -3,6 +3,7 @@ import React from 'react';
 import { I18nManager, StyleSheet, Text, TextInput, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Theme, Layout } from '../../constants/index';
+import { InputState } from '../../constants/Screens';
 
 const styles = StyleSheet.create({
   containerDefault: {},
@@ -130,9 +131,11 @@ class Input extends React.Component {
       textStyle,
       textStyleFocused,
       animationFocused,
-      isValidInput,
+      inputState,
     } = this.props;
     const { maskDelay, focused } = this.state;
+    const isValidInput = inputState !== InputState.INVALID;
+
     return (
       <Animatable.View
         ref={this.ref}

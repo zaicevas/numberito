@@ -12,13 +12,13 @@ import {
 } from '../helpers/InputManipulation';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationScreenProps } from 'react-navigation';
+import { InputState } from '../constants/Screens';
 
 const INPUT_LINE_WIDTH = 0.17;
 
 interface PlayScreenState {
+  inputState: InputState;
   input: string;
-  isValidInput: boolean;
-  isProvidedAnswer: boolean;
   answer: string;
   guesses: SingleGuess[];
 }
@@ -35,10 +35,9 @@ class PlayScreen extends React.Component<
   public static getEmptyState = () => {
     return {
       input: '',
-      isValidInput: true,
+      inputState: InputState.VALID,
       guesses: [],
       answer: getRandomAnswer(),
-      isProvidedAnswer: false,
     };
   }
 
@@ -48,7 +47,7 @@ class PlayScreen extends React.Component<
 
   public provideAnswer = () => {
     const { answer } = this.state;
-    this.setState({ input: answer, isProvidedAnswer: true });
+    this.setState({ input: answer, inputState: InputState.PROVIDED_ANSWER });
   }
 
   public componentDidMount() {
@@ -67,7 +66,7 @@ class PlayScreen extends React.Component<
     ) {
       this.setState({
         input: input + key[1],
-        isValidInput: true,
+        inputState: InputState.VALID,
       });
     }
   }
@@ -91,7 +90,7 @@ class PlayScreen extends React.Component<
   }
 
   public handleInvalidInput = () => {
-    this.setState({ isValidInput: false });
+    this.setState({ inputState: InputState.INVALID });
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
@@ -103,15 +102,11 @@ class PlayScreen extends React.Component<
   }
 
   public render() {
-    const { input, guesses, isValidInput, isProvidedAnswer } = this.state;
+    const { input, guesses, inputState } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Input
-            value={input}
-            isValidInput={isValidInput}
-            isProvidedAnswer={isProvidedAnswer}
-          />
+          <Input value={input} inputState={inputState} />
         </View>
         <LinearGradient
           colors={['#6191FF', '#4439A7']}
@@ -127,7 +122,7 @@ class PlayScreen extends React.Component<
           <CustomKeyboard
             onPress={key => this.onKeyboardPress(key)}
             disabledKeys={input}
-            isProvidedAnswer={isProvidedAnswer}
+            inputState={inputState}
           />
         </View>
       </View>

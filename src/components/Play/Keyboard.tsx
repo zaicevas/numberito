@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Layout, Theme } from '../../constants/index';
 import { KeyType } from '../../types/index';
+import { InputState } from '../../constants/Screens';
 
 const ButtonSize = Layout.width * 0.2;
 const WIDTH = (13 * 2 + ButtonSize) * 3;
@@ -10,13 +11,13 @@ const WIDTH = (13 * 2 + ButtonSize) * 3;
 interface KeyboardProps {
   onPress: (inputKey: [KeyType, string]) => void;
   disabledKeys: string;
-  isProvidedAnswer: boolean;
+  inputState: InputState;
 }
 
 const Keyboard: React.FC<KeyboardProps> = ({
   onPress,
   disabledKeys,
-  isProvidedAnswer,
+  inputState,
 }) => (
   <View style={[styles.keyboardStyle]}>
     <View style={[styles.container, { width: WIDTH }]}>
@@ -25,8 +26,11 @@ const Keyboard: React.FC<KeyboardProps> = ({
           inputKey={key}
           key={index}
           onPress={onPress}
-          disabled={disabledKeys.includes(key[1]) || isProvidedAnswer}
-          isProvidedAnswer={isProvidedAnswer}
+          disabled={
+            disabledKeys.includes(key[1]) ||
+            inputState === InputState.PROVIDED_ANSWER
+          }
+          inputState={inputState}
         />
       ))}
     </View>
@@ -60,17 +64,18 @@ interface TouchableProps {
   inputKey: [KeyType, string];
   onPress: (inputKey: [KeyType, string]) => void;
   disabled: boolean;
-  isProvidedAnswer: boolean;
+  inputState: InputState;
 }
 
 const Touchable: React.FC<TouchableProps> = ({
   inputKey,
   onPress,
   disabled,
-  isProvidedAnswer,
+  inputState,
 }) => {
   const keyType = inputKey[0];
   const text = inputKey[1];
+  const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
   if (keyType !== KeyType.Number) {
     return (
       <TouchableOpacity
