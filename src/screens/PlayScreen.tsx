@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle, Text } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';

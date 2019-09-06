@@ -10,6 +10,7 @@ const colors = {
   gray: '#9DA3B4',
   gray2: '#C5CCD6',
   red: 'red',
+  lightBlue: '#48A2F8',
 };
 
 const sizes = {

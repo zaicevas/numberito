@@ -7,12 +7,14 @@ import {
 } from 'react-native';
 import { AnimatedValue } from 'react-navigation';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
+import { Theme } from '../../constants/index';
 
 interface PopupButtonProps {
   x: AnimatedValue;
   y: AnimatedValue;
   opacity: AnimatedValue;
   onPress?: () => void;
+  disabled: boolean;
 }
 
 const PopupButton: React.FC<PopupButtonProps> = ({
@@ -21,20 +23,29 @@ const PopupButton: React.FC<PopupButtonProps> = ({
   opacity,
   children,
   onPress,
+  disabled,
 }) => {
   return (
     <Animated.View
       style={{
+        opacity,
         position: 'absolute',
         left: x,
         top: y,
-        opacity,
       }}
     >
       <TouchableHighlight
         onPress={onPress}
         underlayColor="#434b61"
-        style={styles.touchableHighlight}
+        style={[
+          styles.touchableHighlight,
+          {
+            backgroundColor: disabled
+              ? Theme.colors.gray
+              : Theme.colors.lightBlue,
+          },
+        ]}
+        disabled={disabled}
       >
         {children}
       </TouchableHighlight>
@@ -54,7 +65,6 @@ const styles = StyleSheet.create<Style>({
     width: MIDDLE_BUTTON_SIZE / 2,
     height: MIDDLE_BUTTON_SIZE / 2,
     borderRadius: MIDDLE_BUTTON_SIZE / 4,
-    backgroundColor: '#48A2F8',
   },
 });
 

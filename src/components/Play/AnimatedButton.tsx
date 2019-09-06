@@ -14,6 +14,8 @@ import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 import PopupButton from './PopupButton';
 import * as Animatable from 'react-native-animatable';
 
+// TODO: close animatedButton when user interacts with Keyboard
+
 const AUTO_CLOSE = 15 * 1000;
 const ANIMATION_LENGTH = 1000;
 
@@ -25,6 +27,7 @@ interface AnimatedButtonProps {
 
 interface AnimatedButtonState {
   timeout: number;
+  isProvidedAnswer: boolean;
 }
 
 class AnimatedButton extends React.Component<
@@ -33,6 +36,7 @@ class AnimatedButton extends React.Component<
 > {
   public state = {
     timeout: 0,
+    isProvidedAnswer: false,
   };
 
   private mode = new Animated.Value(0);
@@ -88,6 +92,7 @@ class AnimatedButton extends React.Component<
 
   public render() {
     const { onRefresh, onProvideAnswer, animate } = this.props;
+    const { isProvidedAnswer } = this.state;
     return (
       <View
         style={{
@@ -99,24 +104,29 @@ class AnimatedButton extends React.Component<
           x={this.firstX}
           y={this.firstY}
           opacity={this.opacity}
-          onPress={() => this.wrapOnPress(onRefresh)}
+          onPress={() => this.handleRefresh(onRefresh)}
         >
           <Ionicons
             name={Platform.OS === 'ios' ? 'ios-refresh' : 'md-refresh'}
             size={16}
-            color="#F8F8F8"
+            color={Theme.colors.white}
           />
         </PopupButton>
         <PopupButton
           x={this.secondX}
           y={this.secondY}
           opacity={this.opacity}
-          onPress={() => this.wrapOnPress(onProvideAnswer)}
+          onPress={() => this.handleProvideAnswer(onProvideAnswer)}
+          disabled={isProvidedAnswer}
         >
-          <MaterialCommunityIcons name="numeric" size={16} color="#F8F8F8" />
+          <MaterialCommunityIcons
+            name="numeric"
+            size={16}
+            color={Theme.colors.white}
+          />
         </PopupButton>
         <PopupButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
-          <Icon name="archive" size={16} color="#F8F8F8" />
+          <Icon name="archive" size={16} color={Theme.colors.white} />
         </PopupButton>
         <TouchableHighlight
           onPress={() => this.toggleView(false)}
@@ -144,6 +154,20 @@ class AnimatedButton extends React.Component<
         </TouchableHighlight>
       </View>
     );
+  }
+
+  private handleProvideAnswer = (onProvideAnswer: () => void) => {
+    this.setState({
+      isProvidedAnswer: true,
+    });
+    this.wrapOnPress(onProvideAnswer);
+  }
+
+  private handleRefresh = (onRefresh: () => void) => {
+    this.setState({
+      isProvidedAnswer: false,
+    });
+    this.wrapOnPress(onRefresh);
   }
 
   private wrapOnPress = (onPress: () => void) => {
