@@ -14,7 +14,7 @@ interface PopupButtonProps {
   y: AnimatedValue;
   opacity: AnimatedValue;
   onPress?: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const PopupButton: React.FC<PopupButtonProps> = ({

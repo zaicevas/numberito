@@ -26,9 +26,10 @@ const Keyboard: React.FC<KeyboardProps> = ({
           inputKey={key}
           key={index}
           onPress={onPress}
-          disabled={
+          numberDisabled={
             disabledKeys.includes(key[1]) ||
-            inputState === InputState.PROVIDED_ANSWER
+            inputState === InputState.PROVIDED_ANSWER ||
+            inputState === InputState.CORRECT_ANSWER
           }
           inputState={inputState}
         />
@@ -63,37 +64,43 @@ const getIcon = (keyType: KeyType, isDisabled: boolean) => {
 interface TouchableProps {
   inputKey: [KeyType, string];
   onPress: (inputKey: [KeyType, string]) => void;
-  disabled: boolean;
+  numberDisabled: boolean;
   inputState: InputState;
 }
 
 const Touchable: React.FC<TouchableProps> = ({
   inputKey,
   onPress,
-  disabled,
+  numberDisabled,
   inputState,
 }) => {
   const keyType = inputKey[0];
   const text = inputKey[1];
-  const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
+  const nonNumberDisabled =
+    inputState === InputState.PROVIDED_ANSWER ||
+    inputState === InputState.CORRECT_ANSWER;
+  // TODO: move into separate component so you don't pass nonNumberDisabled twice
   if (keyType !== KeyType.Number) {
     return (
       <TouchableOpacity
         onPress={() => onPress(inputKey)}
-        disabled={isProvidedAnswer}
+        disabled={nonNumberDisabled}
       >
         <View style={[styles.touchStyle, styles.iconCircle]}>
-          {getIcon(keyType, isProvidedAnswer)}
+          {getIcon(keyType, nonNumberDisabled)}
         </View>
       </TouchableOpacity>
     );
   }
   return (
-    <TouchableOpacity onPress={() => onPress(inputKey)} disabled={disabled}>
+    <TouchableOpacity
+      onPress={() => onPress(inputKey)}
+      disabled={numberDisabled}
+    >
       <View style={[styles.touchStyle, styles.numberCircle]}>
         <Text
           style={{
-            color: disabled ? Theme.colors.gray2 : Theme.colors.black,
+            color: numberDisabled ? Theme.colors.gray2 : Theme.colors.black,
             fontSize: 30,
           }}
         >

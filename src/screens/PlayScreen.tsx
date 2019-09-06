@@ -26,6 +26,7 @@ interface PlayScreenState {
 interface PlayScreenNavigationProps {
   refreshScreen: () => void;
   provideAnswer: () => void;
+  getInputState: () => InputState;
 }
 
 class PlayScreen extends React.Component<
@@ -33,11 +34,13 @@ class PlayScreen extends React.Component<
   PlayScreenState
 > {
   public static getEmptyState = () => {
+    const answer = getRandomAnswer();
+    console.log(answer);
     return {
       input: '',
       inputState: InputState.VALID,
       guesses: [],
-      answer: getRandomAnswer(),
+      answer,
     };
   }
 
@@ -55,8 +58,11 @@ class PlayScreen extends React.Component<
     navigation.setParams({
       refreshScreen: this.refreshState,
       provideAnswer: this.provideAnswer,
+      getInputState: this.getInputState,
     });
   }
+
+  public getInputState = () => this.state.inputState;
 
   public handleNumberPress = (key: [KeyType, string]) => {
     const { input } = this.state;
@@ -82,9 +88,11 @@ class PlayScreen extends React.Component<
       const bulls = getBulls(input, answer);
       const cows = getCows(input, answer);
       const guess = { input, bulls, cows };
+      const correctAnswer = bulls === MAX_DIGITS;
       this.setState({
         guesses: [...guesses, guess],
-        input: '',
+        input: correctAnswer ? input : '',
+        inputState: correctAnswer ? InputState.CORRECT_ANSWER : InputState.VALID,
       });
     } else this.handleInvalidInput();
   }

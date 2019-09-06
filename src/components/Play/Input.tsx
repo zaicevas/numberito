@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   textStyleFocusedDefault: {
     color: Theme.colors.black,
   },
+  textStyleCorrectAnswer: {
+    color: Theme.colors.green,
+  },
 });
 
 class Input extends React.Component {
@@ -135,6 +138,7 @@ class Input extends React.Component {
     } = this.props;
     const { maskDelay, focused } = this.state;
     const isValidInput = inputState !== InputState.INVALID;
+    const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
 
     return (
       <Animatable.View
@@ -216,7 +220,11 @@ class Input extends React.Component {
               >
                 {isCellText && !maskComponent && (
                   <Text
-                    style={[textStyle, cellFocused ? textStyleFocused : {}]}
+                    style={[
+                      textStyle,
+                      cellFocused ? textStyleFocused : {},
+                      isCorrectAnswer ? styles.textStyleCorrectAnswer : {},
+                    ]}
                   >
                     {cellText}
                   </Text>

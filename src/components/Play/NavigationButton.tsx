@@ -6,6 +6,7 @@ import { StyleSheet, ViewStyle, TouchableOpacity, View } from 'react-native';
 import AnimatedButton from './AnimatedButton';
 import { NavigationInjectedProps } from 'react-navigation';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
+import { InputState } from '../../constants/Screens';
 
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -13,6 +14,7 @@ interface NavigationButtonProps extends NavigationInjectedProps {
   navigate: () => void;
   refreshScreen: () => void;
   provideAnswer: () => void;
+  getInputState: () => InputState;
 }
 
 interface NavigationButtonState {
@@ -33,9 +35,9 @@ class NavigationButton extends React.Component<
     const {
       isFocused,
       backgroundColor,
-      navigate,
       refreshScreen,
       provideAnswer,
+      getInputState,
     } = this.props;
     const { animate } = this.state;
     if (!isFocused) {
@@ -80,6 +82,7 @@ class NavigationButton extends React.Component<
             provideAnswer();
           }}
           animate={animate}
+          getInputState={getInputState}
         />
       </View>
     );

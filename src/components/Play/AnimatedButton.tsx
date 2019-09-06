@@ -13,6 +13,7 @@ import { Theme } from '../../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 import PopupButton from './PopupButton';
 import * as Animatable from 'react-native-animatable';
+import { InputState } from '../../constants/Screens';
 
 // TODO: close animatedButton when user interacts with Keyboard
 
@@ -23,11 +24,11 @@ interface AnimatedButtonProps {
   onRefresh: () => void;
   onProvideAnswer: () => void;
   animate: boolean;
+  getInputState: () => InputState;
 }
 
 interface AnimatedButtonState {
   timeout: number;
-  isProvidedAnswer: boolean;
 }
 
 class AnimatedButton extends React.Component<
@@ -91,15 +92,12 @@ class AnimatedButton extends React.Component<
   }
 
   public render() {
-    const { onRefresh, onProvideAnswer, animate } = this.props;
-    const { isProvidedAnswer } = this.state;
+    const { onRefresh, onProvideAnswer, animate, getInputState } = this.props;
+    const inputState = getInputState();
+    const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
+    const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
     return (
-      <View
-        style={{
-          position: 'absolute',
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.container}>
         <PopupButton
           x={this.firstX}
           y={this.firstY}
@@ -117,7 +115,7 @@ class AnimatedButton extends React.Component<
           y={this.secondY}
           opacity={this.opacity}
           onPress={() => this.handleProvideAnswer(onProvideAnswer)}
-          disabled={isProvidedAnswer}
+          disabled={isProvidedAnswer || isCorrectAnswer}
         >
           <MaterialCommunityIcons
             name="numeric"
@@ -157,16 +155,10 @@ class AnimatedButton extends React.Component<
   }
 
   private handleProvideAnswer = (onProvideAnswer: () => void) => {
-    this.setState({
-      isProvidedAnswer: true,
-    });
     this.wrapOnPress(onProvideAnswer);
   }
 
   private handleRefresh = (onRefresh: () => void) => {
-    this.setState({
-      isProvidedAnswer: false,
-    });
     this.wrapOnPress(onRefresh);
   }
 
@@ -177,10 +169,15 @@ class AnimatedButton extends React.Component<
 }
 
 interface Style {
+  container: ViewStyle;
   touchableHighlight: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
+  container: {
+    position: 'absolute',
+    alignItems: 'center',
+  },
   touchableHighlight: {
     alignItems: 'center',
     justifyContent: 'center',
