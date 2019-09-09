@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle, Text } from 'react-native';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
@@ -13,6 +13,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationScreenProps } from 'react-navigation';
 import { InputState } from '../constants/Screens';
+import Constants from 'expo-constants';
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -113,6 +114,9 @@ class PlayScreen extends React.Component<
     const { input, guesses, inputState } = this.state;
     return (
       <View style={styles.container}>
+        <View style={styles.guessCounter}>
+          <Text>{guesses.length}</Text>
+        </View>
         <View style={styles.inputContainer}>
           <Input value={input} inputState={inputState} />
         </View>
@@ -145,11 +149,24 @@ interface Style {
   historyGradient: ViewStyle;
   historyContainer: ViewStyle;
   keyboardContainer: ViewStyle;
+  guessCounter: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
+  },
+  guessCounter: {
+    position: 'absolute',
+    marginTop: Constants.statusBarHeight + 4,
+    left: Layout.width - (32 + 8),
+    borderRadius: 100,
+    width: 32,
+    height: 32,
+    borderColor: 'black',
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   underlineStyle: {
     width: Layout.width * INPUT_LINE_WIDTH,

@@ -8,6 +8,7 @@ enum InputState {
   INVALID,
   VALID,
   PROVIDED_ANSWER,
+  CORRECT_ANSWER,
 }
 
 export {

@@ -12,6 +12,7 @@ import PlayScreen from '../screens/PlayScreen';
 import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
 import TabBar from './TabBar';
+import { SCREEN_HOME } from '../constants/Screens';
 
 const FOOTBAR_ICON_SIZE = 30;
 
@@ -23,7 +24,7 @@ const HomeStackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: SCREEN_HOME,
   },
 );
 
@@ -43,7 +44,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: SCREEN_HOME,
     tabBarOptions: {
       showLabel: false,
       activeTintColor: Theme.colors.tertiaryShadow,
