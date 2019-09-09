@@ -164,7 +164,7 @@ const styles = StyleSheet.create<Style>({
     width: 32,
     height: 32,
     borderColor: 'black',
-    borderWidth: 1.5,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
