@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import * as Animatable from 'react-native-animatable';
@@ -6,7 +6,7 @@ import { StyleSheet, ViewStyle, TouchableOpacity, View } from 'react-native';
 import AnimatedButton from './AnimatedButton';
 import { NavigationInjectedProps } from 'react-navigation';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
-import { InputState } from '../../constants/Screens';
+import { InputState, SCREEN_PLAY } from '../../constants/Screens';
 
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -17,87 +17,74 @@ interface NavigationButtonProps extends NavigationInjectedProps {
   getInputState: () => InputState;
 }
 
-interface NavigationButtonState {
-  animate: boolean;
-}
-
 const ANIMATION_LENGTH = 1500;
 
-class NavigationButton extends React.Component<
-  NavigationButtonProps,
-  NavigationButtonState
-> {
-  public state = {
-    animate: false,
-  };
-
-  public render() {
-    const {
-      isFocused,
-      backgroundColor,
-      refreshScreen,
-      provideAnswer,
-      getInputState,
-    } = this.props;
-    const { animate } = this.state;
-    if (!isFocused) {
-      return (
-        <TouchableOpacity activeOpacity={0.7} onPress={this.handlePress}>
-          <Animatable.View
-            easing="ease-out"
-            animation="tada"
-            iterationCount="infinite"
-            duration={ANIMATION_LENGTH}
-            useNativeDriver={true}
-            style={[
-              {
-                backgroundColor,
-              },
-              styles.container,
-              styles.shadow,
-            ]}
-          >
-            {getIcon(isFocused)}
-          </Animatable.View>
-        </TouchableOpacity>
-      );
-    }
+const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
+  isFocused,
+  backgroundColor,
+  refreshScreen,
+  provideAnswer,
+  getInputState,
+  navigation,
+}) => {
+  const [animate, setAnimate] = useState();
+  const animatedButtonRef = useRef();
+  if (!isFocused) {
     return (
-      <View
-        style={[
-          {
-            backgroundColor,
-          },
-          styles.container,
-          styles.shadow,
-        ]}
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() =>
+          navigation.navigate(SCREEN_PLAY, {
+            onKeyboardPress: () => animatedButtonRef.current.toggleView(),
+          })
+        }
       >
-        <AnimatedButton
-          onRefresh={() => {
-            this.stopAnimation();
-            refreshScreen();
-          }}
-          onProvideAnswer={() => {
-            this.startAnimation();
-            provideAnswer();
-          }}
-          animate={animate}
-          getInputState={getInputState}
-        />
-      </View>
+        <Animatable.View
+          easing="ease-out"
+          animation="tada"
+          iterationCount="infinite"
+          duration={ANIMATION_LENGTH}
+          useNativeDriver={true}
+          style={[
+            {
+              backgroundColor,
+            },
+            styles.container,
+            styles.shadow,
+          ]}
+        >
+          {getIcon(isFocused)}
+        </Animatable.View>
+      </TouchableOpacity>
     );
   }
 
-  private startAnimation = () => this.setState({ animate: true });
-  private stopAnimation = () => this.setState({ animate: false });
-
-  private handlePress = () => {
-    const { navigate, isFocused, refreshScreen } = this.props;
-    if (isFocused) {
-      refreshScreen();
-    } else navigate();
-  }
-}
+  return (
+    <View
+      style={[
+        {
+          backgroundColor,
+        },
+        styles.container,
+        styles.shadow,
+      ]}
+    >
+      <AnimatedButton
+        ref={animatedButtonRef}
+        onRefresh={() => {
+          setAnimate(false);
+          refreshScreen();
+        }}
+        onProvideAnswer={() => {
+          setAnimate(true);
+          provideAnswer();
+        }}
+        animate={animate}
+        getInputState={getInputState}
+      />
+    </View>
+  );
+};
 
 const getIcon = (isFocused?: boolean) => (
   <MaterialCommunityIcons
@@ -140,4 +127,4 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-export default NavigationButton;
+export default NavigationButtonFC;

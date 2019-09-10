@@ -13,7 +13,7 @@ import {
   NavigationRoute,
   NavigationInjectedProps,
 } from 'react-navigation';
-import { SCREEN_MIDDLE_BUTTON } from '../constants/Screens';
+import { SCREEN_MIDDLE_BUTTON, InputState } from '../constants/Screens';
 import NavigationButton from '../components/Play/NavigationButton';
 
 const FOOTBAR_HEIGHT = 50;
@@ -53,7 +53,9 @@ const TabBar: React.FC<TabBarProps> = ({
                   route.params && route.params.provideAnswer()
                 }
                 getInputState={() =>
-                  route.params && route.params.getInputState()
+                  route.params && route.params.getInputState
+                    ? route.params.getInputState()
+                    : InputState.VALID
                 }
               />
             </View>

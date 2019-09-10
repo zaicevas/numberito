@@ -79,8 +79,9 @@ class PlayScreen extends React.Component<
   }
 
   public handleDeletePress = () => {
-    const { input } = this.state;
-    this.setState({ input: input.slice(0, input.length - 1) });
+    const { input, inputState } = this.state;
+    this.setState({ input: input.slice(0, input.length - 1),
+    inputState: input.length > 0 && inputState === InputState.INVALID ? InputState.VALID : inputState });
   }
 
   public handleCheckPress = () => {
@@ -103,6 +104,7 @@ class PlayScreen extends React.Component<
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
+    this.props.navigation.state.params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
       this.handleNumberPress(key);
     } else if (key[0] === KeyType.Delete) {
