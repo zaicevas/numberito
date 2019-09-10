@@ -75,6 +75,7 @@ class AnimatedButton extends React.Component<
     outputRange: ['0deg', '45deg'],
   });
 
+  // should be rewritten without flag parameter
   public toggleView = (automatic: boolean) => {
     const { timeout } = this.state;
     const { _value } = this.mode;
@@ -89,6 +90,11 @@ class AnimatedButton extends React.Component<
       const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE);
       this.setState({ timeout: newTimeout });
     }
+  }
+
+  public untogglePopupButtons = () => {
+    const { _value } = this.mode;
+    if (_value === 0) this.toggleView(false);
   }
 
   public render() {

@@ -80,8 +80,13 @@ class PlayScreen extends React.Component<
 
   public handleDeletePress = () => {
     const { input, inputState } = this.state;
-    this.setState({ input: input.slice(0, input.length - 1),
-    inputState: input.length > 0 && inputState === InputState.INVALID ? InputState.VALID : inputState });
+    this.setState({
+      input: input.slice(0, input.length - 1),
+      inputState:
+        input.length > 0 && inputState === InputState.INVALID
+          ? InputState.VALID
+          : inputState,
+    });
   }
 
   public handleCheckPress = () => {
