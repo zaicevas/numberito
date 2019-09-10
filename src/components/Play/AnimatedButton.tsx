@@ -92,9 +92,15 @@ class AnimatedButton extends React.Component<
     }
   }
 
-  public untogglePopupButtons = () => {
+  public untogglePopupButtonsIfToggled = () => {
     const { _value } = this.mode;
-    if (_value === 0) this.toggleView(false);
+    const { timeout } = this.state;
+    if (_value === 0) return;
+    Animated.timing(this.mode, {
+      toValue: 0,
+      duration: 300,
+    }).start();
+    clearTimeout(timeout);
   }
 
   public render() {

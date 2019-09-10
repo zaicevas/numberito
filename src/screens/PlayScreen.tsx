@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ViewStyle,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
@@ -109,7 +115,6 @@ class PlayScreen extends React.Component<
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
-    this.props.navigation.state.params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
       this.handleNumberPress(key);
     } else if (key[0] === KeyType.Delete) {
@@ -119,32 +124,35 @@ class PlayScreen extends React.Component<
 
   public render() {
     const { input, guesses, inputState } = this.state;
+    const { onKeyboardPress } = this.props.navigation.state.params;
     return (
-      <View style={styles.container}>
-        <View style={styles.guessCounter}>
-          <Text>{guesses.length}</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <Input value={input} inputState={inputState} />
-        </View>
-        <LinearGradient
-          colors={['#6191FF', '#4439A7']}
-          start={[0.1, 0.1]}
-          end={[1, 1]}
-          style={styles.historyGradient}
-        >
-          <View style={styles.historyContainer}>
-            <History guesses={guesses} />
+      <TouchableWithoutFeedback onPress={() => onKeyboardPress()}>
+        <View style={styles.container}>
+          <View style={styles.guessCounter}>
+            <Text>{guesses.length}</Text>
           </View>
-        </LinearGradient>
-        <View style={styles.keyboardContainer}>
-          <CustomKeyboard
-            onPress={key => this.onKeyboardPress(key)}
-            disabledKeys={input}
-            inputState={inputState}
-          />
+          <View style={styles.inputContainer}>
+            <Input value={input} inputState={inputState} />
+          </View>
+          <LinearGradient
+            colors={['#6191FF', '#4439A7']}
+            start={[0.1, 0.1]}
+            end={[1, 1]}
+            style={styles.historyGradient}
+          >
+            <View style={styles.historyContainer}>
+              <History guesses={guesses} />
+            </View>
+          </LinearGradient>
+          <View style={styles.keyboardContainer}>
+            <CustomKeyboard
+              onPress={key => this.onKeyboardPress(key)}
+              disabledKeys={input}
+              inputState={inputState}
+            />
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

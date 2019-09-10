@@ -35,7 +35,8 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
         activeOpacity={0.7}
         onPress={() =>
           navigation.navigate(SCREEN_PLAY, {
-            onKeyboardPress: () => animatedButtonRef.current.toggleView(),
+            onKeyboardPress: () =>
+              animatedButtonRef.current.untogglePopupButtonsIfToggled(),
           })
         }
       >
