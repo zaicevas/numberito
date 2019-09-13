@@ -115,6 +115,7 @@ class PlayScreen extends React.Component<
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
+    this.props.navigation.state.params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
       this.handleNumberPress(key);
     } else if (key[0] === KeyType.Delete) {
