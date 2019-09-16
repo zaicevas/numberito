@@ -57,7 +57,7 @@ const SvgBull = () => (
 
 const renderGuess = (guess: SingleGuess) => {
   return (
-    <TouchableOpacity style={getGuessStyles(Theme.colors.white)}>
+    <TouchableOpacity style={styles.guessStyle}>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Text style={styles.text}>{guess.input}</Text>
         <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}>
@@ -75,18 +75,10 @@ const renderGuess = (guess: SingleGuess) => {
   );
 };
 
-const getGuessStyles = (backgroundColor: string): ViewStyle => {
-  return {
-    backgroundColor,
-    borderRadius: Theme.sizes.radius,
-    padding: Layout.height * 0.007,
-    margin: Layout.width * 0.02,
-  };
-};
-
 interface Style {
   container: ViewStyle;
   text: TextStyle;
+  guessStyle: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -97,6 +89,12 @@ const styles = StyleSheet.create<Style>({
   text: {
     fontSize: 18,
     color: 'black',
+  },
+  guessStyle: {
+    backgroundColor: Theme.colors.white,
+    borderRadius: Theme.sizes.radius,
+    padding: Layout.height * 0.007,
+    margin: Layout.width * 0.02,
   },
 });
 
