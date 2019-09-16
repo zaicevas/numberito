@@ -12,15 +12,15 @@ import PlayScreen from '../screens/PlayScreen';
 import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
 import TabBar from './TabBar';
-import { SCREEN_HOME } from '../constants/Screens';
+import { SCREEN_HOME, SCREEN_HISTORY } from '../constants/Screens';
 
 const FOOTBAR_ICON_SIZE = 30;
 
 const HomeStackNavigator = createStackNavigator(
   {
     Home: {
-      navigationOptions: () => ({ header: null }),
       screen: HomeScreen,
+      navigationOptions: () => ({ header: null }),
     },
   },
   {
@@ -28,20 +28,38 @@ const HomeStackNavigator = createStackNavigator(
   },
 );
 
-const BottomTabNavigator = createBottomTabNavigator(
+const HistoryStackNavigator = createStackNavigator(
   {
-    Home: HomeStackNavigator,
-    Play: {
-      screen: PlayScreen,
-    },
     History: {
       screen: HistoryScreen,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }: { tintColor: string }) => (
-          <SimpleLineIcons name="book-open" size={24} color={tintColor} />
-        ),
+        title: SCREEN_HISTORY,
+        headerStyle: {
+          backgroundColor: Theme.colors.tertiaryShadow,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
       }),
     },
+  },
+  {
+    initialRouteName: SCREEN_HISTORY,
+  },
+);
+
+HistoryStackNavigator.navigationOptions = {
+  tabBarIcon: ({ tintColor }: { tintColor: string }) => (
+    <SimpleLineIcons name="book-open" size={24} color={tintColor} />
+  ),
+};
+
+const BottomTabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeStackNavigator,
+    Play: PlayScreen,
+    History: HistoryStackNavigator,
   },
   {
     initialRouteName: SCREEN_HOME,

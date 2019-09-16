@@ -174,8 +174,8 @@ const styles = StyleSheet.create<Style>({
   },
   guessCounter: {
     position: 'absolute',
-    marginTop: Constants.statusBarHeight + 4,
-    left: Layout.width - (32 + 8),
+    marginTop: Constants.statusBarHeight + 8,
+    left: Layout.width - (32 + 12),
     borderRadius: 100,
     width: 32,
     height: 32,
