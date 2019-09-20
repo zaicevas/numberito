@@ -20,6 +20,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationScreenProps } from 'react-navigation';
 import { InputState } from '../constants/Screens';
 import Constants from 'expo-constants';
+import { updateHistory } from '../helpers/HistoryRepository';
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -102,8 +103,10 @@ class PlayScreen extends React.Component<
       const cows = getCows(input, answer);
       const guess = { input, bulls, cows };
       const correctAnswer = bulls === MAX_DIGITS;
+      const updatedGuesses = [...guesses, guess];
+      if (correctAnswer) updateHistory(updatedGuesses, answer);
       this.setState({
-        guesses: [...guesses, guess],
+        guesses: updatedGuesses,
         input: correctAnswer ? input : '',
         inputState: correctAnswer ? InputState.CORRECT_ANSWER : InputState.VALID,
       });

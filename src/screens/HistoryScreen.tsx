@@ -14,21 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme, Layout } from '../constants/index';
 import { SingleGuess } from '../types/index';
 import Svg, { Path } from 'react-native-svg';
-
-// class HistoryScreen extends React.PureComponent {
-//   public render() {
-//     return (
-//       <Layout style={styles.container}>
-//         <Text style={styles.text} category="h4">
-//           Welcome to UI Kitten
-//         </Text>
-//         <OverflowMenu>
-//           <Button>BUTTON</Button>
-//         </OverflowMenu>
-//       </Layout>
-//     );
-//   }
-// }
+import { getHistory } from '../helpers/HistoryRepository';
 
 interface Section {
   answer: string;
@@ -118,7 +104,23 @@ class HistoryScreen extends React.Component {
   public state = {
     activeSections: [],
     collapsed: true,
+    guesses: [
+      {
+        answer: '8152',
+        history: [{ input: '0123', bulls: 2, cows: 1 }],
+      },
+      {
+        answer: '1523',
+        history: [{ input: '0123', bulls: 2, cows: 1 }],
+      },
+    ],
   };
+
+  public async componentDidMount() {
+    const history = await getHistory();
+    const arr = JSON.parse(history);
+    this.setState({ guesses: arr });
+  }
 
   public setSections = (sections: Section[]) => {
     this.setState({
@@ -163,14 +165,15 @@ class HistoryScreen extends React.Component {
   }
 
   public render() {
-    const { activeSections } = this.state;
+    const { activeSections, guesses } = this.state;
+    console.log('guesses: ' + guesses);
 
     return (
       <View style={styles.container}>
         <ScrollView>
           <Accordion
             activeSections={activeSections}
-            sections={CONTENT}
+            sections={guesses}
             touchableComponent={TouchableOpacity}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
