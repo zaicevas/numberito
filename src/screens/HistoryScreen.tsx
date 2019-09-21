@@ -78,7 +78,9 @@ class HistoryScreen extends React.Component {
     return (
       <View style={[styles.header, isActive ? styles.active : styles.inactive]}>
         <View style={styles.horizontalLayout}>
-          <View style={styles.icon}>{this.getIcon()}</View>
+          <View style={styles.icon}>
+            {this.getIcon(section.history.length)}
+          </View>
           <View>
             <Text style={styles.headerText}>{section.answer}</Text>
             <Text style={styles.dateText}>{timestamp}</Text>
@@ -122,12 +124,29 @@ class HistoryScreen extends React.Component {
     );
   }
 
-  private getIcon = () => (
-    <>
-      <MaterialCommunityIcons name="numeric-6-box-multiple-outline" size={24} />
-      <MaterialCommunityIcons name="numeric-2-box-multiple-outline" size={24} />
-    </>
-  )
+  private getIcon = (guessCount: number) => {
+    if (guessCount < 10) {
+      return (
+        <MaterialCommunityIcons
+          name={`numeric-${guessCount}-box-multiple-outline`}
+          size={24}
+        />
+      );
+    }
+    if (guessCount < 1 || guessCount > 99) return null;
+    return (
+      <>
+        <MaterialCommunityIcons
+          name={`numeric-${Math.floor(guessCount / 10)}-box-multiple-outline`}
+          size={24}
+        />
+        <MaterialCommunityIcons
+          name={`numeric-${guessCount % 10}-box-multiple-outline`}
+          size={24}
+        />
+      </>
+    );
+  }
 }
 
 interface Styles {
