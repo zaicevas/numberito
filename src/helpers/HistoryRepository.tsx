@@ -14,7 +14,7 @@ const updateHistory = async (guesses: SingleGuess[], answer: string) => {
     history: guesses,
     timestamp: new Date(),
   };
-  const newHistory = [...(history || []), historyEntity];
+  const newHistory = [...(JSON.parse(history) || []), historyEntity];
   AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory));
 };
 

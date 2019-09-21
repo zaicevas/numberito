@@ -15,10 +15,12 @@ import { Theme, Layout } from '../constants/index';
 import { SingleGuess } from '../types/index';
 import Svg, { Path } from 'react-native-svg';
 import { getHistory } from '../helpers/HistoryRepository';
+import { withNavigation } from 'react-navigation';
 
 interface Section {
   answer: string;
   history: SingleGuess[];
+  timestamp: Date;
 }
 
 const SvgBull = () => (
@@ -32,12 +34,9 @@ const SvgBull = () => (
 
 const renderSingleGuess = (guess: SingleGuess, index: number) => {
   return (
-    <View
-      style={[{ display: 'flex', flexDirection: 'row' }, styles.singleGuess]}
-      key={index}
-    >
+    <View style={[styles.singleGuessContainer, styles.singleGuess]} key={index}>
       <Text style={styles.historyText}>{guess.input}</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}>
+      <View style={styles.guessInfo}>
         <Text style={styles.bullsCowsText}>{guess.bulls}</Text>
         <SvgBull />
         <Text style={styles.bullsCowsText}>{guess.cows}</Text>
@@ -51,75 +50,20 @@ const renderSingleGuess = (guess: SingleGuess, index: number) => {
   );
 };
 
-const CONTENT: Section[] = [
-  {
-    answer: '1523',
-    history: [
-      { input: '0123', bulls: 2, cows: 1 },
-      { input: '1623', bulls: 1, cows: 1 },
-    ],
-  },
-  {
-    answer: '9512',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '1523',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '8152',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '1523',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '1523',
-    history: [
-      { input: '0123', bulls: 2, cows: 1 },
-      { input: '1623', bulls: 1, cows: 1 },
-    ],
-  },
-  {
-    answer: '9512',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '1523',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '8152',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-  {
-    answer: '1523',
-    history: [{ input: '0123', bulls: 2, cows: 1 }],
-  },
-];
-
 class HistoryScreen extends React.Component {
   public state = {
     activeSections: [],
     collapsed: true,
-    guesses: [
-      {
-        answer: '8152',
-        history: [{ input: '0123', bulls: 2, cows: 1 }],
-      },
-      {
-        answer: '1523',
-        history: [{ input: '0123', bulls: 2, cows: 1 }],
-      },
-    ],
+    guesses: [],
   };
 
-  public async componentDidMount() {
-    const history = await getHistory();
-    const arr = JSON.parse(history);
-    this.setState({ guesses: arr });
+  public componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('willFocus', async () => {
+      const history = await getHistory();
+      const historyJson = JSON.parse(history);
+      this.setState({ guesses: historyJson.reverse() });
+    });
   }
 
   public setSections = (sections: Section[]) => {
@@ -129,21 +73,15 @@ class HistoryScreen extends React.Component {
   }
 
   public renderHeader = (section: Section, _: any, isActive: boolean) => {
+    const timestampSplit = section.timestamp.split('T');
+    const timestamp = `${timestampSplit[0]} ${timestampSplit[1].split('.')[0]}`;
     return (
       <View style={[styles.header, isActive ? styles.active : styles.inactive]}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            backgroundColor: Theme.colors.white,
-          }}
-        >
-          <View style={{ flex: 0.2, flexDirection: 'row', paddingLeft: 6 }}>
-            {this.getIcon()}
-          </View>
+        <View style={styles.horizontalLayout}>
+          <View style={styles.icon}>{this.getIcon()}</View>
           <View>
             <Text style={styles.headerText}>{section.answer}</Text>
-            <Text style={styles.dateText}>2019-09-12</Text>
+            <Text style={styles.dateText}>{timestamp}</Text>
           </View>
         </View>
       </View>
@@ -166,7 +104,6 @@ class HistoryScreen extends React.Component {
 
   public render() {
     const { activeSections, guesses } = this.state;
-    console.log('guesses: ' + guesses);
 
     return (
       <View style={styles.container}>
@@ -201,16 +138,14 @@ interface Styles {
   content: ViewStyle;
   active: ViewStyle;
   inactive: ViewStyle;
-  selectors: ViewStyle;
-  selector: ViewStyle;
-  activeSelector: TextStyle;
-  selectTitle: TextStyle;
-  multipleToggle: ViewStyle;
-  multipleToggle__title: TextStyle;
   dateText: TextStyle;
   historyText: TextStyle;
   singleGuess: ViewStyle;
   bullsCowsText: TextStyle;
+  horizontalLayout: ViewStyle;
+  icon: ViewStyle;
+  guessInfo: ViewStyle;
+  singleGuessContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -242,32 +177,6 @@ const styles = StyleSheet.create<Styles>({
   inactive: {
     backgroundColor: 'rgba(245,252,255,1)',
   },
-  selectors: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  selector: {
-    backgroundColor: '#F5FCFF',
-    padding: 10,
-  },
-  activeSelector: {
-    fontWeight: 'bold',
-  },
-  selectTitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    padding: 10,
-  },
-  multipleToggle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 30,
-    alignItems: 'center',
-  },
-  multipleToggle__title: {
-    fontSize: 16,
-    marginRight: 8,
-  },
   dateText: {
     fontSize: 12,
     fontWeight: '200',
@@ -286,6 +195,25 @@ const styles = StyleSheet.create<Styles>({
   bullsCowsText: {
     color: Theme.colors.white,
   },
+  horizontalLayout: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: Theme.colors.white,
+  },
+  icon: {
+    flexDirection: 'row',
+    paddingLeft: 6,
+    marginRight: 16,
+  },
+  guessInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginLeft: 4,
+  },
+  singleGuessContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 });
 
-export default HistoryScreen;
+export default withNavigation(HistoryScreen);
