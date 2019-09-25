@@ -179,7 +179,7 @@ class PlayScreen extends React.Component<
               {'Notes'}
             </CustomText>
             <TextInput
-              style={{ height: '100%', marginLeft: '5%' }}
+              style={styles.notesInput}
               value={notes}
               multiline
               placeholder={"Don't tell me you don't like burritos"}
@@ -200,6 +200,7 @@ interface Style {
   historyContainer: ViewStyle;
   keyboardContainer: ViewStyle;
   guessCounter: ViewStyle;
+  notesInput: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -242,6 +243,12 @@ const styles = StyleSheet.create<Style>({
   keyboardContainer: {
     marginTop: '3%',
     paddingBottom: '12%',
+  },
+  notesInput: {
+    height: Layout.height * 0.6,
+    marginLeft: '5%',
+    marginRight: '5%',
+    textAlignVertical: 'top',
   },
 });
 
