@@ -16,6 +16,12 @@ import { SingleGuess } from '../types/index';
 import Svg, { Path } from 'react-native-svg';
 import { getHistory } from '../helpers/HistoryRepository';
 import { withNavigation } from 'react-navigation';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  ShineOverlay,
+} from 'rn-placeholder';
 
 interface Section {
   answer: string;
@@ -31,6 +37,23 @@ const SvgBull = () => (
     />
   </Svg>
 );
+
+const LoadingPlaceholder: React.FC = () => {
+  return (
+    <>
+      {Array(20).fill(
+        <Placeholder
+          style={styles.icon}
+          Animation={ShineOverlay}
+          Left={PlaceholderMedia}
+        >
+          <PlaceholderLine width={'90%'} />
+          <PlaceholderLine width={'90%'} />
+        </Placeholder>,
+      )}
+    </>
+  );
+};
 
 const renderSingleGuess = (guess: SingleGuess, index: number) => {
   return (
@@ -55,14 +78,18 @@ class HistoryScreen extends React.Component {
     activeSections: [],
     collapsed: true,
     guesses: [],
+    isLoading: true,
   };
 
   public componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('willFocus', async () => {
+      this.setState({
+        isLoading: true,
+      });
       const history = await getHistory();
       const historyJson = JSON.parse(history);
-      this.setState({ guesses: historyJson.reverse() });
+      this.setState({ guesses: historyJson.reverse(), isLoading: false });
     });
   }
 
@@ -105,9 +132,13 @@ class HistoryScreen extends React.Component {
   }
 
   public render() {
-    const { activeSections, guesses } = this.state;
+    const { activeSections, guesses, isLoading } = this.state;
 
-    return (
+    return isLoading ? (
+      <View style={styles.container}>
+        <LoadingPlaceholder />
+      </View>
+    ) : (
       <View style={styles.container}>
         <ScrollView>
           <Accordion
