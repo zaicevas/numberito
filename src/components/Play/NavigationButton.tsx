@@ -15,6 +15,7 @@ interface NavigationButtonProps extends NavigationInjectedProps {
   refreshScreen: () => void;
   provideAnswer: () => void;
   getInputState: () => InputState;
+  toggleNotes: () => void;
 }
 
 const ANIMATION_LENGTH = 1500;
@@ -26,6 +27,7 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
   provideAnswer,
   getInputState,
   navigation,
+  toggleNotes,
 }) => {
   const [animate, setAnimate] = useState();
   const animatedButtonRef = useRef();
@@ -82,6 +84,7 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
         }}
         animate={animate}
         getInputState={getInputState}
+        toggleNotes={toggleNotes}
       />
     </View>
   );

@@ -7,8 +7,7 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import Icon from '@expo/vector-icons/FontAwesome';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons, Entypo } from '@expo/vector-icons';
 import { Theme } from '../../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
 import PopupButton from './PopupButton';
@@ -25,6 +24,7 @@ interface AnimatedButtonProps {
   onProvideAnswer: () => void;
   animate: boolean;
   getInputState: () => InputState;
+  toggleNotes: () => void;
 }
 
 interface AnimatedButtonState {
@@ -104,7 +104,13 @@ class AnimatedButton extends React.Component<
   }
 
   public render() {
-    const { onRefresh, onProvideAnswer, animate, getInputState } = this.props;
+    const {
+      onRefresh,
+      onProvideAnswer,
+      animate,
+      getInputState,
+      toggleNotes,
+    } = this.props;
     const inputState = getInputState();
     const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
     const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
@@ -135,8 +141,13 @@ class AnimatedButton extends React.Component<
             color={Theme.colors.white}
           />
         </PopupButton>
-        <PopupButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
-          <Icon name="archive" size={16} color={Theme.colors.white} />
+        <PopupButton
+          x={this.thirdX}
+          y={this.thirdY}
+          opacity={this.opacity}
+          onPress={() => this.wrapOnPress(toggleNotes)}
+        >
+          <Entypo name="open-book" size={16} color={Theme.colors.white} />
         </PopupButton>
         <TouchableHighlight
           onPress={() => this.toggleView(false)}

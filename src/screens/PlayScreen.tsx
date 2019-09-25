@@ -5,7 +5,9 @@ import {
   ViewStyle,
   Text,
   TouchableWithoutFeedback,
+  TextInput,
 } from 'react-native';
+import CustomText from '../components/Text';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
@@ -21,6 +23,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import { InputState } from '../constants/Screens';
 import Constants from 'expo-constants';
 import { updateHistory } from '../helpers/HistoryRepository';
+import SwipeablePanel from 'rn-swipeable-panel';
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -29,6 +32,8 @@ interface PlayScreenState {
   input: string;
   answer: string;
   guesses: SingleGuess[];
+  isNotesActive: boolean;
+  notes: string;
 }
 
 interface PlayScreenNavigationProps {
@@ -49,6 +54,8 @@ class PlayScreen extends React.Component<
       inputState: InputState.VALID,
       guesses: [],
       answer,
+      isNotesActive: false,
+      notes: '',
     };
   }
 
@@ -67,10 +74,13 @@ class PlayScreen extends React.Component<
       refreshScreen: this.refreshState,
       provideAnswer: this.provideAnswer,
       getInputState: this.getInputState,
+      toggleNotes: this.toggleNotes,
     });
   }
 
   public getInputState = () => this.state.inputState;
+
+  public toggleNotes = () => this.setState({ isNotesActive: true });
 
   public handleNumberPress = (key: [KeyType, string]) => {
     const { input } = this.state;
@@ -127,7 +137,7 @@ class PlayScreen extends React.Component<
   }
 
   public render() {
-    const { input, guesses, inputState } = this.state;
+    const { input, guesses, inputState, isNotesActive, notes } = this.state;
     const { onKeyboardPress } = this.props.navigation.state.params;
     return (
       <TouchableWithoutFeedback onPress={() => onKeyboardPress()}>
@@ -155,6 +165,27 @@ class PlayScreen extends React.Component<
               inputState={inputState}
             />
           </View>
+          <SwipeablePanel
+            onClose={() => this.setState({ isNotesActive: false })}
+            onPressCloseButton={() => this.setState({ isNotesActive: false })}
+            isActive={isNotesActive}
+            openLarge
+          >
+            <CustomText
+              bold
+              h1
+              style={{ marginLeft: '5%', marginBottom: '5%' }}
+            >
+              {'Notes'}
+            </CustomText>
+            <TextInput
+              style={{ height: '100%', marginLeft: '5%' }}
+              value={notes}
+              multiline
+              placeholder={"Don't tell me you don't like burritos"}
+              onChangeText={text => this.setState({ notes: text })}
+            />
+          </SwipeablePanel>
         </View>
       </TouchableWithoutFeedback>
     );

@@ -57,6 +57,7 @@ const TabBar: React.FC<TabBarProps> = ({
                     ? route.params.getInputState()
                     : InputState.VALID
                 }
+                toggleNotes={() => route.params && route.params.toggleNotes()}
               />
             </View>
           );
