@@ -1,12 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Platform, StyleSheet, ViewStyle } from 'react-native';
+import { Platform, StyleSheet, ViewStyle, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import Block from '../components/Block';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
-import { Theme } from '../constants/index';
 import { SCREEN_PLAY } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
@@ -42,18 +40,27 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
     return (
       <>
         <WelcomeBar title={TITLE} />
-        <Block flex={1} margin={[0, Theme.sizes.padding * 2]}>
-          <Button gradient onPress={() => this.handlePlayPress()}>
+        <View style={styles.container}>
+          <Button
+            gradient
+            onPress={() => this.handlePlayPress()}
+            style={styles.button}
+          >
             <Text center bold white>
               Play
             </Text>
           </Button>
-          <Button gradient startColor={'#0AC4BA'} endColor={'#2BDA8E'}>
+          <Button
+            gradient
+            startColor={'#0AC4BA'}
+            endColor={'#2BDA8E'}
+            style={styles.button}
+          >
             <Text center semibold white>
               Tutorial
             </Text>
           </Button>
-        </Block>
+        </View>
       </>
     );
   }
@@ -63,10 +70,15 @@ export default HomeScreen;
 
 interface Style {
   container: ViewStyle;
+  button: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
+  },
+  button: {
+    width: '90%',
+    alignSelf: 'center',
   },
 });
