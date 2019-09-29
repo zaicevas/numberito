@@ -40,6 +40,7 @@ interface PlayScreenNavigationProps {
   refreshScreen: () => void;
   provideAnswer: () => void;
   getInputState: () => InputState;
+  toggleNotes: () => void;
 }
 
 class PlayScreen extends React.Component<

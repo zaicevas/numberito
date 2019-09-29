@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
+  Text,
 } from 'react-native';
 import { Layout } from '../../constants/index';
-import Text from '../Text';
 
 const STATUS_BAR_HEIGHT = 20;
 
@@ -34,9 +34,7 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
     const { title } = this.props;
     return (
       <View style={styles.welcomeContainer}>
-        <Text bold center h1 style={{ marginBottom: '10%', marginTop: '5%' }}>
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <TouchableOpacity
           onPress={() => {
             this.setState({ currentIndex: this.state.currentIndex + 1 });
@@ -70,8 +68,12 @@ const styles = StyleSheet.create<Style>({
     paddingTop: STATUS_BAR_HEIGHT + 5,
   },
   title: {
-    fontSize: 28,
-    color: 'black',
+    marginBottom: '10%',
+    marginTop: '5%',
+    fontFamily: 'Avenir',
+    fontSize: 30,
+    fontWeight: '800',
+    alignSelf: 'center',
   },
 });
 

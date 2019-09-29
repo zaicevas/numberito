@@ -5,7 +5,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
-import { SCREEN_PLAY } from '../constants/Screens';
+import { SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
 
@@ -29,7 +29,7 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
   }
 
   public handleTutorialPress() {
-    console.log('tutorial pressed');
+    this.props.navigation.navigate(SCREEN_TUTORIAL);
   }
 
   public handleHelpPress() {
@@ -55,6 +55,7 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
             startColor={'#0AC4BA'}
             endColor={'#2BDA8E'}
             style={styles.button}
+            onPress={() => this.handleTutorialPress()}
           >
             <Text center semibold white>
               Tutorial
@@ -76,6 +77,7 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
   button: {
     width: '90%',

@@ -5,6 +5,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   NavigationBottomTabScreenOptions,
+  NavigationInjectedProps,
 } from 'react-navigation';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -13,6 +14,7 @@ import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { Theme } from '../constants/index';
 import TabBar from './TabBar';
 import { SCREEN_HOME, SCREEN_HISTORY } from '../constants/Screens';
+import TutorialScreen from '../screens/TutorialScreen';
 
 const FOOTBAR_ICON_SIZE = 30;
 
@@ -20,13 +22,22 @@ const HomeStackNavigator = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
-      navigationOptions: () => ({ header: null }),
+    },
+    Tutorial: {
+      screen: TutorialScreen,
     },
   },
   {
     initialRouteName: SCREEN_HOME,
+    defaultNavigationOptions: () => ({ header: null }),
   },
 );
+
+HomeStackNavigator.navigationOptions = ({
+  navigation,
+}: NavigationInjectedProps) => ({
+  tabBarVisible: navigation.state.index === 0,
+});
 
 const HistoryStackNavigator = createStackNavigator(
   {
