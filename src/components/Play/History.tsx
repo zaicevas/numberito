@@ -67,7 +67,7 @@ const renderGuess = (guess: SingleGuess) => {
           <MaterialCommunityIcons
             name="cow"
             color={Theme.colors.secondaryShadow}
-            size={19}
+            size={21}
           />
         </View>
       </View>

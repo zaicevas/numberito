@@ -12,6 +12,7 @@ export interface SingleGuess {
 
 export interface Slide {
   key: string;
+  icon: React.ReactNode;
   title: string;
   text: React.ReactNode;
   example?: React.ReactNode;
