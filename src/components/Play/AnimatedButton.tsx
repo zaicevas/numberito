@@ -14,8 +14,6 @@ import PopupButton from './PopupButton';
 import * as Animatable from 'react-native-animatable';
 import { InputState } from '../../constants/Screens';
 
-// TODO: close animatedButton when user interacts with Keyboard
-
 const AUTO_CLOSE = 15 * 1000;
 const ANIMATION_LENGTH = 1000;
 

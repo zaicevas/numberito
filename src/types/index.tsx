@@ -9,3 +9,11 @@ export interface SingleGuess {
   bulls: number;
   cows: number;
 }
+
+export interface Slide {
+  key: string;
+  title: string;
+  text: React.ReactNode;
+  example?: React.ReactNode;
+  backgroundColor: string;
+}

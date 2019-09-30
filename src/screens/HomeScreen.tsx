@@ -20,8 +20,12 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
     ),
   };
 
-  public handlePlayPress() {
-    this.props.navigation.navigate(SCREEN_PLAY);
+  public handleFeedbackPress() {
+    console.log('feedback pressed');
+  }
+
+  public handleReportPress() {
+    console.log('report pressed');
   }
 
   public handleHistoryPress() {
@@ -43,22 +47,33 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
         <View style={styles.container}>
           <Button
             gradient
-            onPress={() => this.handlePlayPress()}
-            style={styles.button}
-          >
-            <Text center bold white>
-              Play
-            </Text>
-          </Button>
-          <Button
-            gradient
             startColor={'#0AC4BA'}
             endColor={'#2BDA8E'}
             style={styles.button}
             onPress={() => this.handleTutorialPress()}
           >
-            <Text center semibold white>
+            <Text center bold white>
               Tutorial
+            </Text>
+          </Button>
+          <Button
+            gradient
+            onPress={() => this.handleReportPress()}
+            style={styles.button}
+          >
+            <Text center bold white>
+              Report
+            </Text>
+          </Button>
+          <Button
+            gradient
+            startColor={'#0a80c4'}
+            endColor={'#0a5bc4'}
+            onPress={() => this.handleFeedbackPress()}
+            style={styles.button}
+          >
+            <Text center bold white>
+              Feedback
             </Text>
           </Button>
         </View>
