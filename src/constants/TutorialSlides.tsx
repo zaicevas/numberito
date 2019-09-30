@@ -5,7 +5,7 @@ import { Theme } from './index';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Slide } from '../types/index';
 
-const LIGHT_RED = '#ff6b6b';
+const LIGHT_RED = '#ff5b45';
 
 interface Styles {
   bullsText: TextStyle;
@@ -73,22 +73,31 @@ const SLIDE_2 = {
 
 const SLIDE_3 = {
   key: '2',
-  title: 'Example',
+  title: 'Bulls and Cows',
   text: (
     <Text>
-      Bulls: digits in the correct place{'\n'}Cows: digits in the wrong place
+      <Text style={styles.bullsText}>Bull</Text>: digit in the correct place
+      {'\n'}
+      <Text style={styles.cowsText}>Cow</Text>: digit in the wrong place
     </Text>
   ),
-  backgroundColor: '#f78e31',
+  backgroundColor: '#ffb845',
 };
 
 const SLIDE_4 = {
   key: '3',
+  title: '5120',
+  text: <Text>1260</Text>,
+  backgroundColor: '#bc31f7',
+};
+
+const SLIDE_5 = {
+  key: '4',
   title: 'Unique numbers',
   text: <Text>Remember - the same digit can't appear more than once!</Text>,
   backgroundColor: '#FC515B',
 };
 
-const SLIDES: Slide[] = [SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4];
+const SLIDES: Slide[] = [SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5];
 
 export default SLIDES;
