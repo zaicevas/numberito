@@ -56,7 +56,13 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
             styles.shadow,
           ]}
         >
-          {getIcon(isFocused)}
+          <MaterialCommunityIcons
+            size={48}
+            style={styles.icon}
+            active
+            name="chili-mild"
+            color={Theme.colors.white}
+          />
         </Animatable.View>
       </TouchableOpacity>
     );
@@ -89,16 +95,6 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
     </View>
   );
 };
-
-const getIcon = (isFocused?: boolean) => (
-  <MaterialCommunityIcons
-    size={isFocused ? 36 : 48}
-    style={styles.icon}
-    active
-    name={isFocused ? 'restart' : 'chili-mild'}
-    color={Theme.colors.white}
-  />
-);
 
 interface Style {
   container: ViewStyle;

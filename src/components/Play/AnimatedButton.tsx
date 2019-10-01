@@ -166,7 +166,7 @@ class AnimatedButton extends React.Component<
             <Ionicons
               size={42}
               active
-              name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'}
+              name="md-more"
               color={Theme.colors.white}
             />
           </Animatable.View>
