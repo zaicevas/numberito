@@ -5,7 +5,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
-import { SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
+import { SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
 
