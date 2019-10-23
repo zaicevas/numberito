@@ -15,6 +15,8 @@ interface Styles {
   boldText: TextStyle;
   guess: ViewStyle;
   text: TextStyle;
+  explanationText: TextStyle;
+  headerText: TextStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -36,10 +38,21 @@ const styles = StyleSheet.create<Styles>({
     margin: Layout.width * 0.02,
   },
   text: {
-    color: '#FFFFFF',
+    color: Theme.colors.white,
     fontFamily: 'Avenir',
     fontSize: 18,
     marginHorizontal: 40,
+    textAlign: 'center',
+  },
+  explanationText: {
+    color: Theme.colors.white,
+    fontFamily: 'Avenir',
+    fontSize: 12,
+  },
+  headerText: {
+    color: Theme.colors.white,
+    fontFamily: 'Avenir',
+    fontSize: 32,
     textAlign: 'center',
   },
 });
@@ -121,21 +134,26 @@ const SLIDE_4 = {
   icon: (
     <MaterialCommunityIcons
       name="counter"
-      size={ICON_SIZE}
+      size={ICON_SIZE * 1.2}
       color={Theme.colors.white}
     />
   ),
-  title: 'Example\n5120',
-  text: null,
+  title: 'Example',
+  text: (
+    <Text style={styles.headerText}>
+      2345{'\n'}
+      <Text style={styles.explanationText}>(secret number)</Text>
+    </Text>
+  ),
   example: (
     <>
-      <Guess guess={{ input: '5290', bulls: 2, cows: 1 }} />
-      <Text style={styles.text}>
-        Because{'\n'}
-        <Text style={styles.bullsText}>5</Text>
-        <Text style={styles.cowsText}>2</Text>9
-        <Text style={styles.bullsText}>0</Text>
+      <Guess guess={{ input: '2350', bulls: 2, cows: 1 }} />
+      <Text style={styles.explanationText}>(your guess)</Text>
+      <Text style={styles.headerText}>
+        <Text style={styles.bullsText}>23</Text>
+        <Text style={styles.cowsText}>5</Text>0
       </Text>
+      <Text style={styles.explanationText}>(2,3 are bulls, 5 is a cow)</Text>
     </>
   ),
   backgroundColor: '#4b4c96',
