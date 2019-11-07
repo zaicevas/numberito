@@ -1,6 +1,13 @@
 import React from 'react';
 import { SingleGuess } from '../types/index';
-import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+  TouchableOpacity,
+} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme, Layout } from '../constants/index';
 import SvgBull from './SvgBull';
@@ -11,7 +18,7 @@ interface GuessProps {
 
 const Guess: React.FC<GuessProps> = ({ guess }) => {
   return (
-    <View style={styles.overlay}>
+    <TouchableOpacity style={styles.overlay}>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Text style={styles.text}>{guess.input}</Text>
         <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 4 }}>
@@ -25,7 +32,7 @@ const Guess: React.FC<GuessProps> = ({ guess }) => {
           />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
