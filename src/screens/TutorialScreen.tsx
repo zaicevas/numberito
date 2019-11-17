@@ -36,23 +36,21 @@ const styles = StyleSheet.create<Styles>({
   slide: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   header: {
     color: '#FFFFFF',
-    fontFamily: 'Avenir',
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   text: {
     color: '#FFFFFF',
-    fontFamily: 'Avenir',
     fontSize: 18,
     marginHorizontal: 40,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
 export default TutorialScreen;

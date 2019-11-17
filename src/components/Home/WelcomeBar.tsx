@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-  Text,
+  Text
 } from 'react-native';
 import { Layout } from '../../constants/index';
 
@@ -17,7 +17,7 @@ const photos = [
   require('../../../assets/home/bean_confident.jpg'),
   require('../../../assets/home/bean_confident2.png'),
   require('../../../assets/home/happy-sombrero.jpg'),
-  require('../../../assets/home/happy_hispanic.jpeg'),
+  require('../../../assets/home/happy_hispanic.jpeg')
 ];
 
 interface WelcomeBarProps {
@@ -26,7 +26,7 @@ interface WelcomeBarProps {
 
 class WelcomeBar extends React.Component<WelcomeBarProps> {
   public state = {
-    currentIndex: 0,
+    currentIndex: 0
   };
 
   public render() {
@@ -41,7 +41,7 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
           }}
         >
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             source={photos[currentIndex % 4]}
             style={styles.welcomeImage}
           />
@@ -61,20 +61,19 @@ const styles = StyleSheet.create<Style>({
   welcomeImage: {
     height: Layout.height * 0.25,
     marginBottom: '4%',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   welcomeContainer: {
     flex: 1,
-    paddingTop: STATUS_BAR_HEIGHT + 5,
+    paddingTop: STATUS_BAR_HEIGHT + 5
   },
   title: {
     marginBottom: '10%',
     marginTop: '5%',
-    fontFamily: 'Avenir',
     fontSize: 30,
     fontWeight: '800',
-    alignSelf: 'center',
-  },
+    alignSelf: 'center'
+  }
 });
 
 export default WelcomeBar;
