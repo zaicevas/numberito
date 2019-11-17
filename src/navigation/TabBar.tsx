@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   ViewStyle,
   StyleProp,
+  SafeAreaView
 } from 'react-native';
 import { Theme } from '../constants/index';
 import {
   TabScene,
   NavigationRoute,
-  NavigationInjectedProps,
+  NavigationInjectedProps
 } from 'react-navigation';
 import { SCREEN_MIDDLE_BUTTON, InputState } from '../constants/Screens';
 import NavigationButton from '../components/Play/NavigationButton';
@@ -25,83 +26,121 @@ const TabBar: React.FC<TabBarProps> = ({
   navigation,
   activeTintColor,
   inactiveTintColor,
-  style,
   showLabel,
-  getLabelText,
+  getLabelText
 }) => {
   const { routes, index: activeRouteIndex } = navigation.state;
   return (
-    <View style={[styles.container, style]}>
-      {routes.map((route, routeIndex) => {
-        const isRouteActive = routeIndex === activeRouteIndex;
-        const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
-        const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
-        if (isMiddleButtonScreen) {
+    <SafeAreaView
+      pointerEvents='box-none'
+      style={styles.container}
+      forceInset={{
+        top: 'never',
+        bottom: 'always'
+      }}
+    >
+      <SafeAreaView
+        style={[styles.fakeBackground]}
+        forceInset={{
+          top: 'never',
+          bottom: 'always'
+        }}
+      >
+        <View style={styles.iconsContainer} />
+      </SafeAreaView>
+      <View pointerEvents='box-none' style={styles.content}>
+        {routes.map((route, routeIndex) => {
+          const isRouteActive = routeIndex === activeRouteIndex;
+          const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
+          const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
+          if (isMiddleButtonScreen) {
+            return (
+              <View style={styles.tabButton} key={routeIndex}>
+                <NavigationButton
+                  isFocused={isRouteActive}
+                  backgroundColor={
+                    isRouteActive ? activeTintColor : Theme.colors.primary
+                  }
+                  navigation={navigation}
+                  navigate={() => onTabPress({ route })}
+                  refreshScreen={() =>
+                    route.params && route.params.refreshScreen()
+                  }
+                  provideAnswer={() =>
+                    route.params && route.params.provideAnswer()
+                  }
+                  getInputState={() =>
+                    route.params && route.params.getInputState
+                      ? route.params.getInputState()
+                      : InputState.VALID
+                  }
+                  toggleNotes={() => route.params && route.params.toggleNotes()}
+                />
+              </View>
+            );
+          }
+
           return (
-            <View style={styles.tabButton} key={routeIndex}>
-              <NavigationButton
-                isFocused={isRouteActive}
-                backgroundColor={
-                  isRouteActive ? activeTintColor : Theme.colors.primary
-                }
-                navigation={navigation}
-                navigate={() => onTabPress({ route })}
-                refreshScreen={() =>
-                  route.params && route.params.refreshScreen()
-                }
-                provideAnswer={() =>
-                  route.params && route.params.provideAnswer()
-                }
-                getInputState={() =>
-                  route.params && route.params.getInputState
-                    ? route.params.getInputState()
-                    : InputState.VALID
-                }
-                toggleNotes={() => route.params && route.params.toggleNotes()}
-              />
-            </View>
+            <TouchableOpacity
+              activeOpacity={isMiddleButtonScreen ? 0.5 : 1}
+              key={routeIndex}
+              style={styles.tabButton}
+              onPress={() => {
+                onTabPress({ route });
+              }}
+              onLongPress={() => {
+                onTabLongPress({ route });
+              }}
+            >
+              {renderIcon({ tintColor, route, focused: isRouteActive })}
+
+              {showLabel ? <Text>{getLabelText({ route })}</Text> : null}
+            </TouchableOpacity>
           );
-        }
-
-        return (
-          <TouchableOpacity
-            activeOpacity={isMiddleButtonScreen ? 0.5 : 1}
-            key={routeIndex}
-            style={styles.tabButton}
-            onPress={() => {
-              onTabPress({ route });
-            }}
-            onLongPress={() => {
-              onTabLongPress({ route });
-            }}
-          >
-            {renderIcon({ tintColor, route, focused: isRouteActive })}
-
-            {showLabel ? <Text>{getLabelText({ route })}</Text> : null}
-          </TouchableOpacity>
-        );
-      })}
-    </View>
+        })}
+      </View>
+    </SafeAreaView>
   );
 };
 
 interface Styles {
-  container: ViewStyle;
+  iconsContainer: ViewStyle;
   tabButton: ViewStyle;
+  container: ViewStyle;
+  fakeBackground: ViewStyle;
+  content: ViewStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
-  container: {
+  iconsContainer: {
     flexDirection: 'row',
     borderTopWidth: 0.25,
     height: FOOTBAR_HEIGHT,
-    borderColor: Theme.colors.gray,
+    borderColor: Theme.colors.gray
   },
   tabButton: {
     flex: 1,
-    justifyContent: 'center',
+    height: 50,
+    width: 50,
     alignItems: 'center',
+    justifyContent: 'center'
   },
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    justifyContent: 'flex-end',
+    minHeight: 160
+  },
+  fakeBackground: {
+    position: 'absolute',
+    width: '100%'
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  }
 });
 
 interface TabBarProps extends NavigationInjectedProps {
@@ -110,7 +149,7 @@ interface TabBarProps extends NavigationInjectedProps {
   renderIcon: ({
     route,
     focused,
-    tintColor,
+    tintColor
   }: {
     route: NavigationRoute;
     focused: boolean;

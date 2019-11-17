@@ -27,7 +27,7 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
   provideAnswer,
   getInputState,
   navigation,
-  toggleNotes,
+  toggleNotes
 }) => {
   const [animate, setAnimate] = useState();
   const animatedButtonRef = useRef();
@@ -38,29 +38,29 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
         onPress={() =>
           navigation.navigate(SCREEN_PLAY, {
             onKeyboardPress: () =>
-              animatedButtonRef.current.untogglePopupButtonsIfToggled(),
+              animatedButtonRef.current.untogglePopupButtonsIfToggled()
           })
         }
       >
         <Animatable.View
-          easing="ease-out"
-          animation="tada"
-          iterationCount="infinite"
+          easing='ease-out'
+          animation='tada'
+          iterationCount='infinite'
           duration={ANIMATION_LENGTH}
           useNativeDriver={true}
           style={[
             {
-              backgroundColor,
+              backgroundColor
             },
             styles.container,
-            styles.shadow,
+            styles.shadow
           ]}
         >
           <MaterialCommunityIcons
             size={48}
             style={styles.icon}
             active
-            name="chili-mild"
+            name='chili-mild'
             color={Theme.colors.white}
           />
         </Animatable.View>
@@ -70,12 +70,13 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
 
   return (
     <View
+      pointerEvents='box-none'
       style={[
         {
-          backgroundColor,
+          backgroundColor
         },
         styles.container,
-        styles.shadow,
+        styles.shadow
       ]}
     >
       <AnimatedButton
@@ -110,11 +111,11 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 50
   },
   icon: {
     alignSelf: 'center',
-    paddingTop: '5%',
+    paddingTop: '5%'
   },
   shadow: {
     shadowColor: Theme.colors.black,
@@ -122,9 +123,9 @@ const styles = StyleSheet.create<Style>({
     shadowRadius: 5,
     shadowOffset: {
       width: 0,
-      height: 1,
-    },
-  },
+      height: 1
+    }
+  }
 });
 
 export default NavigationButtonFC;
