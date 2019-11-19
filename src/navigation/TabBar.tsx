@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -7,15 +7,15 @@ import {
   ViewStyle,
   StyleProp,
   SafeAreaView
-} from 'react-native';
-import { Theme } from '../constants/index';
+} from "react-native";
+import { Theme } from "../constants/index";
 import {
   TabScene,
   NavigationRoute,
   NavigationInjectedProps
-} from 'react-navigation';
-import { SCREEN_MIDDLE_BUTTON, InputState } from '../constants/Screens';
-import NavigationButton from '../components/Play/NavigationButton';
+} from "react-navigation";
+import { SCREEN_MIDDLE_BUTTON, InputState } from "../constants/Screens";
+import NavigationButton from "../components/Play/NavigationButton";
 
 const FOOTBAR_HEIGHT = 50;
 
@@ -27,28 +27,29 @@ const TabBar: React.FC<TabBarProps> = ({
   activeTintColor,
   inactiveTintColor,
   showLabel,
-  getLabelText
+  getLabelText,
+  style
 }) => {
   const { routes, index: activeRouteIndex } = navigation.state;
   return (
     <SafeAreaView
-      pointerEvents='box-none'
+      pointerEvents="box-none"
       style={styles.container}
       forceInset={{
-        top: 'never',
-        bottom: 'always'
+        top: "never",
+        bottom: "always"
       }}
     >
       <SafeAreaView
-        style={[styles.fakeBackground]}
+        style={[styles.fakeBackground, style]}
         forceInset={{
-          top: 'never',
-          bottom: 'always'
+          top: "never",
+          bottom: "always"
         }}
       >
         <View style={styles.iconsContainer} />
       </SafeAreaView>
-      <View pointerEvents='box-none' style={styles.content}>
+      <View pointerEvents="box-none" style={styles.content}>
         {routes.map((route, routeIndex) => {
           const isRouteActive = routeIndex === activeRouteIndex;
           const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
@@ -113,7 +114,7 @@ interface Styles {
 
 const styles = StyleSheet.create<Styles>({
   iconsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     borderTopWidth: 0.25,
     height: FOOTBAR_HEIGHT,
     borderColor: Theme.colors.gray
@@ -122,24 +123,24 @@ const styles = StyleSheet.create<Styles>({
     flex: 1,
     height: 50,
     width: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   container: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    width: '100%',
-    justifyContent: 'flex-end',
+    width: "100%",
+    justifyContent: "flex-end",
     minHeight: 160
   },
   fakeBackground: {
-    position: 'absolute',
-    width: '100%'
+    position: "absolute",
+    width: "100%"
   },
   content: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end'
+    flexDirection: "row",
+    alignItems: "flex-end"
   }
 });
 
