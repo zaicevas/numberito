@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Theme } from '../../constants/index';
-import * as Animatable from 'react-native-animatable';
-import { StyleSheet, ViewStyle, TouchableOpacity, View } from 'react-native';
-import AnimatedButton from './AnimatedButton';
-import { NavigationInjectedProps } from 'react-navigation';
-import { MIDDLE_BUTTON_SIZE } from '../../constants/Navigation';
-import { InputState, SCREEN_PLAY } from '../../constants/Screens';
+import React, { useState, useRef } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Theme } from "../../constants/index";
+import * as Animatable from "react-native-animatable";
+import { StyleSheet, ViewStyle, TouchableOpacity, View } from "react-native";
+import AnimatedButton from "./AnimatedButton";
+import { NavigationInjectedProps } from "react-navigation";
+import { MIDDLE_BUTTON_SIZE } from "../../constants/Navigation";
+import { InputState, SCREEN_PLAY } from "../../constants/Screens";
 
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -31,56 +31,17 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
 }) => {
   const [animate, setAnimate] = useState();
   const animatedButtonRef = useRef();
-  if (!isFocused) {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={() =>
-          navigation.navigate(SCREEN_PLAY, {
-            onKeyboardPress: () =>
-              animatedButtonRef.current.untogglePopupButtonsIfToggled()
-          })
-        }
-      >
-        <Animatable.View
-          easing='ease-out'
-          animation='tada'
-          iterationCount='infinite'
-          duration={ANIMATION_LENGTH}
-          useNativeDriver={true}
-          style={[
-            {
-              backgroundColor
-            },
-            styles.container,
-            styles.shadow
-          ]}
-        >
-          <MaterialCommunityIcons
-            size={48}
-            style={styles.icon}
-            active
-            name='chili-mild'
-            color={Theme.colors.white}
-          />
-        </Animatable.View>
-      </TouchableOpacity>
-    );
-  }
 
   return (
     <View
-      pointerEvents='box-none'
-      style={[
-        {
-          backgroundColor
-        },
-        styles.container,
-        styles.shadow
-      ]}
+      pointerEvents="box-none"
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "flex-end"
+      }}
     >
       <AnimatedButton
-        ref={animatedButtonRef}
         onRefresh={() => {
           setAnimate(false);
           refreshScreen();
@@ -107,15 +68,15 @@ const styles = StyleSheet.create<Style>({
   container: {
     height: MIDDLE_BUTTON_SIZE,
     width: MIDDLE_BUTTON_SIZE,
-    borderColor: 'lightgrey',
+    borderColor: "lightgrey",
     borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 50
   },
   icon: {
-    alignSelf: 'center',
-    paddingTop: '5%'
+    alignSelf: "center",
+    paddingTop: "5%"
   },
   shadow: {
     shadowColor: Theme.colors.black,
