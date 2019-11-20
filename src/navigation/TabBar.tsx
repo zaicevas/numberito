@@ -16,6 +16,9 @@ import {
 } from "react-navigation";
 import { SCREEN_MIDDLE_BUTTON, InputState } from "../constants/Screens";
 import NavigationButton from "../components/Play/NavigationButton";
+import MiddleButton from "./MiddleButton";
+import { MultiBarToggle } from "react-native-multibar";
+import { Entypo } from "@expo/vector-icons";
 
 const FOOTBAR_HEIGHT = 50;
 
@@ -55,6 +58,32 @@ const TabBar: React.FC<TabBarProps> = ({
           const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
           if (isMiddleButtonScreen) {
+            return (
+              <MultiBarToggle
+                navigation={navigation}
+                actionSize={30}
+                routes={[
+                  {
+                    routeName: "History",
+                    color: "red",
+                    icon: (
+                      <Entypo
+                        name="open-book"
+                        size={16}
+                        color={Theme.colors.white}
+                      />
+                    )
+                  }
+                ]}
+                icon={
+                  <Entypo
+                    name="open-book"
+                    size={16}
+                    color={Theme.colors.white}
+                  />
+                }
+              />
+            );
             return (
               <View style={styles.tabButton} key={routeIndex}>
                 <NavigationButton
