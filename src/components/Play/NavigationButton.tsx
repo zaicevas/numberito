@@ -160,12 +160,10 @@ class SubButton extends React.Component {
           {
             position: "absolute",
             justifyContent: "center",
-            alignItems: "center"
-          },
-          {
-            marginLeft: -15,
+            alignItems: "center",
             left: this.props.x,
-            bottom: this.props.y
+            bottom: this.props.y,
+            opacity: this.props.opacity
           }
         ]}
       >
@@ -174,9 +172,12 @@ class SubButton extends React.Component {
             width: 40,
             height: 40,
             borderRadius: 100,
-            backgroundColor: "black"
+            backgroundColor: this.props.disabled
+              ? Theme.colors.gray
+              : Theme.colors.lightBlue
           }}
-          onPress={() => console.log("PAGALIAU BLT")}
+          onPress={() => console.log("PAGALIAU!")}
+          disabled={this.props.disabled}
         >
           <View
             pointerEvents="box-none"
@@ -244,27 +245,27 @@ class MiddleButton extends React.Component {
 
   private firstX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, -40]
+    outputRange: [20, -70]
   });
   private firstY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 100]
+    outputRange: [0, 60]
   });
   private secondX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 20]
+    outputRange: [20, 0]
   });
   private secondY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -55]
+    outputRange: [0, 90]
   });
   private thirdX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 80]
+    outputRange: [20, 70]
   });
   private thirdY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -30]
+    outputRange: [0, 60]
   });
   private opacity = this.mode.interpolate({
     inputRange: [0, 1],
@@ -272,7 +273,7 @@ class MiddleButton extends React.Component {
   });
   private rotation = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "45deg"]
+    outputRange: ["0deg", "90deg"]
   });
 
   // should be rewritten without flag parameter
@@ -295,56 +296,25 @@ class MiddleButton extends React.Component {
 
   public renderActions = () => {
     return (
-      <SubButton x={this.firstX} y={this.firstY}>
-        <Ionicons
-          name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
-          size={16}
-          color={Theme.colors.white}
-        />
-      </SubButton>
-    );
-  };
-
-  public renderActionMy = (x, y) => {
-    return (
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            justifyContent: "center",
-            alignItems: "center"
-          },
-          {
-            marginLeft: -15,
-            left: x,
-            bottom: y
-          }
-        ]}
-      >
-        <TouchableOpacity
-          onPress={() => console.log("QEWQEVQWVEQWEVWQEWQEQW")}
-          style={[
-            styles.touchableHighlight,
-            {
-              width: 40,
-              height: 40,
-              borderRadius: 100,
-              backgroundColor: "black"
-            }
-          ]}
-        >
-          <View
-            pointerEvents="box-none"
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Ionicons
-              name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
-              size={16}
-              color={Theme.colors.white}
-            />
-          </View>
-        </TouchableOpacity>
-      </Animated.View>
+      <>
+        <SubButton x={this.firstX} y={this.firstY} opacity={this.opacity}>
+          <Ionicons
+            name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+            size={16}
+            color={Theme.colors.white}
+          />
+        </SubButton>
+        <SubButton x={this.secondX} y={this.secondY} opacity={this.opacity}>
+          <MaterialCommunityIcons
+            name="numeric"
+            size={16}
+            color={Theme.colors.white}
+          />
+        </SubButton>
+        <SubButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
+          <Entypo name="open-book" size={16} color={Theme.colors.white} />
+        </SubButton>
+      </>
     );
   };
 
