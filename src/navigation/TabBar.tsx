@@ -58,7 +58,18 @@ const TabBar: React.FC<TabBarProps> = ({
           const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
           if (isMiddleButtonScreen) {
-            return <NavigationButton />;
+            return (
+              <NavigationButton
+                isFocused={isRouteActive}
+                navigation={navigation}
+                activeTintColor={activeTintColor}
+                style={{
+                  backgroundColor: isRouteActive
+                    ? activeTintColor
+                    : Theme.colors.primary
+                }}
+              />
+            );
             return (
               <View style={styles.tabButton} key={routeIndex}>
                 <NavigationButton

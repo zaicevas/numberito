@@ -19,47 +19,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 const AUTO_CLOSE = 15 * 1000;
-class SubButton extends React.Component {
-  render() {
-    return (
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            justifyContent: "center",
-            alignItems: "center"
-          },
-          {
-            marginLeft: -15,
-            left: this.props.x,
-            bottom: this.props.y
-          }
-        ]}
-      >
-        <AnimatedTouchable
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 100,
-            backgroundColor: "black"
-          }}
-          onPress={() => console.log("PAGALIAU BLT")}
-        >
-          <View
-            pointerEvents="box-none"
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Ionicons
-              name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
-              size={16}
-              color={Theme.colors.white}
-            />
-          </View>
-        </AnimatedTouchable>
-      </Animated.View>
-    );
-  }
-}
+
 const PopupButton: React.FC<PopupButtonProps> = ({
   x,
   y,
@@ -93,7 +53,11 @@ const PopupButton: React.FC<PopupButtonProps> = ({
           pointerEvents="box-none"
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          {children}
+          <Ionicons
+            name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+            size={16}
+            color={Theme.colors.white}
+          />
         </View>
       </TouchableOpacity>
     </Animated.View>
@@ -123,17 +87,56 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
 }) => {
   const [animate, setAnimate] = useState();
   const animatedButtonRef = useRef();
+  if (!isFocused) {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() =>
+          navigation.navigate(SCREEN_PLAY, {
+            onKeyboardPress: () =>
+              animatedButtonRef.current.untogglePopupButtonsIfToggled()
+          })
+        }
+      >
+        <Animatable.View
+          easing="ease-out"
+          animation="tada"
+          iterationCount="infinite"
+          duration={ANIMATION_LENGTH}
+          useNativeDriver={true}
+          style={[
+            {
+              backgroundColor
+            },
+            styles.container,
+            styles.shadow
+          ]}
+        >
+          <MaterialCommunityIcons
+            size={48}
+            style={styles.icon}
+            active
+            name="chili-mild"
+            color={Theme.colors.white}
+          />
+        </Animatable.View>
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <View
       pointerEvents="box-none"
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "flex-end"
-      }}
+      style={[
+        {
+          backgroundColor
+        },
+        styles.container,
+        styles.shadow
+      ]}
     >
       <AnimatedButton
+        ref={animatedButtonRef}
         onRefresh={() => {
           setAnimate(false);
           refreshScreen();
@@ -149,7 +152,78 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
     </View>
   );
 };
+class SubButton extends React.Component {
+  render() {
+    return (
+      <Animated.View
+        style={[
+          {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center"
+          },
+          {
+            marginLeft: -15,
+            left: this.props.x,
+            bottom: this.props.y
+          }
+        ]}
+      >
+        <AnimatedTouchable
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 100,
+            backgroundColor: "black"
+          }}
+          onPress={() => console.log("PAGALIAU BLT")}
+        >
+          <View
+            pointerEvents="box-none"
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            {this.props.children}
+          </View>
+        </AnimatedTouchable>
+      </Animated.View>
+    );
+  }
+}
 
+const ChiliButton: React.FC = ({ navigation }) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() =>
+        navigation.navigate(SCREEN_PLAY, {
+          onKeyboardPress: () =>
+            animatedButtonRef.current.untogglePopupButtonsIfToggled()
+        })
+      }
+    >
+      <Animatable.View
+        easing="ease-out"
+        animation="tada"
+        iterationCount="infinite"
+        duration={ANIMATION_LENGTH}
+        useNativeDriver={true}
+        style={[
+          { backgroundColor: Theme.colors.primary },
+          styles.container,
+          styles.shadow
+        ]}
+      >
+        <MaterialCommunityIcons
+          size={48}
+          style={styles.icon}
+          active
+          name="chili-mild"
+          color={Theme.colors.white}
+        />
+      </Animatable.View>
+    </TouchableOpacity>
+  );
+};
 class MiddleButton extends React.Component {
   public state = {
     timeout: 0,
@@ -164,7 +238,7 @@ class MiddleButton extends React.Component {
   });
   private firstY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 80]
+    outputRange: [0, 100]
   });
   private secondX = this.mode.interpolate({
     inputRange: [0, 1],
@@ -210,47 +284,106 @@ class MiddleButton extends React.Component {
   };
 
   public renderActions = () => {
-    return <SubButton x={this.firstX} y={this.firstY} />;
+    return (
+      <SubButton x={this.firstX} y={this.firstY}>
+        <Ionicons
+          name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+          size={16}
+          color={Theme.colors.white}
+        />
+      </SubButton>
+    );
+  };
+
+  public renderActionMy = (x, y) => {
+    return (
+      <Animated.View
+        style={[
+          {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center"
+          },
+          {
+            marginLeft: -15,
+            left: x,
+            bottom: y
+          }
+        ]}
+      >
+        <TouchableOpacity
+          onPress={() => console.log("QEWQEVQWVEQWEVWQEWQEQW")}
+          style={[
+            styles.touchableHighlight,
+            {
+              width: 40,
+              height: 40,
+              borderRadius: 100,
+              backgroundColor: "black"
+            }
+          ]}
+        >
+          <View
+            pointerEvents="box-none"
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Ionicons
+              name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+              size={16}
+              color={Theme.colors.white}
+            />
+          </View>
+        </TouchableOpacity>
+      </Animated.View>
+    );
   };
 
   render() {
+    const { navigation, isFocused } = this.props;
     return (
       <View
         pointerEvents="box-none"
         style={{
           flex: 1,
           alignItems: "center",
-          justifyContent: "flex-end",
           height: MIDDLE_BUTTON_SIZE,
-          width: MIDDLE_BUTTON_SIZE
+          width: MIDDLE_BUTTON_SIZE,
+          bottom: 15
         }}
       >
-        <View style={{ position: "absolute", bottom: 0 }}>
-          {this.renderActions()}
-        </View>
-        <AnimatedTouchable
-          activeOpacity={1}
-          onPress={() => this.toggleView(false)}
-        >
-          <Animated.View
-            style={[
-              {
-                top: 15,
-                left: 0,
-                alignItems: "center",
-                justifyContent: "center"
-              },
-              {
-                width: 75,
-                height: 75,
-                borderRadius: 100,
-                backgroundColor: "red"
-              }
-            ]}
+        {isFocused ? (
+          <View style={{ position: "absolute", bottom: 0 }}>
+            {this.renderActions()}
+          </View>
+        ) : null}
+        {!isFocused ? (
+          <ChiliButton navigation={navigation} />
+        ) : (
+          <AnimatedTouchable
+            activeOpacity={1}
+            onPress={() => this.toggleView(false)}
           >
-            <Entypo name="open-book" size={40} color={Theme.colors.white} />
-          </Animated.View>
-        </AnimatedTouchable>
+            <Animated.View
+              style={[
+                {
+                  top: 15,
+                  left: 0,
+                  alignItems: "center",
+                  justifyContent: "center"
+                },
+                {
+                  width: 75,
+                  height: 75,
+                  borderRadius: 100,
+                  borderColor: "white",
+                  backgroundColor: "red"
+                }
+              ]}
+            >
+              <Entypo name="open-book" size={40} color={Theme.colors.white} />
+            </Animated.View>
+          </AnimatedTouchable>
+        )}
       </View>
     );
   }

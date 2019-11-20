@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   View,
   ViewStyle,
   Text,
   TouchableWithoutFeedback,
-  TextInput,
-} from 'react-native';
-import CustomText from '../components/Text';
-import History from '../components/Play/History';
-import Input from '../components/Play/Input';
-import CustomKeyboard from '../components/Play/Keyboard';
-import { Layout, MAX_DIGITS, Theme } from '../constants/index';
-import { KeyType, SingleGuess } from '../types/index';
+  TextInput
+} from "react-native";
+import CustomText from "../components/Text";
+import History from "../components/Play/History";
+import Input from "../components/Play/Input";
+import CustomKeyboard from "../components/Play/Keyboard";
+import { Layout, MAX_DIGITS, Theme } from "../constants/index";
+import { KeyType, SingleGuess } from "../types/index";
 import {
   getRandomAnswer,
   getBulls,
-  getCows,
-} from '../helpers/InputManipulation';
-import { LinearGradient } from 'expo-linear-gradient';
-import { NavigationScreenProps } from 'react-navigation';
-import { InputState } from '../constants/Screens';
-import Constants from 'expo-constants';
-import { updateHistory } from '../helpers/HistoryRepository';
-import SwipeablePanel from 'rn-swipeable-panel';
+  getCows
+} from "../helpers/InputManipulation";
+import { LinearGradient } from "expo-linear-gradient";
+import { NavigationScreenProps } from "react-navigation";
+import { InputState } from "../constants/Screens";
+import Constants from "expo-constants";
+import { updateHistory } from "../helpers/HistoryRepository";
+import SwipeablePanel from "rn-swipeable-panel";
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -51,14 +51,14 @@ class PlayScreen extends React.Component<
     const answer = getRandomAnswer();
     console.log(answer);
     return {
-      input: '',
+      input: "",
       inputState: InputState.VALID,
       guesses: [],
       answer,
       isNotesActive: false,
-      notes: '',
+      notes: ""
     };
-  }
+  };
 
   public state = PlayScreen.getEmptyState();
 
@@ -67,7 +67,7 @@ class PlayScreen extends React.Component<
   public provideAnswer = () => {
     const { answer } = this.state;
     this.setState({ input: answer, inputState: InputState.PROVIDED_ANSWER });
-  }
+  };
 
   public componentDidMount() {
     const { navigation } = this.props;
@@ -75,7 +75,7 @@ class PlayScreen extends React.Component<
       refreshScreen: this.refreshState,
       provideAnswer: this.provideAnswer,
       getInputState: this.getInputState,
-      toggleNotes: this.toggleNotes,
+      toggleNotes: this.toggleNotes
     });
   }
 
@@ -91,10 +91,10 @@ class PlayScreen extends React.Component<
     ) {
       this.setState({
         input: input + key[1],
-        inputState: InputState.VALID,
+        inputState: InputState.VALID
       });
     }
-  }
+  };
 
   public handleDeletePress = () => {
     const { input, inputState } = this.state;
@@ -103,9 +103,9 @@ class PlayScreen extends React.Component<
       inputState:
         input.length > 0 && inputState === InputState.INVALID
           ? InputState.VALID
-          : inputState,
+          : inputState
     });
-  }
+  };
 
   public handleCheckPress = () => {
     const { input, answer, guesses } = this.state;
@@ -118,30 +118,37 @@ class PlayScreen extends React.Component<
       if (correctAnswer) updateHistory(updatedGuesses, answer);
       this.setState({
         guesses: updatedGuesses,
-        input: correctAnswer ? input : '',
-        inputState: correctAnswer ? InputState.CORRECT_ANSWER : InputState.VALID,
+        input: correctAnswer ? input : "",
+        inputState: correctAnswer ? InputState.CORRECT_ANSWER : InputState.VALID
       });
     } else this.handleInvalidInput();
-  }
+  };
 
   public handleInvalidInput = () => {
     this.setState({ inputState: InputState.INVALID });
-  }
+  };
 
   public onKeyboardPress = (key: [KeyType, string]) => {
-    this.props.navigation.state.params.onKeyboardPress();
+    this.props.navigation.state.params &&
+      this.props.navigation.state.params.onKeyboardPress &&
+      this.props.navigation.state.params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
       this.handleNumberPress(key);
     } else if (key[0] === KeyType.Delete) {
       this.handleDeletePress();
     } else if (key[0] === KeyType.Check) this.handleCheckPress();
-  }
+  };
 
   public render() {
     const { input, guesses, inputState, isNotesActive, notes } = this.state;
-    const { onKeyboardPress } = this.props.navigation.state.params;
     return (
-      <TouchableWithoutFeedback onPress={() => onKeyboardPress()}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          this.props.navigation.state.params &&
+          this.props.navigation.state.params.onKeyboardPress &&
+          this.props.navigation.state.params.onKeyboardPress()
+        }
+      >
         <View style={styles.container}>
           <View style={styles.guessCounter}>
             <Text>{guesses.length}</Text>
@@ -150,7 +157,7 @@ class PlayScreen extends React.Component<
             <Input value={input} inputState={inputState} />
           </View>
           <LinearGradient
-            colors={['#6191FF', '#4439A7']}
+            colors={["#6191FF", "#4439A7"]}
             start={[0.1, 0.1]}
             end={[1, 1]}
             style={styles.historyGradient}
@@ -175,9 +182,9 @@ class PlayScreen extends React.Component<
             <CustomText
               bold
               h1
-              style={{ marginLeft: '5%', marginBottom: '5%' }}
+              style={{ marginLeft: "5%", marginBottom: "5%" }}
             >
-              {'Notes'}
+              {"Notes"}
             </CustomText>
             <TextInput
               style={styles.notesInput}
@@ -206,51 +213,51 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
+    flex: 1
   },
   guessCounter: {
-    position: 'absolute',
+    position: "absolute",
     marginTop: Constants.statusBarHeight + 8,
     left: Layout.width - (32 + 12),
     borderRadius: 100,
     width: 32,
     height: 32,
-    borderColor: 'black',
+    borderColor: "black",
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   underlineStyle: {
     width: Layout.width * INPUT_LINE_WIDTH,
     height: Layout.width * 0.01,
-    backgroundColor: Theme.colors.black,
+    backgroundColor: Theme.colors.black
   },
   inputContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: '20%',
-    alignSelf: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: "20%",
+    alignSelf: "center"
   },
   historyGradient: {
     flex: 0.75,
-    width: '95%',
+    width: "95%",
     borderRadius: Theme.sizes.radius,
-    alignSelf: 'center',
+    alignSelf: "center"
   },
   historyContainer: {
     flex: 1,
-    borderRadius: Theme.sizes.radius,
+    borderRadius: Theme.sizes.radius
   },
   keyboardContainer: {
-    marginTop: '3%',
-    paddingBottom: '12%',
+    marginTop: "3%",
+    paddingBottom: "12%"
   },
   notesInput: {
     height: Layout.height * 0.6,
-    marginLeft: '5%',
-    marginRight: '5%',
-    textAlignVertical: 'top',
-  },
+    marginLeft: "5%",
+    marginRight: "5%",
+    textAlignVertical: "top"
+  }
 });
 
 export default PlayScreen;
