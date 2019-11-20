@@ -20,50 +20,6 @@ const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 const AUTO_CLOSE = 15 * 1000;
 
-const PopupButton: React.FC<PopupButtonProps> = ({
-  x,
-  y,
-  opacity,
-  children,
-  onPress,
-  disabled
-}) => {
-  return (
-    <Animated.View
-      style={{
-        opacity,
-        position: "absolute",
-        left: x,
-        top: y
-      }}
-    >
-      <TouchableOpacity
-        onPressIn={onPress}
-        style={[
-          styles.touchableHighlight,
-          {
-            backgroundColor: disabled
-              ? Theme.colors.gray
-              : Theme.colors.lightBlue
-          }
-        ]}
-        disabled={disabled}
-      >
-        <View
-          pointerEvents="box-none"
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Ionicons
-            name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
-            size={16}
-            color={Theme.colors.white}
-          />
-        </View>
-      </TouchableOpacity>
-    </Animated.View>
-  );
-};
-
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
   backgroundColor: string;
@@ -76,82 +32,6 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 
 const ANIMATION_LENGTH = 1500;
 
-const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
-  isFocused,
-  backgroundColor,
-  refreshScreen,
-  provideAnswer,
-  getInputState,
-  navigation,
-  toggleNotes
-}) => {
-  const [animate, setAnimate] = useState();
-  const animatedButtonRef = useRef();
-  if (!isFocused) {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={() =>
-          navigation.navigate(SCREEN_PLAY, {
-            onKeyboardPress: () =>
-              animatedButtonRef.current.untogglePopupButtonsIfToggled()
-          })
-        }
-      >
-        <Animatable.View
-          easing="ease-out"
-          animation="tada"
-          iterationCount="infinite"
-          duration={ANIMATION_LENGTH}
-          useNativeDriver={true}
-          style={[
-            {
-              backgroundColor
-            },
-            styles.container,
-            styles.shadow
-          ]}
-        >
-          <MaterialCommunityIcons
-            size={48}
-            style={styles.icon}
-            active
-            name="chili-mild"
-            color={Theme.colors.white}
-          />
-        </Animatable.View>
-      </TouchableOpacity>
-    );
-  }
-
-  return (
-    <View
-      pointerEvents="box-none"
-      style={[
-        {
-          backgroundColor
-        },
-        styles.container,
-        styles.shadow
-      ]}
-    >
-      <AnimatedButton
-        ref={animatedButtonRef}
-        onRefresh={() => {
-          setAnimate(false);
-          refreshScreen();
-        }}
-        onProvideAnswer={() => {
-          setAnimate(true);
-          provideAnswer();
-        }}
-        animate={animate}
-        getInputState={getInputState}
-        toggleNotes={toggleNotes}
-      />
-    </View>
-  );
-};
 class SubButton extends React.Component {
   render() {
     return (
@@ -319,6 +199,7 @@ class MiddleButton extends React.Component {
   };
 
   render() {
+    console.log("rerender()");
     const { navigation, isFocused, activeTintColor } = this.props;
     return (
       <View
