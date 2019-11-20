@@ -190,14 +190,13 @@ class SubButton extends React.Component {
   }
 }
 
-const ChiliButton: React.FC = ({ navigation }) => {
+const ChiliButton: React.FC = ({ navigation, untoggle }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={() =>
         navigation.navigate(SCREEN_PLAY, {
-          onKeyboardPress: () =>
-            animatedButtonRef.current.untogglePopupButtonsIfToggled()
+          onKeyboardPress: () => untoggle()
         })
       }
     >
@@ -228,6 +227,17 @@ class MiddleButton extends React.Component {
   public state = {
     timeout: 0,
     isProvidedAnswer: false
+  };
+
+  public untoggleSubButtonsIfToggled = () => {
+    const { _value } = this.mode;
+    const { timeout } = this.state;
+    if (_value === 0) return;
+    Animated.timing(this.mode, {
+      toValue: 0,
+      duration: 300
+    }).start();
+    clearTimeout(timeout);
   };
 
   private mode = new Animated.Value(0);
@@ -339,7 +349,7 @@ class MiddleButton extends React.Component {
   };
 
   render() {
-    const { navigation, isFocused } = this.props;
+    const { navigation, isFocused, activeTintColor } = this.props;
     return (
       <View
         pointerEvents="box-none"
@@ -357,7 +367,10 @@ class MiddleButton extends React.Component {
           </View>
         ) : null}
         {!isFocused ? (
-          <ChiliButton navigation={navigation} />
+          <ChiliButton
+            navigation={navigation}
+            untoggle={() => this.untoggleSubButtonsIfToggled()}
+          />
         ) : (
           <AnimatedTouchable
             activeOpacity={1}
@@ -366,21 +379,25 @@ class MiddleButton extends React.Component {
             <Animated.View
               style={[
                 {
-                  top: 15,
                   left: 0,
                   alignItems: "center",
                   justifyContent: "center"
                 },
                 {
-                  width: 75,
-                  height: 75,
+                  width: MIDDLE_BUTTON_SIZE,
+                  height: MIDDLE_BUTTON_SIZE,
                   borderRadius: 100,
                   borderColor: "white",
-                  backgroundColor: "red"
+                  backgroundColor: activeTintColor
                 }
               ]}
             >
-              <Entypo name="open-book" size={40} color={Theme.colors.white} />
+              <Ionicons
+                size={42}
+                active
+                name="md-more"
+                color={Theme.colors.white}
+              />
             </Animated.View>
           </AnimatedTouchable>
         )}

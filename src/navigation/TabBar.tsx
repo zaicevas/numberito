@@ -63,11 +63,6 @@ const TabBar: React.FC<TabBarProps> = ({
                 isFocused={isRouteActive}
                 navigation={navigation}
                 activeTintColor={activeTintColor}
-                style={{
-                  backgroundColor: isRouteActive
-                    ? activeTintColor
-                    : Theme.colors.primary
-                }}
               />
             );
             return (
