@@ -32,44 +32,38 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 
 const ANIMATION_LENGTH = 1500;
 
-class SubButton extends React.Component {
-  render() {
-    return (
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            justifyContent: "center",
-            alignItems: "center",
-            left: this.props.x,
-            bottom: this.props.y,
-            opacity: this.props.opacity
-          }
-        ]}
+const SubButton: React.FC = ({ x, y, opacity, disabled }) => (
+  <Animated.View
+    style={[
+      {
+        position: "absolute",
+        justifyContent: "center",
+        alignItems: "center",
+        left: x,
+        bottom: y,
+        opacity: opacity
+      }
+    ]}
+  >
+    <AnimatedTouchable
+      style={{
+        width: 40,
+        height: 40,
+        borderRadius: 100,
+        backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue
+      }}
+      onPress={() => console.log("PAGALIAU!")}
+      disabled={disabled}
+    >
+      <View
+        pointerEvents="box-none"
+        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
       >
-        <AnimatedTouchable
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 100,
-            backgroundColor: this.props.disabled
-              ? Theme.colors.gray
-              : Theme.colors.lightBlue
-          }}
-          onPress={() => console.log("PAGALIAU!")}
-          disabled={this.props.disabled}
-        >
-          <View
-            pointerEvents="box-none"
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            {this.props.children}
-          </View>
-        </AnimatedTouchable>
-      </Animated.View>
-    );
-  }
-}
+        {children}
+      </View>
+    </AnimatedTouchable>
+  </Animated.View>
+);
 
 const ChiliButton: React.FC = ({ navigation, untoggle }) => {
   return (
@@ -102,6 +96,31 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
         />
       </Animatable.View>
     </TouchableOpacity>
+  );
+};
+
+const MoreButton: React.FC = ({ onPress, backgroundColor }) => {
+  return (
+    <AnimatedTouchable activeOpacity={0.7} onPress={() => onPress()}>
+      <Animated.View
+        style={[
+          {
+            left: 0,
+            alignItems: "center",
+            justifyContent: "center"
+          },
+          {
+            width: MIDDLE_BUTTON_SIZE,
+            height: MIDDLE_BUTTON_SIZE,
+            borderRadius: 100,
+            borderColor: "white",
+            backgroundColor
+          }
+        ]}
+      >
+        <Ionicons size={42} active name="md-more" color={Theme.colors.white} />
+      </Animated.View>
+    </AnimatedTouchable>
   );
 };
 class MiddleButton extends React.Component {
@@ -223,34 +242,10 @@ class MiddleButton extends React.Component {
             untoggle={() => this.untoggleSubButtonsIfToggled()}
           />
         ) : (
-          <AnimatedTouchable
-            activeOpacity={1}
+          <MoreButton
             onPress={() => this.toggleView(false)}
-          >
-            <Animated.View
-              style={[
-                {
-                  left: 0,
-                  alignItems: "center",
-                  justifyContent: "center"
-                },
-                {
-                  width: MIDDLE_BUTTON_SIZE,
-                  height: MIDDLE_BUTTON_SIZE,
-                  borderRadius: 100,
-                  borderColor: "white",
-                  backgroundColor: activeTintColor
-                }
-              ]}
-            >
-              <Ionicons
-                size={42}
-                active
-                name="md-more"
-                color={Theme.colors.white}
-              />
-            </Animated.View>
-          </AnimatedTouchable>
+            backgroundColor={activeTintColor}
+          />
         )}
       </View>
     );
