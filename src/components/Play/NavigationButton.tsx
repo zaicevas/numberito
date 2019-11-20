@@ -2,11 +2,103 @@ import React, { useState, useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme } from "../../constants/index";
 import * as Animatable from "react-native-animatable";
-import { StyleSheet, ViewStyle, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  ViewStyle,
+  TouchableOpacity,
+  View,
+  Animated,
+  Platform
+} from "react-native";
 import AnimatedButton from "./AnimatedButton";
 import { NavigationInjectedProps } from "react-navigation";
 import { MIDDLE_BUTTON_SIZE } from "../../constants/Navigation";
 import { InputState, SCREEN_PLAY } from "../../constants/Screens";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
+const AUTO_CLOSE = 15 * 1000;
+class SubButton extends React.Component {
+  render() {
+    return (
+      <Animated.View
+        style={[
+          {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center"
+          },
+          {
+            marginLeft: -15,
+            left: this.props.x,
+            bottom: this.props.y
+          }
+        ]}
+      >
+        <AnimatedTouchable
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 100,
+            backgroundColor: "black"
+          }}
+          onPress={() => console.log("PAGALIAU BLT")}
+        >
+          <View
+            pointerEvents="box-none"
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Ionicons
+              name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+              size={16}
+              color={Theme.colors.white}
+            />
+          </View>
+        </AnimatedTouchable>
+      </Animated.View>
+    );
+  }
+}
+const PopupButton: React.FC<PopupButtonProps> = ({
+  x,
+  y,
+  opacity,
+  children,
+  onPress,
+  disabled
+}) => {
+  return (
+    <Animated.View
+      style={{
+        opacity,
+        position: "absolute",
+        left: x,
+        top: y
+      }}
+    >
+      <TouchableOpacity
+        onPressIn={onPress}
+        style={[
+          styles.touchableHighlight,
+          {
+            backgroundColor: disabled
+              ? Theme.colors.gray
+              : Theme.colors.lightBlue
+          }
+        ]}
+        disabled={disabled}
+      >
+        <View
+          pointerEvents="box-none"
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          {children}
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
 
 interface NavigationButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -58,10 +150,117 @@ const NavigationButtonFC: React.FC<NavigationButtonProps> = ({
   );
 };
 
+class MiddleButton extends React.Component {
+  public state = {
+    timeout: 0,
+    isProvidedAnswer: false
+  };
+
+  private mode = new Animated.Value(0);
+
+  private firstX = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, -40]
+  });
+  private firstY = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 80]
+  });
+  private secondX = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 20]
+  });
+  private secondY = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -55]
+  });
+  private thirdX = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 80]
+  });
+  private thirdY = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -30]
+  });
+  private opacity = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1]
+  });
+  private rotation = this.mode.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "45deg"]
+  });
+
+  // should be rewritten without flag parameter
+  public toggleView = (automatic: boolean) => {
+    console.log("YE");
+    const { timeout } = this.state;
+    const { _value } = this.mode;
+    if (_value === 1 || !automatic) {
+      Animated.timing(this.mode, {
+        toValue: _value === 0 ? 1 : 0,
+        duration: 300
+      }).start();
+      clearTimeout(timeout);
+    }
+    if (_value === 0) {
+      const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE);
+      this.setState({ timeout: newTimeout });
+    }
+  };
+
+  public renderActions = () => {
+    return <SubButton x={this.firstX} y={this.firstY} />;
+  };
+
+  render() {
+    return (
+      <View
+        pointerEvents="box-none"
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "flex-end",
+          height: MIDDLE_BUTTON_SIZE,
+          width: MIDDLE_BUTTON_SIZE
+        }}
+      >
+        <View style={{ position: "absolute", bottom: 0 }}>
+          {this.renderActions()}
+        </View>
+        <AnimatedTouchable
+          activeOpacity={1}
+          onPress={() => this.toggleView(false)}
+        >
+          <Animated.View
+            style={[
+              {
+                top: 15,
+                left: 0,
+                alignItems: "center",
+                justifyContent: "center"
+              },
+              {
+                width: 75,
+                height: 75,
+                borderRadius: 100,
+                backgroundColor: "red"
+              }
+            ]}
+          >
+            <Entypo name="open-book" size={40} color={Theme.colors.white} />
+          </Animated.View>
+        </AnimatedTouchable>
+      </View>
+    );
+  }
+}
+
 interface Style {
   container: ViewStyle;
   icon: ViewStyle;
   shadow: ViewStyle;
+  touchableHighlight: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -86,7 +285,15 @@ const styles = StyleSheet.create<Style>({
       width: 0,
       height: 1
     }
+  },
+  touchableHighlight: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    width: MIDDLE_BUTTON_SIZE / 2,
+    height: MIDDLE_BUTTON_SIZE / 2,
+    borderRadius: MIDDLE_BUTTON_SIZE / 4
   }
 });
 
-export default NavigationButtonFC;
+export default MiddleButton;

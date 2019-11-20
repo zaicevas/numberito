@@ -58,32 +58,7 @@ const TabBar: React.FC<TabBarProps> = ({
           const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
           if (isMiddleButtonScreen) {
-            return (
-              <MultiBarToggle
-                navigation={navigation}
-                actionSize={30}
-                routes={[
-                  {
-                    routeName: "History",
-                    color: "red",
-                    icon: (
-                      <Entypo
-                        name="open-book"
-                        size={16}
-                        color={Theme.colors.white}
-                      />
-                    )
-                  }
-                ]}
-                icon={
-                  <Entypo
-                    name="open-book"
-                    size={16}
-                    color={Theme.colors.white}
-                  />
-                }
-              />
-            );
+            return <NavigationButton />;
             return (
               <View style={styles.tabButton} key={routeIndex}>
                 <NavigationButton
