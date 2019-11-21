@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Theme } from "../../constants/index";
+import { Theme, Layout } from "../../constants/index";
 import * as Animatable from "react-native-animatable";
 import {
   StyleSheet,
@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   View,
   Animated,
-  Platform
+  Platform,
+  TouchableWithoutFeedback
 } from "react-native";
 import { NavigationInjectedProps } from "react-navigation";
 import { MIDDLE_BUTTON_SIZE } from "../../constants/Navigation";
@@ -30,6 +31,7 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 }
 
 const ANIMATION_LENGTH = 1500;
+const SUB_BUTTON_SIZE = 40;
 
 const SubButton: React.FC = ({ x, y, opacity, disabled, children }) => (
   <Animated.View
@@ -46,8 +48,8 @@ const SubButton: React.FC = ({ x, y, opacity, disabled, children }) => (
   >
     <AnimatedTouchable
       style={{
-        width: 40,
-        height: 40,
+        width: SUB_BUTTON_SIZE,
+        height: SUB_BUTTON_SIZE,
         borderRadius: 100,
         backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue
       }}
@@ -106,7 +108,7 @@ class MoreButton extends React.Component {
 
   private firstX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, -70]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 - 60]
   });
   private firstY = this.mode.interpolate({
     inputRange: [0, 1],
@@ -114,7 +116,7 @@ class MoreButton extends React.Component {
   });
   private secondX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 0]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2]
   });
   private secondY = this.mode.interpolate({
     inputRange: [0, 1],
@@ -122,7 +124,7 @@ class MoreButton extends React.Component {
   });
   private thirdX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 70]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 + 60]
   });
   private thirdY = this.mode.interpolate({
     inputRange: [0, 1],
@@ -200,31 +202,6 @@ class MoreButton extends React.Component {
     );
   };
 
-  // should be rewritten without flag parameter
-  public toggleView = (automatic: boolean) => {
-    console.log("YE");
-    const { timeout } = this.state;
-    const { _value } = this.mode;
-    if (_value === 1 || !automatic) {
-      Animated.timing(this.mode, {
-        toValue: _value === 0 ? 1 : 0,
-        duration: 300
-      }).start();
-      clearTimeout(timeout);
-    }
-    if (_value === 0) {
-      const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE);
-      this.setState({ timeout: newTimeout });
-    }
-  };
-}
-
-class MiddleButton extends React.Component {
-  public state = {
-    timeout: 0,
-    isProvidedAnswer: false
-  };
-
   public untoggleSubButtonsIfToggled = () => {
     const { _value } = this.mode;
     const { timeout } = this.state;
@@ -235,45 +212,7 @@ class MiddleButton extends React.Component {
     }).start();
     clearTimeout(timeout);
   };
-
-  private mode = new Animated.Value(0);
-
-  private firstX = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [20, -70]
-  });
-  private firstY = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 60]
-  });
-  private secondX = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [20, 0]
-  });
-  private secondY = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 90]
-  });
-  private thirdX = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [20, 70]
-  });
-  private thirdY = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 60]
-  });
-  private opacity = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1]
-  });
-  private rotation = this.mode.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "90deg"]
-  });
-
-  // should be rewritten without flag parameter
   public toggleView = (automatic: boolean) => {
-    console.log("YE");
     const { timeout } = this.state;
     const { _value } = this.mode;
     if (_value === 1 || !automatic) {
@@ -288,63 +227,39 @@ class MiddleButton extends React.Component {
       this.setState({ timeout: newTimeout });
     }
   };
-
-  public renderActions = () => {
-    return (
-      <>
-        <SubButton x={this.firstX} y={this.firstY} opacity={this.opacity}>
-          <Ionicons
-            name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
-            size={16}
-            color={Theme.colors.white}
-          />
-        </SubButton>
-        <SubButton x={this.secondX} y={this.secondY} opacity={this.opacity}>
-          <MaterialCommunityIcons
-            name="numeric"
-            size={16}
-            color={Theme.colors.white}
-          />
-        </SubButton>
-        <SubButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
-          <Entypo name="open-book" size={16} color={Theme.colors.white} />
-        </SubButton>
-      </>
-    );
-  };
-
-  render() {
-    console.log("rerender()");
-    const { navigation, isFocused, activeTintColor } = this.props;
-    return (
-      <View
-        pointerEvents="box-none"
-        style={{
-          flex: 1,
-          alignItems: "center",
-          height: MIDDLE_BUTTON_SIZE,
-          width: MIDDLE_BUTTON_SIZE,
-          bottom: 15
-        }}
-      >
-        {isFocused ? (
-          <MoreButton backgroundColor={activeTintColor} />
-        ) : (
-          <ChiliButton
-            navigation={navigation}
-            untoggle={() => this.untoggleSubButtonsIfToggled()}
-          />
-        )}
-      </View>
-    );
-  }
 }
+
+const MiddleButton: React.FC = ({ navigation, isFocused, activeTintColor }) => {
+  const moreButtonRef = useRef();
+  return (
+    <View
+      pointerEvents="box-none"
+      style={{
+        flex: 1,
+        alignItems: "center",
+        height: MIDDLE_BUTTON_SIZE,
+        width: MIDDLE_BUTTON_SIZE,
+        bottom: 15
+      }}
+    >
+      {isFocused ? (
+        <MoreButton ref={moreButtonRef} backgroundColor={activeTintColor} />
+      ) : (
+        <ChiliButton
+          navigation={navigation}
+          untoggle={() => moreButtonRef.current.untoggleSubButtonsIfToggled()}
+        />
+      )}
+    </View>
+  );
+};
 
 interface Style {
   container: ViewStyle;
   icon: ViewStyle;
   shadow: ViewStyle;
   touchableHighlight: ViewStyle;
+  overlayActive: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -377,6 +292,13 @@ const styles = StyleSheet.create<Style>({
     width: MIDDLE_BUTTON_SIZE / 2,
     height: MIDDLE_BUTTON_SIZE / 2,
     borderRadius: MIDDLE_BUTTON_SIZE / 4
+  },
+  overlayActive: {
+    position: "absolute",
+    height: Layout.height * 2,
+    width: Layout.width * 2,
+    backgroundColor: "transparent",
+    bottom: "-150%"
   }
 });
 

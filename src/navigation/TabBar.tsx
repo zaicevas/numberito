@@ -93,7 +93,7 @@ const TabBar: React.FC<TabBarProps> = ({
 
           return (
             <TouchableOpacity
-              activeOpacity={isMiddleButtonScreen ? 0.5 : 1}
+              activeOpacity={0.7}
               key={routeIndex}
               style={styles.tabButton}
               onPress={() => {
