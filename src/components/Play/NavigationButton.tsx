@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme, Layout } from "../../constants/index";
 import * as Animatable from "react-native-animatable";
@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   View,
   Animated,
-  Platform,
-  TouchableWithoutFeedback
+  Platform
 } from "react-native";
 import { NavigationInjectedProps } from "react-navigation";
 import { MIDDLE_BUTTON_SIZE } from "../../constants/Navigation";
@@ -109,7 +108,8 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
 
 class MoreButton extends React.Component {
   state = {
-    timeout: 0
+    timeout: 0,
+    animateButton: false
   };
   private mode = new Animated.Value(0);
 
@@ -148,11 +148,13 @@ class MoreButton extends React.Component {
 
   private handleProvideAnswer = () => {
     const { provideAnswer } = this.props;
+    this.setState({ animateButton: true });
     this.wrapOnPress(provideAnswer);
   };
 
   private handleRefresh = () => {
     const { refreshScreen } = this.props;
+    this.setState({ animateButton: false });
     this.wrapOnPress(refreshScreen);
   };
 
@@ -167,6 +169,7 @@ class MoreButton extends React.Component {
   };
 
   render() {
+    const { animateButton } = this.state;
     const { backgroundColor } = this.props;
     return (
       <>
@@ -193,12 +196,20 @@ class MoreButton extends React.Component {
               styles.shadow
             ]}
           >
-            <Ionicons
-              size={42}
-              active
-              name="md-more"
-              color={Theme.colors.white}
-            />
+            <Animatable.View
+              easing="ease-out"
+              animation={animateButton ? "wobble" : ""}
+              iterationCount="infinite"
+              duration={ANIMATION_LENGTH}
+              useNativeDriver={true}
+            >
+              <Ionicons
+                size={42}
+                active
+                name="md-more"
+                color={Theme.colors.white}
+              />
+            </Animatable.View>
           </Animated.View>
         </AnimatedTouchable>
       </>
