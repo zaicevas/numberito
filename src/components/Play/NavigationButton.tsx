@@ -40,7 +40,7 @@ const SubButton: React.FC = ({ x, y, opacity, disabled, children }) => (
         alignItems: "center",
         left: x,
         bottom: y,
-        opacity: opacity
+        opacity
       }
     ]}
   >
@@ -160,7 +160,8 @@ class MoreButton extends React.Component {
                 borderRadius: 100,
                 borderColor: "white",
                 backgroundColor
-              }
+              },
+              styles.shadow
             ]}
           >
             <Ionicons
