@@ -33,7 +33,14 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 const ANIMATION_LENGTH = 1500;
 const SUB_BUTTON_SIZE = 40;
 
-const SubButton: React.FC = ({ x, y, opacity, disabled, children }) => (
+const SubButton: React.FC = ({
+  x,
+  y,
+  opacity,
+  disabled,
+  children,
+  onPress
+}) => (
   <Animated.View
     style={[
       {
@@ -53,7 +60,7 @@ const SubButton: React.FC = ({ x, y, opacity, disabled, children }) => (
         borderRadius: 100,
         backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue
       }}
-      onPress={() => console.log("PAGALIAU!")}
+      onPress={onPress}
       disabled={disabled}
     >
       <View
@@ -139,6 +146,26 @@ class MoreButton extends React.Component {
     outputRange: ["0deg", "90deg"]
   });
 
+  private handleProvideAnswer = () => {
+    const { provideAnswer } = this.props;
+    this.wrapOnPress(provideAnswer);
+  };
+
+  private handleRefresh = () => {
+    const { refreshScreen } = this.props;
+    this.wrapOnPress(refreshScreen);
+  };
+
+  private handleNotes = () => {
+    const { toggleNotes } = this.props;
+    this.wrapOnPress(toggleNotes);
+  };
+
+  private wrapOnPress = (onPress: () => void) => {
+    this.toggleView(false);
+    onPress();
+  };
+
   render() {
     const { backgroundColor } = this.props;
     return (
@@ -179,23 +206,43 @@ class MoreButton extends React.Component {
   }
 
   public renderActions = () => {
+    const { getInputState } = this.props;
+    const inputState = getInputState();
+    const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
+    const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
     return (
       <View style={{ position: "absolute", bottom: 0 }}>
-        <SubButton x={this.firstX} y={this.firstY} opacity={this.opacity}>
+        <SubButton
+          x={this.firstX}
+          y={this.firstY}
+          opacity={this.opacity}
+          onPress={() => this.handleRefresh()}
+        >
           <Ionicons
             name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
             size={16}
             color={Theme.colors.white}
           />
         </SubButton>
-        <SubButton x={this.secondX} y={this.secondY} opacity={this.opacity}>
+        <SubButton
+          x={this.secondX}
+          y={this.secondY}
+          opacity={this.opacity}
+          onPress={() => this.handleProvideAnswer()}
+          disabled={isProvidedAnswer || isCorrectAnswer}
+        >
           <MaterialCommunityIcons
             name="numeric"
             size={16}
             color={Theme.colors.white}
           />
         </SubButton>
-        <SubButton x={this.thirdX} y={this.thirdY} opacity={this.opacity}>
+        <SubButton
+          x={this.thirdX}
+          y={this.thirdY}
+          opacity={this.opacity}
+          onPress={() => this.handleNotes()}
+        >
           <Entypo name="open-book" size={16} color={Theme.colors.white} />
         </SubButton>
       </View>
@@ -229,7 +276,15 @@ class MoreButton extends React.Component {
   };
 }
 
-const MiddleButton: React.FC = ({ navigation, isFocused, activeTintColor }) => {
+const MiddleButton: React.FC = ({
+  navigation,
+  isFocused,
+  activeTintColor,
+  refreshScreen,
+  provideAnswer,
+  getInputState,
+  toggleNotes
+}) => {
   const moreButtonRef = useRef();
   return (
     <View
@@ -243,7 +298,14 @@ const MiddleButton: React.FC = ({ navigation, isFocused, activeTintColor }) => {
       }}
     >
       {isFocused ? (
-        <MoreButton ref={moreButtonRef} backgroundColor={activeTintColor} />
+        <MoreButton
+          ref={moreButtonRef}
+          backgroundColor={activeTintColor}
+          getInputState={getInputState}
+          toggleNotes={toggleNotes}
+          refreshScreen={refreshScreen}
+          provideAnswer={provideAnswer}
+        />
       ) : (
         <ChiliButton
           navigation={navigation}

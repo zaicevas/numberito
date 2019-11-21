@@ -63,6 +63,18 @@ const TabBar: React.FC<TabBarProps> = ({
                 isFocused={isRouteActive}
                 navigation={navigation}
                 activeTintColor={activeTintColor}
+                refreshScreen={() =>
+                  route.params && route.params.refreshScreen()
+                }
+                provideAnswer={() =>
+                  route.params && route.params.provideAnswer()
+                }
+                getInputState={() =>
+                  route.params && route.params.getInputState
+                    ? route.params.getInputState()
+                    : InputState.VALID
+                }
+                toggleNotes={() => route.params && route.params.toggleNotes()}
               />
             );
             return (
