@@ -16,6 +16,9 @@ import {
 } from "react-navigation";
 import { SCREEN_MIDDLE_BUTTON, InputState } from "../constants/Screens";
 import NavigationButton from "../components/Play/NavigationButton";
+import MiddleButton from "./MiddleButton";
+import { MultiBarToggle } from "react-native-multibar";
+import { Entypo } from "@expo/vector-icons";
 
 const FOOTBAR_HEIGHT = 50;
 
@@ -56,6 +59,25 @@ const TabBar: React.FC<TabBarProps> = ({
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
           if (isMiddleButtonScreen) {
             return (
+              <NavigationButton
+                isFocused={isRouteActive}
+                navigation={navigation}
+                activeTintColor={activeTintColor}
+                refreshScreen={() =>
+                  route.params && route.params.refreshScreen()
+                }
+                provideAnswer={() =>
+                  route.params && route.params.provideAnswer()
+                }
+                getInputState={() =>
+                  route.params && route.params.getInputState
+                    ? route.params.getInputState()
+                    : InputState.VALID
+                }
+                toggleNotes={() => route.params && route.params.toggleNotes()}
+              />
+            );
+            return (
               <View style={styles.tabButton} key={routeIndex}>
                 <NavigationButton
                   isFocused={isRouteActive}
@@ -83,7 +105,7 @@ const TabBar: React.FC<TabBarProps> = ({
 
           return (
             <TouchableOpacity
-              activeOpacity={isMiddleButtonScreen ? 0.5 : 1}
+              activeOpacity={0.7}
               key={routeIndex}
               style={styles.tabButton}
               onPress={() => {
