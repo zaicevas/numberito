@@ -1,19 +1,11 @@
+import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useRef } from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Theme, Layout } from '../constants/index';
+import { Animated, Platform, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {
-  StyleSheet,
-  ViewStyle,
-  TouchableOpacity,
-  View,
-  Animated,
-  Platform,
-} from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
+import { Layout, Theme } from '../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
 import { InputState, SCREEN_PLAY } from '../constants/Screens';
-import { Entypo, Ionicons } from '@expo/vector-icons';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -43,12 +35,12 @@ const SubButton: React.FC = ({
     <Animated.View
       style={[
         {
+          opacity,
           position: 'absolute',
           justifyContent: 'center',
           alignItems: 'center',
           left: x,
           bottom: y,
-          opacity,
         },
       ]}
     >
