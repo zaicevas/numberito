@@ -1,19 +1,19 @@
-import React, { useRef } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Theme, Layout } from "../../constants/index";
-import * as Animatable from "react-native-animatable";
+import React, { useRef } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Theme, Layout } from '../constants/index';
+import * as Animatable from 'react-native-animatable';
 import {
   StyleSheet,
   ViewStyle,
   TouchableOpacity,
   View,
   Animated,
-  Platform
-} from "react-native";
-import { NavigationInjectedProps } from "react-navigation";
-import { MIDDLE_BUTTON_SIZE } from "../../constants/Navigation";
-import { InputState, SCREEN_PLAY } from "../../constants/Screens";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+  Platform,
+} from 'react-native';
+import { NavigationInjectedProps } from 'react-navigation';
+import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { InputState, SCREEN_PLAY } from '../constants/Screens';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -38,39 +38,39 @@ const SubButton: React.FC = ({
   opacity,
   disabled,
   children,
-  onPress
+  onPress,
 }) => (
-  <Animated.View
-    style={[
-      {
-        position: "absolute",
-        justifyContent: "center",
-        alignItems: "center",
-        left: x,
-        bottom: y,
-        opacity
-      }
-    ]}
-  >
-    <AnimatedTouchable
-      style={{
-        width: SUB_BUTTON_SIZE,
-        height: SUB_BUTTON_SIZE,
-        borderRadius: 100,
-        backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue
-      }}
-      onPress={onPress}
-      disabled={disabled}
+    <Animated.View
+      style={[
+        {
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          left: x,
+          bottom: y,
+          opacity,
+        },
+      ]}
     >
-      <View
-        pointerEvents="box-none"
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      <AnimatedTouchable
+        style={{
+          width: SUB_BUTTON_SIZE,
+          height: SUB_BUTTON_SIZE,
+          borderRadius: 100,
+          backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue,
+        }}
+        onPress={onPress}
+        disabled={disabled}
       >
-        {children}
-      </View>
-    </AnimatedTouchable>
-  </Animated.View>
-);
+        <View
+          pointerEvents="box-none"
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+        >
+          {children}
+        </View>
+      </AnimatedTouchable>
+    </Animated.View>
+  );
 
 const ChiliButton: React.FC = ({ navigation, untoggle }) => {
   return (
@@ -78,7 +78,7 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
       activeOpacity={0.7}
       onPress={() =>
         navigation.navigate(SCREEN_PLAY, {
-          onKeyboardPress: () => untoggle()
+          onKeyboardPress: () => untoggle(),
         })
       }
     >
@@ -91,7 +91,7 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
         style={[
           { backgroundColor: Theme.colors.primary },
           styles.container,
-          styles.shadow
+          styles.shadow,
         ]}
       >
         <MaterialCommunityIcons
@@ -107,68 +107,46 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
 };
 
 class MoreButton extends React.Component {
-  state = {
+  public state = {
     timeout: 0,
-    animateButton: false
+    animateButton: false,
   };
   private mode = new Animated.Value(0);
 
   private firstX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 - 60]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 - 60],
   });
   private firstY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 60]
+    outputRange: [0, 60],
   });
   private secondX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2],
   });
   private secondY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 90]
+    outputRange: [0, 90],
   });
   private thirdX = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 + 60]
+    outputRange: [-SUB_BUTTON_SIZE / 2, -SUB_BUTTON_SIZE / 2 + 60],
   });
   private thirdY = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 60]
+    outputRange: [0, 60],
   });
   private opacity = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 1]
+    outputRange: [0, 1],
   });
   private rotation = this.mode.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "90deg"]
+    outputRange: ['0deg', '90deg'],
   });
 
-  private handleProvideAnswer = () => {
-    const { provideAnswer } = this.props;
-    this.setState({ animateButton: true });
-    this.wrapOnPress(provideAnswer);
-  };
-
-  private handleRefresh = () => {
-    const { refreshScreen } = this.props;
-    this.setState({ animateButton: false });
-    this.wrapOnPress(refreshScreen);
-  };
-
-  private handleNotes = () => {
-    const { toggleNotes } = this.props;
-    this.wrapOnPress(toggleNotes);
-  };
-
-  private wrapOnPress = (onPress: () => void) => {
-    this.toggleView(false);
-    onPress();
-  };
-
-  render() {
+  public render() {
     const { animateButton } = this.state;
     const { backgroundColor } = this.props;
     return (
@@ -182,23 +160,23 @@ class MoreButton extends React.Component {
             style={[
               {
                 left: 0,
-                alignItems: "center",
-                justifyContent: "center",
-                transform: [{ rotate: this.rotation }]
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: [{ rotate: this.rotation }],
               },
               {
                 width: MIDDLE_BUTTON_SIZE,
                 height: MIDDLE_BUTTON_SIZE,
                 borderRadius: 100,
-                borderColor: "white",
-                backgroundColor
+                borderColor: 'white',
+                backgroundColor,
               },
-              styles.shadow
+              styles.shadow,
             ]}
           >
             <Animatable.View
               easing="ease-out"
-              animation={animateButton ? "wobble" : ""}
+              animation={animateButton ? 'wobble' : ''}
               iterationCount="infinite"
               duration={ANIMATION_LENGTH}
               useNativeDriver={true}
@@ -222,7 +200,7 @@ class MoreButton extends React.Component {
     const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
     const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
     return (
-      <View style={{ position: "absolute", bottom: 0 }}>
+      <View style={{ position: 'absolute', bottom: 0 }}>
         <SubButton
           x={this.firstX}
           y={this.firstY}
@@ -230,7 +208,7 @@ class MoreButton extends React.Component {
           onPress={() => this.handleRefresh()}
         >
           <Ionicons
-            name={Platform.OS === "ios" ? "ios-refresh" : "md-refresh"}
+            name={Platform.OS === 'ios' ? 'ios-refresh' : 'md-refresh'}
             size={16}
             color={Theme.colors.white}
           />
@@ -258,7 +236,7 @@ class MoreButton extends React.Component {
         </SubButton>
       </View>
     );
-  };
+  }
 
   public untoggleSubButtonsIfToggled = () => {
     const { _value } = this.mode;
@@ -266,17 +244,17 @@ class MoreButton extends React.Component {
     if (_value === 0) return;
     Animated.timing(this.mode, {
       toValue: 0,
-      duration: 300
+      duration: 300,
     }).start();
     clearTimeout(timeout);
-  };
+  }
   public toggleView = (automatic: boolean) => {
     const { timeout } = this.state;
     const { _value } = this.mode;
     if (_value === 1 || !automatic) {
       Animated.timing(this.mode, {
         toValue: _value === 0 ? 1 : 0,
-        duration: 300
+        duration: 300,
       }).start();
       clearTimeout(timeout);
     }
@@ -284,7 +262,29 @@ class MoreButton extends React.Component {
       const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE);
       this.setState({ timeout: newTimeout });
     }
-  };
+  }
+
+  private handleProvideAnswer = () => {
+    const { provideAnswer } = this.props;
+    this.setState({ animateButton: true });
+    this.wrapOnPress(provideAnswer);
+  }
+
+  private handleRefresh = () => {
+    const { refreshScreen } = this.props;
+    this.setState({ animateButton: false });
+    this.wrapOnPress(refreshScreen);
+  }
+
+  private handleNotes = () => {
+    const { toggleNotes } = this.props;
+    this.wrapOnPress(toggleNotes);
+  }
+
+  private wrapOnPress = (onPress: () => void) => {
+    this.toggleView(false);
+    onPress();
+  }
 }
 
 const MiddleButton: React.FC = ({
@@ -294,7 +294,7 @@ const MiddleButton: React.FC = ({
   refreshScreen,
   provideAnswer,
   getInputState,
-  toggleNotes
+  toggleNotes,
 }) => {
   const moreButtonRef = useRef();
   return (
@@ -302,10 +302,10 @@ const MiddleButton: React.FC = ({
       pointerEvents="box-none"
       style={{
         flex: 1,
-        alignItems: "center",
+        alignItems: 'center',
         height: MIDDLE_BUTTON_SIZE,
         width: MIDDLE_BUTTON_SIZE,
-        bottom: 15
+        bottom: 15,
       }}
     >
       {isFocused ? (
@@ -318,11 +318,11 @@ const MiddleButton: React.FC = ({
           provideAnswer={provideAnswer}
         />
       ) : (
-        <ChiliButton
-          navigation={navigation}
-          untoggle={() => moreButtonRef.current.untoggleSubButtonsIfToggled()}
-        />
-      )}
+          <ChiliButton
+            navigation={navigation}
+            untoggle={() => moreButtonRef.current.untoggleSubButtonsIfToggled()}
+          />
+        )}
     </View>
   );
 };
@@ -339,15 +339,15 @@ const styles = StyleSheet.create<Style>({
   container: {
     height: MIDDLE_BUTTON_SIZE,
     width: MIDDLE_BUTTON_SIZE,
-    borderColor: "lightgrey",
+    borderColor: 'lightgrey',
     borderRadius: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 50
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 50,
   },
   icon: {
-    alignSelf: "center",
-    paddingTop: "5%"
+    alignSelf: 'center',
+    paddingTop: '5%',
   },
   shadow: {
     shadowColor: Theme.colors.black,
@@ -355,24 +355,24 @@ const styles = StyleSheet.create<Style>({
     shadowRadius: 5,
     shadowOffset: {
       width: 0,
-      height: 1
-    }
+      height: 1,
+    },
   },
   touchableHighlight: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: MIDDLE_BUTTON_SIZE / 2,
     height: MIDDLE_BUTTON_SIZE / 2,
-    borderRadius: MIDDLE_BUTTON_SIZE / 4
+    borderRadius: MIDDLE_BUTTON_SIZE / 4,
   },
   overlayActive: {
-    position: "absolute",
+    position: 'absolute',
     height: Layout.height * 2,
     width: Layout.width * 2,
-    backgroundColor: "transparent",
-    bottom: "-150%"
-  }
+    backgroundColor: 'transparent',
+    bottom: '-150%',
+  },
 });
 
 export default MiddleButton;

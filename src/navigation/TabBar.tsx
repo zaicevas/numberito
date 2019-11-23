@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,19 +6,16 @@ import {
   TouchableOpacity,
   ViewStyle,
   StyleProp,
-  SafeAreaView
-} from "react-native";
-import { Theme } from "../constants/index";
+  SafeAreaView,
+} from 'react-native';
+import { Theme } from '../constants/index';
 import {
   TabScene,
   NavigationRoute,
-  NavigationInjectedProps
-} from "react-navigation";
-import { SCREEN_MIDDLE_BUTTON, InputState } from "../constants/Screens";
-import NavigationButton from "../components/Play/NavigationButton";
-import MiddleButton from "./MiddleButton";
-import { MultiBarToggle } from "react-native-multibar";
-import { Entypo } from "@expo/vector-icons";
+  NavigationInjectedProps,
+} from 'react-navigation';
+import { SCREEN_MIDDLE_BUTTON, InputState } from '../constants/Screens';
+import MiddleButton from './MiddleButton';
 
 const FOOTBAR_HEIGHT = 50;
 
@@ -31,7 +28,7 @@ const TabBar: React.FC<TabBarProps> = ({
   inactiveTintColor,
   showLabel,
   getLabelText,
-  style
+  style,
 }) => {
   const { routes, index: activeRouteIndex } = navigation.state;
   return (
@@ -39,15 +36,15 @@ const TabBar: React.FC<TabBarProps> = ({
       pointerEvents="box-none"
       style={styles.container}
       forceInset={{
-        top: "never",
-        bottom: "always"
+        top: 'never',
+        bottom: 'always',
       }}
     >
       <SafeAreaView
         style={[styles.fakeBackground, style]}
         forceInset={{
-          top: "never",
-          bottom: "always"
+          top: 'never',
+          bottom: 'always',
         }}
       >
         <View style={styles.iconsContainer} />
@@ -59,7 +56,7 @@ const TabBar: React.FC<TabBarProps> = ({
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
           if (isMiddleButtonScreen) {
             return (
-              <NavigationButton
+              <MiddleButton
                 isFocused={isRouteActive}
                 navigation={navigation}
                 activeTintColor={activeTintColor}
@@ -79,7 +76,7 @@ const TabBar: React.FC<TabBarProps> = ({
             );
             return (
               <View style={styles.tabButton} key={routeIndex}>
-                <NavigationButton
+                <MiddleButton
                   isFocused={isRouteActive}
                   backgroundColor={
                     isRouteActive ? activeTintColor : Theme.colors.primary
@@ -136,34 +133,34 @@ interface Styles {
 
 const styles = StyleSheet.create<Styles>({
   iconsContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderTopWidth: 0.25,
     height: FOOTBAR_HEIGHT,
-    borderColor: Theme.colors.gray
+    borderColor: Theme.colors.gray,
   },
   tabButton: {
     flex: 1,
     height: 50,
     width: 50,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
-    justifyContent: "flex-end",
-    minHeight: 160
+    width: '100%',
+    justifyContent: 'flex-end',
+    minHeight: 160,
   },
   fakeBackground: {
-    position: "absolute",
-    width: "100%"
+    position: 'absolute',
+    width: '100%',
   },
   content: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "flex-end"
-  }
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
 });
 
 interface TabBarProps extends NavigationInjectedProps {
@@ -172,7 +169,7 @@ interface TabBarProps extends NavigationInjectedProps {
   renderIcon: ({
     route,
     focused,
-    tintColor
+    tintColor,
   }: {
     route: NavigationRoute;
     focused: boolean;

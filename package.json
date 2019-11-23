@@ -4,7 +4,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "tslint 'src/**/*.{ts,tsx}' --fix"
   },
   "dependencies": {
     "@eva-design/eva": "^1.0.1",

@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity,
   ViewStyle,
-  TextStyle
+  TextStyle,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -19,7 +19,7 @@ import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
-  ShineOverlay
+  ShineOverlay,
 } from 'rn-placeholder';
 import SvgBull from '../components/SvgBull';
 
@@ -40,7 +40,7 @@ const LoadingPlaceholder: React.FC = () => {
         >
           <PlaceholderLine width={Layout.width * 0.9} />
           <PlaceholderLine width={Layout.width * 0.9} />
-        </Placeholder>
+        </Placeholder>,
       )}
     </>
   );
@@ -55,7 +55,7 @@ const renderSingleGuess = (guess: SingleGuess, index: number) => {
         <SvgBull />
         <Text style={styles.bullsCowsText}>{guess.cows}</Text>
         <MaterialCommunityIcons
-          name='cow'
+          name="cow"
           color={Theme.colors.primary}
           size={21}
         />
@@ -79,29 +79,29 @@ class HistoryScreen extends React.Component<
     activeSections: [],
     collapsed: true,
     guesses: [],
-    isLoading: true
+    isLoading: true,
   };
 
   public componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('willFocus', async () => {
       this.setState({
-        isLoading: true
+        isLoading: true,
       });
       const history = await getHistory();
       const historyJson = JSON.parse(history);
       this.setState({
         guesses: historyJson ? historyJson.reverse() : [],
-        isLoading: false
+        isLoading: false,
       });
     });
   }
 
   public setSections = (sections: Section[]) => {
     this.setState({
-      activeSections: sections
+      activeSections: sections,
     });
-  };
+  }
 
   public renderHeader = (section: Section, _: any, isActive: boolean) => {
     const timestampSplit = section.timestamp.split('T');
@@ -119,17 +119,17 @@ class HistoryScreen extends React.Component<
         </View>
       </View>
     );
-  };
+  }
 
   public renderContent(section: Section, _: any, isActive: boolean) {
     return (
       <Animatable.View
         duration={400}
         style={[styles.content, isActive ? styles.active : styles.inactive]}
-        transition='backgroundColor'
+        transition="backgroundColor"
       >
         {section.history.map((singleGuess, index) =>
-          renderSingleGuess(singleGuess, index)
+          renderSingleGuess(singleGuess, index),
         )}
       </Animatable.View>
     );
@@ -181,7 +181,7 @@ class HistoryScreen extends React.Component<
         />
       </>
     );
-  };
+  }
 }
 
 interface Styles {
@@ -206,68 +206,68 @@ const styles = StyleSheet.create<Styles>({
   container: {
     flex: 1,
     backgroundColor: Theme.colors.white,
-    paddingTop: 16
+    paddingTop: 16,
   },
   title: {
     textAlign: 'center',
     fontSize: 22,
-    fontWeight: '300'
+    fontWeight: '300',
   },
   header: {
-    height: 56
+    height: 56,
   },
   headerText: {
     textAlign: 'left',
     fontSize: 16,
-    fontWeight: '400'
+    fontWeight: '400',
   },
   content: {
     paddingBottom: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   active: {
-    backgroundColor: 'rgba(255,255,255,1)'
+    backgroundColor: 'rgba(255,255,255,1)',
   },
   inactive: {
-    backgroundColor: 'rgba(245,252,255,1)'
+    backgroundColor: 'rgba(245,252,255,1)',
   },
   dateText: {
     fontSize: 12,
     fontWeight: '200',
-    color: Theme.colors.gray
+    color: Theme.colors.gray,
   },
   historyText: {
     fontSize: 18,
-    color: 'white'
+    color: 'white',
   },
   singleGuess: {
     backgroundColor: Theme.colors.tertiary,
     borderRadius: Theme.sizes.radius,
     padding: Layout.height * 0.007,
-    margin: Layout.width * 0.02
+    margin: Layout.width * 0.02,
   },
   bullsCowsText: {
-    color: Theme.colors.white
+    color: Theme.colors.white,
   },
   horizontalLayout: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: Theme.colors.white
+    backgroundColor: Theme.colors.white,
   },
   icon: {
     flexDirection: 'row',
     paddingLeft: 6,
-    marginRight: 16
+    marginRight: 16,
   },
   guessInfo: {
     display: 'flex',
     flexDirection: 'row',
-    marginLeft: 4
+    marginLeft: 4,
   },
   singleGuessContainer: {
     display: 'flex',
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 });
 
 export default withNavigation(HistoryScreen);
