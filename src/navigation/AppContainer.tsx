@@ -1,20 +1,14 @@
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-  createStackNavigator,
-  NavigationBottomTabScreenOptions,
-  NavigationInjectedProps,
-} from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator, createStackNavigator, NavigationBottomTabScreenOptions, NavigationInjectedProps } from 'react-navigation';
+import { Theme } from '../constants/index';
+import { SCREEN_HISTORY, SCREEN_HOME } from '../constants/Screens';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
-import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
-import { Theme } from '../constants/index';
-import TabBar from './TabBar';
-import { SCREEN_HOME, SCREEN_HISTORY } from '../constants/Screens';
 import TutorialScreen from '../screens/TutorialScreen';
+import TabBar from './TabBar';
 
 const FOOTBAR_ICON_SIZE = 30;
 

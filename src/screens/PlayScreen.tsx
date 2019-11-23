@@ -1,29 +1,18 @@
+import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ViewStyle,
-  Text,
-  TouchableWithoutFeedback,
-  TextInput,
-} from 'react-native';
-import CustomText from '../components/Text';
+import { StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
+import SwipeablePanel from 'rn-swipeable-panel';
 import History from '../components/Play/History';
 import Input from '../components/Play/Input';
 import CustomKeyboard from '../components/Play/Keyboard';
+import CustomText from '../components/Text';
 import { Layout, MAX_DIGITS, Theme } from '../constants/index';
-import { KeyType, SingleGuess } from '../types/index';
-import {
-  getRandomAnswer,
-  getBulls,
-  getCows,
-} from '../helpers/InputManipulation';
-import { LinearGradient } from 'expo-linear-gradient';
-import { NavigationScreenProps } from 'react-navigation';
 import { InputState } from '../constants/Screens';
-import Constants from 'expo-constants';
 import { updateHistory } from '../helpers/HistoryRepository';
-import SwipeablePanel from 'rn-swipeable-panel';
+import { getBulls, getCows, getRandomAnswer } from '../helpers/InputManipulation';
+import { KeyType, SingleGuess } from '../types/index';
 
 const INPUT_LINE_WIDTH = 0.17;
 
@@ -46,15 +35,15 @@ interface PlayScreenNavigationProps {
 class PlayScreen extends React.Component<
   NavigationScreenProps<PlayScreenNavigationProps>,
   PlayScreenState
-> {
+  > {
   public static getEmptyState = () => {
     const answer = getRandomAnswer();
     console.log(answer);
     return {
+      answer,
       input: '',
       inputState: InputState.VALID,
       guesses: [],
-      answer,
       isNotesActive: false,
       notes: '',
     };
@@ -129,7 +118,8 @@ class PlayScreen extends React.Component<
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
-    this.props.navigation.state.params &&
+    const { params } =
+      this.props.navigation.state.params &&
       this.props.navigation.state.params.onKeyboardPress &&
       this.props.navigation.state.params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
