@@ -6,6 +6,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import { Layout, Theme } from '../constants/index';
 import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
 import { InputState, SCREEN_PLAY } from '../constants/Screens';
+import SubButton from './SubButton';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -23,46 +24,6 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 
 const ANIMATION_LENGTH = 1500;
 const SUB_BUTTON_SIZE = 40;
-
-const SubButton: React.FC = ({
-  x,
-  y,
-  opacity,
-  disabled,
-  children,
-  onPress,
-}) => (
-    <Animated.View
-      style={[
-        {
-          opacity,
-          position: 'absolute',
-          justifyContent: 'center',
-          alignItems: 'center',
-          left: x,
-          bottom: y,
-        },
-      ]}
-    >
-      <AnimatedTouchable
-        style={{
-          width: SUB_BUTTON_SIZE,
-          height: SUB_BUTTON_SIZE,
-          borderRadius: 100,
-          backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue,
-        }}
-        onPress={onPress}
-        disabled={disabled}
-      >
-        <View
-          pointerEvents="box-none"
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-          {children}
-        </View>
-      </AnimatedTouchable>
-    </Animated.View>
-  );
 
 const ChiliButton: React.FC = ({ navigation, untoggle }) => {
   return (

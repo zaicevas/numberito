@@ -118,10 +118,8 @@ class PlayScreen extends React.Component<
   }
 
   public onKeyboardPress = (key: [KeyType, string]) => {
-    const { params } =
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.onKeyboardPress &&
-      this.props.navigation.state.params.onKeyboardPress();
+    const { params } = this.props.navigation.state;
+    params && params.onKeyboardPress && params.onKeyboardPress();
     if (key[0] === KeyType.Number) {
       this.handleNumberPress(key);
     } else if (key[0] === KeyType.Delete) {
@@ -131,12 +129,11 @@ class PlayScreen extends React.Component<
 
   public render() {
     const { input, guesses, inputState, isNotesActive, notes } = this.state;
+    const { params } = this.props.navigation.state;
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          this.props.navigation.state.params &&
-          this.props.navigation.state.params.onKeyboardPress &&
-          this.props.navigation.state.params.onKeyboardPress()
+          params && params.onKeyboardPress && params.onKeyboardPress()
         }
       >
         <View style={styles.container}>
