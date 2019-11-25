@@ -98,10 +98,12 @@ class Input extends React.Component {
 
     if (maskDelay) {
       // mask password after delay
-      const maskTimeout = setTimeout(() => {
-        this.setState({ maskDelay: false });
-        clearTimeout(maskTimeout);
-      }, this.props.maskDelay);
+      const maskTimeout = setTimeout(
+        () => {
+          this.setState({ maskDelay: false });
+          clearTimeout(maskTimeout);
+        },
+        this.props.maskDelay);
     }
   }
 
