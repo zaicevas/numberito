@@ -7,6 +7,10 @@ interface ChiliButtonStyle {
   icon: ViewStyle;
 }
 
+interface MiddleButtonStyle {
+  container: ViewStyle;
+}
+
 interface Style {
   shadow: ViewStyle;
 }
@@ -28,6 +32,16 @@ const ChiliButtonStyles = StyleSheet.create<ChiliButtonStyle>({
   },
 });
 
+const MiddleButtonStyles = StyleSheet.create<MiddleButtonStyle>({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    height: MIDDLE_BUTTON_SIZE,
+    width: MIDDLE_BUTTON_SIZE,
+    bottom: 15,
+  },
+});
+
 const Styles = StyleSheet.create<Style>({
   shadow: {
     shadowColor: Theme.colors.black,
@@ -40,5 +54,5 @@ const Styles = StyleSheet.create<Style>({
   },
 });
 
-export { ChiliButtonStyles, Styles };
+export { ChiliButtonStyles, MiddleButtonStyles, Styles };
 

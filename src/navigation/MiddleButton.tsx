@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
 import { InputState } from '../constants/Screens';
 import ChiliButton from './ChiliButton';
 import MoreButton from './MoreButton';
+import { MiddleButtonStyles } from './Styles';
 
 interface MiddleButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
@@ -14,6 +14,8 @@ interface MiddleButtonProps extends NavigationInjectedProps {
   getInputState: () => InputState;
   toggleNotes: () => void;
 }
+
+const styles = MiddleButtonStyles;
 
 const MiddleButton: React.FC<MiddleButtonProps> = ({
   navigation,
@@ -28,13 +30,7 @@ const MiddleButton: React.FC<MiddleButtonProps> = ({
   return (
     <View
       pointerEvents="box-none"
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        height: MIDDLE_BUTTON_SIZE,
-        width: MIDDLE_BUTTON_SIZE,
-        bottom: 15,
-      }}
+      style={styles.container}
     >
       {isFocused ? (
         <MoreButton
