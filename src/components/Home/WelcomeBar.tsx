@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  ImageStyle,
-  StyleSheet,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-  Text,
-} from 'react-native';
+import { Image, ImageStyle, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Layout } from '../../constants/index';
 
 const STATUS_BAR_HEIGHT = 20;

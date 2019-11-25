@@ -1,20 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ViewStyle,
-  StyleProp,
-  SafeAreaView,
-} from 'react-native';
+import { SafeAreaView, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { NavigationInjectedProps, NavigationRoute, TabScene } from 'react-navigation';
 import { Theme } from '../constants/index';
-import {
-  TabScene,
-  NavigationRoute,
-  NavigationInjectedProps,
-} from 'react-navigation';
-import { SCREEN_MIDDLE_BUTTON, InputState } from '../constants/Screens';
+import { InputState, SCREEN_MIDDLE_BUTTON } from '../constants/Screens';
 import MiddleButton from './MiddleButton';
 
 const FOOTBAR_HEIGHT = 50;

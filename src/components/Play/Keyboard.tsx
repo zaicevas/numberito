@@ -2,8 +2,8 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Layout, Theme } from '../../constants/index';
-import { KeyType } from '../../types/index';
 import { InputState } from '../../constants/Screens';
+import { KeyType } from '../../types/index';
 
 const ButtonSize = Layout.width * 0.2;
 const WIDTH = (13 * 2 + ButtonSize) * 3;
@@ -19,24 +19,24 @@ const Keyboard: React.FC<KeyboardProps> = ({
   disabledKeys,
   inputState,
 }) => (
-  <View style={[styles.keyboardStyle]}>
-    <View style={[styles.container, { width: WIDTH }]}>
-      {KEYS.map((key, index) => (
-        <Touchable
-          inputKey={key}
-          key={index}
-          onPress={onPress}
-          numberDisabled={
-            disabledKeys.includes(key[1]) ||
-            inputState === InputState.PROVIDED_ANSWER ||
-            inputState === InputState.CORRECT_ANSWER
-          }
-          inputState={inputState}
-        />
-      ))}
+    <View style={[styles.keyboardStyle]}>
+      <View style={[styles.container, { width: WIDTH }]}>
+        {KEYS.map((key, index) => (
+          <Touchable
+            inputKey={key}
+            key={index}
+            onPress={onPress}
+            numberDisabled={
+              disabledKeys.includes(key[1]) ||
+              inputState === InputState.PROVIDED_ANSWER ||
+              inputState === InputState.CORRECT_ANSWER
+            }
+            inputState={inputState}
+          />
+        ))}
+      </View>
     </View>
-  </View>
-);
+  );
 
 const getIcon = (keyType: KeyType, isDisabled: boolean) => {
   const props = {

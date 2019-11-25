@@ -1,8 +1,8 @@
+import { light as lightTheme, mapping } from '@eva-design/eva';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import AppContainer from './navigation/AppContainer';
-import { mapping, light as lightTheme } from '@eva-design/eva';
 import { ApplicationProvider } from 'react-native-ui-kitten';
+import AppContainer from './navigation/AppContainer';
 
 export default class App extends React.Component {
   public render() {

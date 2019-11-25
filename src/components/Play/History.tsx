@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, ViewStyle, FlatList, ImageBackground } from 'react-native';
-import { Theme, Layout } from '../../constants/index';
+import { FlatList, ImageBackground, StyleSheet, ViewStyle } from 'react-native';
+import { Layout, Theme } from '../../constants/index';
 import { SingleGuess } from '../../types/index';
 import Guess from '../Guess';
 

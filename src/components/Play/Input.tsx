@@ -2,7 +2,7 @@
 import React from 'react';
 import { I18nManager, StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Theme, Layout } from '../../constants/index';
+import { Layout, Theme } from '../../constants/index';
 import { InputState } from '../../constants/Screens';
 
 const styles = StyleSheet.create({
@@ -101,7 +101,7 @@ class Input extends React.Component {
       const maskTimeout = setTimeout(() => {
         this.setState({ maskDelay: false });
         clearTimeout(maskTimeout);
-      },                             this.props.maskDelay);
+      }, this.props.maskDelay);
     }
   }
 

@@ -1,11 +1,11 @@
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, View, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { Theme, Layout } from './index';
-import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
-import { Slide } from '../types/index';
 import Guess from '../components/Guess';
 import SvgBull from '../components/SvgBull';
+import { Slide } from '../types/index';
+import { Layout, Theme } from './index';
 
 const ICON_SIZE = 128;
 

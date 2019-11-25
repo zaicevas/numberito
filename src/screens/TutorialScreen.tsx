@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ViewStyle, TextStyle } from 'react-native';
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { NavigationInjectedProps } from 'react-navigation';
 import SLIDES from '../constants/TutorialSlides';

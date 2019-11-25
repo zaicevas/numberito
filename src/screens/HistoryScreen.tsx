@@ -1,27 +1,14 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Theme, Layout } from '../constants/index';
-import { SingleGuess } from '../types/index';
-import { getHistory } from '../helpers/HistoryRepository';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  ShineOverlay,
-} from 'rn-placeholder';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { Placeholder, PlaceholderLine, PlaceholderMedia, ShineOverlay } from 'rn-placeholder';
 import SvgBull from '../components/SvgBull';
+import { Layout, Theme } from '../constants/index';
+import { getHistory } from '../helpers/HistoryRepository';
+import { SingleGuess } from '../types/index';
 
 interface Section {
   answer: string;
@@ -34,7 +21,7 @@ const LoadingPlaceholder: React.FC = () => {
     <>
       {Array(20).fill(
         <Placeholder
-          style={styles.icon}
+          tyle={styles.icon}
           Animation={ShineOverlay}
           Left={PlaceholderMedia}
         >
@@ -74,7 +61,7 @@ interface HistoryScreenState {
 class HistoryScreen extends React.Component<
   NavigationInjectedProps,
   HistoryScreenState
-> {
+  > {
   public state = {
     activeSections: [],
     collapsed: true,
@@ -143,20 +130,20 @@ class HistoryScreen extends React.Component<
         <LoadingPlaceholder />
       </View>
     ) : (
-      <View style={styles.container}>
-        <ScrollView>
-          <Accordion
-            activeSections={activeSections}
-            sections={guesses}
-            touchableComponent={TouchableOpacity}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            duration={400}
-            onChange={this.setSections}
-          />
-        </ScrollView>
-      </View>
-    );
+        <View style={styles.container}>
+          <ScrollView>
+            <Accordion
+              activeSections={activeSections}
+              sections={guesses}
+              touchableComponent={TouchableOpacity}
+              renderHeader={this.renderHeader}
+              renderContent={this.renderContent}
+              duration={400}
+              onChange={this.setSections}
+            />
+          </ScrollView>
+        </View>
+      );
   }
 
   private getIcon = (guessCount: number) => {

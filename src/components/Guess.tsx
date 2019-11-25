@@ -1,15 +1,8 @@
-import React from 'react';
-import { SingleGuess } from '../types/index';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextStyle,
-  ViewStyle,
-  TouchableOpacity,
-} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Theme, Layout } from '../constants/index';
+import React from 'react';
+import { StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Layout, Theme } from '../constants/index';
+import { SingleGuess } from '../types/index';
 import SvgBull from './SvgBull';
 
 interface GuessProps {

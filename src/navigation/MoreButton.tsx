@@ -1,6 +1,6 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Animated, View, Platform } from 'react-native';
+import { Animated, Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Theme } from '../constants/index';
 import { AnimatedTouchable, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
@@ -55,47 +55,47 @@ class MoreButton extends React.Component {
     const { animateButton } = this.state;
     const { backgroundColor } = this.props;
     return (
-            <>
-                {this.renderActions()}
-                <AnimatedTouchable
-                    activeOpacity={0.7}
-                    onPress={() => this.toggleView(false)}
-                >
-                    <Animated.View
-                        style={[
-                          {
-                            left: 0,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            transform: [{ rotate: this.rotation }],
-                          },
-                          {
-                            width: MIDDLE_BUTTON_SIZE,
-                            height: MIDDLE_BUTTON_SIZE,
-                            borderRadius: 100,
-                            borderColor: 'white',
-                            backgroundColor,
-                          },
-                          styles.shadow,
-                        ]}
-                    >
-                        <Animatable.View
-                            easing="ease-out"
-                            animation={animateButton ? 'wobble' : ''}
-                            iterationCount="infinite"
-                            duration={ANIMATION_LENGTH}
-                            useNativeDriver={true}
-                        >
-                            <Ionicons
-                                size={42}
-                                active
-                                name="md-more"
-                                color={Theme.colors.white}
-                            />
-                        </Animatable.View>
-                    </Animated.View>
-                </AnimatedTouchable>
-            </>
+      <>
+        {this.renderActions()}
+        <AnimatedTouchable
+          activeOpacity={0.7}
+          onPress={() => this.toggleView(false)}
+        >
+          <Animated.View
+            style={[
+              {
+                left: 0,
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: [{ rotate: this.rotation }],
+              },
+              {
+                width: MIDDLE_BUTTON_SIZE,
+                height: MIDDLE_BUTTON_SIZE,
+                borderRadius: 100,
+                borderColor: 'white',
+                backgroundColor,
+              },
+              styles.shadow,
+            ]}
+          >
+            <Animatable.View
+              easing="ease-out"
+              animation={animateButton ? 'wobble' : ''}
+              iterationCount="infinite"
+              duration={ANIMATION_LENGTH}
+              useNativeDriver={true}
+            >
+              <Ionicons
+                size={42}
+                active
+                name="md-more"
+                color={Theme.colors.white}
+              />
+            </Animatable.View>
+          </Animated.View>
+        </AnimatedTouchable>
+      </>
     );
   }
 
@@ -105,41 +105,41 @@ class MoreButton extends React.Component {
     const isProvidedAnswer = inputState === InputState.PROVIDED_ANSWER;
     const isCorrectAnswer = inputState === InputState.CORRECT_ANSWER;
     return (
-            <View style={{ position: 'absolute', bottom: 0 }}>
-                <SubButton
-                    x={this.firstX}
-                    y={this.firstY}
-                    opacity={this.opacity}
-                    onPress={() => this.handleRefresh()}
-                >
-                    <Ionicons
-                        name={Platform.OS === 'ios' ? 'ios-refresh' : 'md-refresh'}
-                        size={16}
-                        color={Theme.colors.white}
-                    />
-                </SubButton>
-                <SubButton
-                    x={this.secondX}
-                    y={this.secondY}
-                    opacity={this.opacity}
-                    onPress={() => this.handleProvideAnswer()}
-                    disabled={isProvidedAnswer || isCorrectAnswer}
-                >
-                    <MaterialCommunityIcons
-                        name="numeric"
-                        size={16}
-                        color={Theme.colors.white}
-                    />
-                </SubButton>
-                <SubButton
-                    x={this.thirdX}
-                    y={this.thirdY}
-                    opacity={this.opacity}
-                    onPress={() => this.handleNotes()}
-                >
-                    <Entypo name="open-book" size={16} color={Theme.colors.white} />
-                </SubButton>
-            </View>
+      <View style={{ position: 'absolute', bottom: 0 }}>
+        <SubButton
+          x={this.firstX}
+          y={this.firstY}
+          opacity={this.opacity}
+          onPress={() => this.handleRefresh()}
+        >
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-refresh' : 'md-refresh'}
+            size={16}
+            color={Theme.colors.white}
+          />
+        </SubButton>
+        <SubButton
+          x={this.secondX}
+          y={this.secondY}
+          opacity={this.opacity}
+          onPress={() => this.handleProvideAnswer()}
+          disabled={isProvidedAnswer || isCorrectAnswer}
+        >
+          <MaterialCommunityIcons
+            name="numeric"
+            size={16}
+            color={Theme.colors.white}
+          />
+        </SubButton>
+        <SubButton
+          x={this.thirdX}
+          y={this.thirdY}
+          opacity={this.opacity}
+          onPress={() => this.handleNotes()}
+        >
+          <Entypo name="open-book" size={16} color={Theme.colors.white} />
+        </SubButton>
+      </View>
     );
   }
 

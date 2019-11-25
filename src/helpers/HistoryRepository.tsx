@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import { SingleGuess } from '../types/index';
 import { HISTORY_KEY } from '../constants/Storage';
+import { SingleGuess } from '../types/index';
 
 const getHistory = async () => {
   const history = await AsyncStorage.getItem(HISTORY_KEY);
@@ -19,3 +19,4 @@ const updateHistory = async (guesses: SingleGuess[], answer: string) => {
 };
 
 export { getHistory, updateHistory };
+
