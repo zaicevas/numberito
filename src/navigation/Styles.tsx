@@ -1,6 +1,14 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Theme } from '../constants/index';
-import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { FOOTBAR_HEIGHT, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+
+interface TabBarStyle {
+  container: ViewStyle;
+  iconsContainer: ViewStyle;
+  tabButton: ViewStyle;
+  fakeBackground: ViewStyle;
+  content: ViewStyle;
+}
 
 interface ChiliButtonStyle {
   container: ViewStyle;
@@ -14,6 +22,38 @@ interface MiddleButtonStyle {
 interface Style {
   shadow: ViewStyle;
 }
+
+const TabBarStyles = StyleSheet.create<TabBarStyle>({
+  iconsContainer: {
+    flexDirection: 'row',
+    borderTopWidth: 0.25,
+    height: FOOTBAR_HEIGHT,
+    borderColor: Theme.colors.gray,
+  },
+  tabButton: {
+    flex: 1,
+    height: 50,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    justifyContent: 'flex-end',
+    minHeight: 160,
+  },
+  fakeBackground: {
+    position: 'absolute',
+    width: '100%',
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+});
 
 const ChiliButtonStyles = StyleSheet.create<ChiliButtonStyle>({
   container: {
@@ -54,5 +94,5 @@ const Styles = StyleSheet.create<Style>({
   },
 });
 
-export { ChiliButtonStyles, MiddleButtonStyles, Styles };
+export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, Styles };
 

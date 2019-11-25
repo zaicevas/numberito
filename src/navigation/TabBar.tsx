@@ -1,11 +1,11 @@
 import React from 'react';
-import { SafeAreaView, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { SafeAreaView, StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { NavigationInjectedProps, NavigationRoute, TabScene } from 'react-navigation';
-import { Theme } from '../constants/index';
 import { InputState, SCREEN_MIDDLE_BUTTON } from '../constants/Screens';
 import MiddleButton from './MiddleButton';
+import { TabBarStyles } from './Styles';
 
-const FOOTBAR_HEIGHT = 50;
+const styles = TabBarStyles;
 
 const TabBar: React.FC<TabBarProps> = ({
   onTabPress,
@@ -62,30 +62,6 @@ const TabBar: React.FC<TabBarProps> = ({
                 toggleNotes={() => route.params && route.params.toggleNotes()}
               />
             );
-            return (
-              <View style={styles.tabButton} key={routeIndex}>
-                <MiddleButton
-                  isFocused={isRouteActive}
-                  backgroundColor={
-                    isRouteActive ? activeTintColor : Theme.colors.primary
-                  }
-                  navigation={navigation}
-                  navigate={() => onTabPress({ route })}
-                  refreshScreen={() =>
-                    route.params && route.params.refreshScreen()
-                  }
-                  provideAnswer={() =>
-                    route.params && route.params.provideAnswer()
-                  }
-                  getInputState={() =>
-                    route.params && route.params.getInputState
-                      ? route.params.getInputState()
-                      : InputState.VALID
-                  }
-                  toggleNotes={() => route.params && route.params.toggleNotes()}
-                />
-              </View>
-            );
           }
 
           return (
@@ -110,46 +86,6 @@ const TabBar: React.FC<TabBarProps> = ({
     </SafeAreaView>
   );
 };
-
-interface Styles {
-  iconsContainer: ViewStyle;
-  tabButton: ViewStyle;
-  container: ViewStyle;
-  fakeBackground: ViewStyle;
-  content: ViewStyle;
-}
-
-const styles = StyleSheet.create<Styles>({
-  iconsContainer: {
-    flexDirection: 'row',
-    borderTopWidth: 0.25,
-    height: FOOTBAR_HEIGHT,
-    borderColor: Theme.colors.gray,
-  },
-  tabButton: {
-    flex: 1,
-    height: 50,
-    width: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    justifyContent: 'flex-end',
-    minHeight: 160,
-  },
-  fakeBackground: {
-    position: 'absolute',
-    width: '100%',
-  },
-  content: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-  },
-});
 
 interface TabBarProps extends NavigationInjectedProps {
   onTabLongPress: ({ route }: { route: NavigationRoute }) => void;
