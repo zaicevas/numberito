@@ -1,14 +1,13 @@
 import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useRef } from 'react';
-import { Animated, Platform, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Animated, Platform, StyleSheet, View, ViewStyle } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { NavigationInjectedProps } from 'react-navigation';
 import { Layout, Theme } from '../constants/index';
-import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
-import { InputState, SCREEN_PLAY } from '../constants/Screens';
+import { AnimatedTouchable, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { InputState } from '../constants/Screens';
+import ChiliButton from './ChiliButton';
 import SubButton from './SubButton';
-
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 const AUTO_CLOSE = 15 * 1000;
 
@@ -24,40 +23,6 @@ interface NavigationButtonProps extends NavigationInjectedProps {
 
 const ANIMATION_LENGTH = 1500;
 const SUB_BUTTON_SIZE = 40;
-
-const ChiliButton: React.FC = ({ navigation, untoggle }) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={() =>
-        navigation.navigate(SCREEN_PLAY, {
-          onKeyboardPress: () => untoggle(),
-        })
-      }
-    >
-      <Animatable.View
-        easing="ease-out"
-        animation="tada"
-        iterationCount="infinite"
-        duration={ANIMATION_LENGTH}
-        useNativeDriver={true}
-        style={[
-          { backgroundColor: Theme.colors.primary },
-          styles.container,
-          styles.shadow,
-        ]}
-      >
-        <MaterialCommunityIcons
-          size={48}
-          style={styles.icon}
-          active
-          name="chili-mild"
-          color={Theme.colors.white}
-        />
-      </Animatable.View>
-    </TouchableOpacity>
-  );
-};
 
 class MoreButton extends React.Component {
   public state = {
