@@ -6,17 +6,16 @@ import { InputState } from '../constants/Screens';
 import ChiliButton from './ChiliButton';
 import MoreButton from './MoreButton';
 
-interface NavigationButtonProps extends NavigationInjectedProps {
+interface MiddleButtonProps extends NavigationInjectedProps {
   isFocused: boolean;
-  backgroundColor: string;
-  navigate: () => void;
+  activeTintColor: string;
   refreshScreen: () => void;
   provideAnswer: () => void;
   getInputState: () => InputState;
   toggleNotes: () => void;
 }
 
-const MiddleButton: React.FC = ({
+const MiddleButton: React.FC<MiddleButtonProps> = ({
   navigation,
   isFocused,
   activeTintColor,
@@ -49,7 +48,9 @@ const MiddleButton: React.FC = ({
       ) : (
           <ChiliButton
             navigation={navigation}
-            untoggle={() => moreButtonRef.current.untoggleSubButtonsIfToggled()}
+            untoggle={() => moreButtonRef &&
+              moreButtonRef.current &&
+              moreButtonRef.current.untoggleSubButtonsIfToggled()}
           />
         )}
     </View>

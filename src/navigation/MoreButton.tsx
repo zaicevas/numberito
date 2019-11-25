@@ -1,15 +1,16 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Animated, Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Theme } from '../constants/index';
-import { AnimatedTouchable, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { AnimatedTouchable, ANIMATION_LENGTH, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
 import { InputState } from '../constants/Screens';
+import { Styles } from './Styles';
 import SubButton from './SubButton';
 
 const AUTO_CLOSE = 15 * 1000;
 const SUB_BUTTON_SIZE = 40;
-const ANIMATION_LENGTH = 1500;
+const styles = Styles;
 
 class MoreButton extends React.Component {
   public state = {

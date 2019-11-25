@@ -1,14 +1,21 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { NavigationInjectedProps } from 'react-navigation';
 import { Theme } from '../constants/index';
-import { MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { ANIMATION_LENGTH } from '../constants/Navigation';
 import { SCREEN_PLAY } from '../constants/Screens';
+import { ChiliButtonStyles, Styles } from './Styles';
 
-const ANIMATION_LENGTH = 1500;
+const styles = ChiliButtonStyles;
+const genericStyles = Styles;
 
-const ChiliButton: React.FC = ({ navigation, untoggle }) => {
+interface ChiliButtonProps extends NavigationInjectedProps {
+  untoggle: () => void;
+}
+
+const ChiliButton: React.FC<ChiliButtonProps> = ({ navigation, untoggle }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -25,9 +32,8 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
         duration={ANIMATION_LENGTH}
         useNativeDriver={true}
         style={[
-          { backgroundColor: Theme.colors.primary },
           styles.container,
-          styles.shadow,
+          genericStyles.shadow,
         ]}
       >
         <MaterialCommunityIcons
@@ -41,36 +47,5 @@ const ChiliButton: React.FC = ({ navigation, untoggle }) => {
     </TouchableOpacity>
   );
 };
-
-interface Style {
-  container: ViewStyle;
-  icon: ViewStyle;
-  shadow: ViewStyle;
-}
-
-const styles = StyleSheet.create<Style>({
-  container: {
-    height: MIDDLE_BUTTON_SIZE,
-    width: MIDDLE_BUTTON_SIZE,
-    borderColor: 'lightgrey',
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 50,
-  },
-  icon: {
-    alignSelf: 'center',
-    paddingTop: '5%',
-  },
-  shadow: {
-    shadowColor: Theme.colors.black,
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-  },
-});
 
 export default ChiliButton;
