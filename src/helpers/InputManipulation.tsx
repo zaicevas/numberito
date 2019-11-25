@@ -16,4 +16,3 @@ const getCows = (input: string, answer: string) =>
     ).length;
 
 export { getRandomAnswer, getBulls, getCows };
-

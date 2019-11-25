@@ -15,22 +15,22 @@ const SubButton: React.FC = ({
 }) => (
         <Animated.View
             style={[
-                {
-                    opacity,
-                    position: 'absolute',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    left: x,
-                    bottom: y,
-                },
+              {
+                opacity,
+                position: 'absolute',
+                justifyContent: 'center',
+                alignItems: 'center',
+                left: x,
+                bottom: y,
+              },
             ]}
         >
             <AnimatedTouchable
                 style={{
-                    width: SUB_BUTTON_SIZE,
-                    height: SUB_BUTTON_SIZE,
-                    borderRadius: 100,
-                    backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue,
+                  width: SUB_BUTTON_SIZE,
+                  height: SUB_BUTTON_SIZE,
+                  borderRadius: 100,
+                  backgroundColor: disabled ? Theme.colors.gray : Theme.colors.lightBlue,
                 }}
                 onPress={onPress}
                 disabled={disabled}

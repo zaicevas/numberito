@@ -6,4 +6,3 @@ import * as Theme from './Theme';
 const MAX_DIGITS = 4;
 
 export { Theme, Layout, Navigation, MAX_DIGITS, Storage };
-

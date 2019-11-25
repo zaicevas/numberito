@@ -19,4 +19,3 @@ const updateHistory = async (guesses: SingleGuess[], answer: string) => {
 };
 
 export { getHistory, updateHistory };
-
