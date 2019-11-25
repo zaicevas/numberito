@@ -6,15 +6,6 @@ import ChiliButton from './ChiliButton';
 import MoreButton from './MoreButton';
 import { MiddleButtonStyles } from './Styles';
 
-interface MiddleButtonProps extends NavigationInjectedProps {
-  isFocused: boolean;
-  activeTintColor: string;
-  refreshScreen: () => void;
-  provideAnswer: () => void;
-  getInputState: () => InputState;
-  toggleNotes: () => void;
-}
-
 const styles = MiddleButtonStyles;
 
 const MiddleButton: React.FC<MiddleButtonProps> = ({
@@ -52,5 +43,14 @@ const MiddleButton: React.FC<MiddleButtonProps> = ({
     </View>
   );
 };
+
+interface MiddleButtonProps extends NavigationInjectedProps {
+  isFocused: boolean;
+  activeTintColor: string;
+  refreshScreen: () => void;
+  provideAnswer: () => void;
+  getInputState: () => InputState;
+  toggleNotes: () => void;
+}
 
 export default MiddleButton;

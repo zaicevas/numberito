@@ -11,10 +11,6 @@ import { ChiliButtonStyles, Styles } from './Styles';
 const styles = ChiliButtonStyles;
 const genericStyles = Styles;
 
-interface ChiliButtonProps extends NavigationInjectedProps {
-  untoggle: () => void;
-}
-
 const ChiliButton: React.FC<ChiliButtonProps> = ({ navigation, untoggle }) => {
   return (
     <TouchableOpacity
@@ -47,5 +43,9 @@ const ChiliButton: React.FC<ChiliButtonProps> = ({ navigation, untoggle }) => {
     </TouchableOpacity>
   );
 };
+
+interface ChiliButtonProps extends NavigationInjectedProps {
+  untoggle: () => void;
+}
 
 export default ChiliButton;

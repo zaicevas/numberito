@@ -1,27 +1,6 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Theme } from '../constants/index';
-import { FOOTBAR_HEIGHT, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
-
-interface TabBarStyle {
-  container: ViewStyle;
-  iconsContainer: ViewStyle;
-  tabButton: ViewStyle;
-  fakeBackground: ViewStyle;
-  content: ViewStyle;
-}
-
-interface ChiliButtonStyle {
-  container: ViewStyle;
-  icon: ViewStyle;
-}
-
-interface MiddleButtonStyle {
-  container: ViewStyle;
-}
-
-interface Style {
-  shadow: ViewStyle;
-}
+import { FOOTBAR_HEIGHT, MIDDLE_BUTTON_SIZE, SUB_BUTTON_SIZE } from '../constants/Navigation';
 
 const TabBarStyles = StyleSheet.create<TabBarStyle>({
   iconsContainer: {
@@ -82,6 +61,22 @@ const MiddleButtonStyles = StyleSheet.create<MiddleButtonStyle>({
   },
 });
 
+const SubButtonStyles = StyleSheet.create<SubButtonStyle>({
+  container: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  wrapper: {
+    width: SUB_BUTTON_SIZE,
+    height: SUB_BUTTON_SIZE,
+    borderRadius: 100,
+  },
+  content: {
+    flex: 1, alignItems: 'center', justifyContent: 'center',
+  },
+});
+
 const Styles = StyleSheet.create<Style>({
   shadow: {
     shadowColor: Theme.colors.black,
@@ -94,5 +89,32 @@ const Styles = StyleSheet.create<Style>({
   },
 });
 
-export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, Styles };
+interface TabBarStyle {
+  container: ViewStyle;
+  iconsContainer: ViewStyle;
+  tabButton: ViewStyle;
+  fakeBackground: ViewStyle;
+  content: ViewStyle;
+}
+
+interface ChiliButtonStyle {
+  container: ViewStyle;
+  icon: ViewStyle;
+}
+
+interface MiddleButtonStyle {
+  container: ViewStyle;
+}
+
+interface SubButtonStyle {
+  container: ViewStyle;
+  wrapper: ViewStyle;
+  content: ViewStyle;
+}
+
+interface Style {
+  shadow: ViewStyle;
+}
+
+export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, SubButtonStyles, Styles };
 

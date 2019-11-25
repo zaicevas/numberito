@@ -45,6 +45,7 @@ const TabBar: React.FC<TabBarProps> = ({
           if (isMiddleButtonScreen) {
             return (
               <MiddleButton
+                key={routeIndex}
                 isFocused={isRouteActive}
                 navigation={navigation}
                 activeTintColor={activeTintColor}
@@ -77,7 +78,6 @@ const TabBar: React.FC<TabBarProps> = ({
               }}
             >
               {renderIcon({ tintColor, route, focused: isRouteActive })}
-
               {showLabel ? <Text>{getLabelText({ route })}</Text> : null}
             </TouchableOpacity>
           );
