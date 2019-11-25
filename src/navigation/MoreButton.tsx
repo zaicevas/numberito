@@ -3,16 +3,14 @@ import React from 'react';
 import { Animated, Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Theme } from '../constants/index';
-import { AnimatedTouchable, ANIMATION_LENGTH, MIDDLE_BUTTON_SIZE } from '../constants/Navigation';
+import { AnimatedTouchable, ANIMATION_LENGTH, AUTO_CLOSE_MORE_BUTTON, SUB_BUTTON_SIZE } from '../constants/Navigation';
 import { InputState } from '../constants/Screens';
-import { Styles } from './Styles';
+import { MoreButtonStyles, Styles } from './Styles';
 import SubButton from './SubButton';
 
-const AUTO_CLOSE = 15 * 1000;
-const SUB_BUTTON_SIZE = 40;
-const styles = Styles;
+const styles = { ...MoreButtonStyles, ...Styles };
 
-class MoreButton extends React.Component {
+class MoreButton extends React.Component<MoreButtonProps, MoreButtonState> {
   public state = {
     timeout: 0,
     animateButton: false,
@@ -64,17 +62,9 @@ class MoreButton extends React.Component {
         >
           <Animated.View
             style={[
+              styles.container,
               {
-                left: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
                 transform: [{ rotate: this.rotation }],
-              },
-              {
-                width: MIDDLE_BUTTON_SIZE,
-                height: MIDDLE_BUTTON_SIZE,
-                borderRadius: 100,
-                borderColor: 'white',
                 backgroundColor,
               },
               styles.shadow,
@@ -165,7 +155,7 @@ class MoreButton extends React.Component {
       clearTimeout(timeout);
     }
     if (_value === 0) {
-      const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE);
+      const newTimeout = setTimeout(() => this.toggleView(true), AUTO_CLOSE_MORE_BUTTON);
       this.setState({ timeout: newTimeout });
     }
   }
@@ -191,6 +181,19 @@ class MoreButton extends React.Component {
     this.toggleView(false);
     onPress();
   }
+}
+
+interface MoreButtonProps {
+  provideAnswer: () => void;
+  refreshScreen: () => void;
+  toggleNotes: () => void;
+  getInputState: () => InputState;
+  backgroundColor: string;
+}
+
+interface MoreButtonState {
+  timeout: number;
+  animateButton: boolean;
 }
 
 export default MoreButton;

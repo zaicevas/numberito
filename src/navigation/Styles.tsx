@@ -73,7 +73,21 @@ const SubButtonStyles = StyleSheet.create<SubButtonStyle>({
     borderRadius: 100,
   },
   content: {
-    flex: 1, alignItems: 'center', justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const MoreButtonStyles = StyleSheet.create<MoreButtonStyle>({
+  container: {
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: MIDDLE_BUTTON_SIZE,
+    height: MIDDLE_BUTTON_SIZE,
+    borderRadius: 100,
+    borderColor: 'white',
   },
 });
 
@@ -86,6 +100,7 @@ const Styles = StyleSheet.create<Style>({
       width: 0,
       height: 1,
     },
+    elevation: 2,
   },
 });
 
@@ -112,9 +127,13 @@ interface SubButtonStyle {
   content: ViewStyle;
 }
 
+interface MoreButtonStyle {
+  container: ViewStyle;
+}
+
 interface Style {
   shadow: ViewStyle;
 }
 
-export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, SubButtonStyles, Styles };
+export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, SubButtonStyles, MoreButtonStyles, Styles };
 

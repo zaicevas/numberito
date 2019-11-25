@@ -8,8 +8,7 @@ import { ANIMATION_LENGTH } from '../constants/Navigation';
 import { SCREEN_PLAY } from '../constants/Screens';
 import { ChiliButtonStyles, Styles } from './Styles';
 
-const styles = ChiliButtonStyles;
-const genericStyles = Styles;
+const styles = { ...ChiliButtonStyles, ...Styles };
 
 const ChiliButton: React.FC<ChiliButtonProps> = ({ navigation, untoggle }) => {
   return (
@@ -29,7 +28,7 @@ const ChiliButton: React.FC<ChiliButtonProps> = ({ navigation, untoggle }) => {
         useNativeDriver={true}
         style={[
           styles.container,
-          genericStyles.shadow,
+          styles.shadow,
         ]}
       >
         <MaterialCommunityIcons
