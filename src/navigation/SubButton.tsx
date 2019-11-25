@@ -1,11 +1,17 @@
 import React from 'react';
-import { Animated, TouchableOpacity, View } from 'react-native';
+import { Animated, View } from 'react-native';
 import { Theme } from '../constants/index';
+import { AnimatedTouchable, SUB_BUTTON_SIZE } from '../constants/Navigation';
 
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-const SUB_BUTTON_SIZE = 40;
+interface SubButtonProps {
+  x: Animated.AnimatedInterpolation;
+  y: Animated.AnimatedInterpolation;
+  opacity: Animated.AnimatedInterpolation;
+  disabled?: boolean;
+  onPress: () => void;
+}
 
-const SubButton: React.FC = ({
+const SubButton: React.FC<SubButtonProps> = ({
     x,
     y,
     opacity,
