@@ -19,16 +19,17 @@ interface Section {
 const LoadingPlaceholder: React.FC = () => {
   return (
     <>
-      {Array(20).fill(
+    {Array.apply(null, Array(20)).map((_, index) => (
         <Placeholder
           tyle={styles.icon}
           Animation={ShineOverlay}
           Left={PlaceholderMedia}
+          key={index}
         >
           <PlaceholderLine width={Layout.width * 0.9} />
           <PlaceholderLine width={Layout.width * 0.9} />
-        </Placeholder>,
-      )}
+        </Placeholder>
+    ))}
     </>
   );
 };

@@ -5,7 +5,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
-import { SCREEN_TUTORIAL } from '../constants/Screens';
+import { SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
 
@@ -24,20 +24,16 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
     console.log('feedback pressed');
   }
 
-  public handleReportPress() {
-    console.log('report pressed');
-  }
-
   public handleHistoryPress() {
     console.log('history pressed');
   }
 
-  public handleTutorialPress() {
-    this.props.navigation.navigate(SCREEN_TUTORIAL);
+  public handlePlayPress() {
+    this.props.navigation.navigate(SCREEN_PLAY);
   }
 
-  public handleHelpPress() {
-    console.log('about pressed');
+  public handleTutorialPress() {
+    this.props.navigation.navigate(SCREEN_TUTORIAL);
   }
 
   public render() {
@@ -58,11 +54,11 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
           </Button>
           <Button
             gradient
-            onPress={() => this.handleReportPress()}
+            onPress={() => this.handlePlayPress()}
             style={styles.button}
           >
             <Text center bold white>
-              Report
+             Play
             </Text>
           </Button>
           <Button

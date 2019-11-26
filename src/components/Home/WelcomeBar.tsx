@@ -12,11 +12,7 @@ const photos = [
   require('../../../assets/home/borat.jpeg'),
 ];
 
-interface WelcomeBarProps {
-  title: string;
-}
-
-class WelcomeBar extends React.Component<WelcomeBarProps> {
+class WelcomeBar extends React.Component<WelcomeBarProps, WelcomeBarState> {
   public state = {
     currentIndex: 0,
   };
@@ -43,6 +39,14 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
   }
 }
 
+interface WelcomeBarProps {
+  title: string;
+}
+
+interface WelcomeBarState {
+  currentIndex: number;
+}
+
 interface Style {
   welcomeImage: ImageStyle;
   welcomeContainer: ViewStyle;
@@ -52,12 +56,11 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   welcomeImage: {
     height: Layout.height * 0.25,
-    marginBottom: '4%',
     alignSelf: 'center',
   },
   welcomeContainer: {
-    flex: 1,
     paddingTop: STATUS_BAR_HEIGHT + 5,
+    minHeight: Layout.height * 0.5,
   },
   title: {
     marginBottom: '10%',
