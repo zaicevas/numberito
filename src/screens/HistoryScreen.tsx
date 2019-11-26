@@ -78,7 +78,7 @@ class HistoryScreen extends React.Component<
         isLoading: true,
       });
       const history = await getHistory();
-      const historyJson = JSON.parse(history);
+      const historyJson = JSON.parse(history || '');
       this.setState({
         guesses: historyJson ? historyJson.reverse() : [],
         isLoading: false,

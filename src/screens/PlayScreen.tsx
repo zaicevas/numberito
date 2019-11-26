@@ -164,7 +164,6 @@ class PlayScreen extends React.Component<
             onClose={() => this.setState({ isNotesActive: false })}
             onPressCloseButton={() => this.setState({ isNotesActive: false })}
             isActive={isNotesActive}
-            openLarge
           >
             <CustomText
               bold
@@ -226,7 +225,7 @@ const styles = StyleSheet.create<Style>({
     alignSelf: 'center',
   },
   historyGradient: {
-    flex: 0.75,
+    height: 50,
     width: '95%',
     borderRadius: Theme.sizes.radius,
     alignSelf: 'center',

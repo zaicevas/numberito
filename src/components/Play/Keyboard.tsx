@@ -20,7 +20,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   inputState,
 }) => (
     <View style={[styles.keyboardStyle]}>
-      <View style={[styles.container, { width: WIDTH }]}>
+      <View style={[styles.container]}>
         {KEYS.map((key, index) => (
           <Touchable
             inputKey={key}
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    width: WIDTH,
   },
   touchStyle: {
     alignItems: 'center',
