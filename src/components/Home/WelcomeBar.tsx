@@ -9,6 +9,7 @@ const photos = [
   require('../../../assets/home/bean_confident2.png'),
   require('../../../assets/home/happy-sombrero.jpg'),
   require('../../../assets/home/happy_hispanic.jpeg'),
+  require('../../../assets/home/borat.jpeg'),
 ];
 
 interface WelcomeBarProps {
@@ -33,7 +34,7 @@ class WelcomeBar extends React.Component<WelcomeBarProps> {
         >
           <Image
             resizeMode="contain"
-            source={photos[currentIndex % 4]}
+            source={photos[currentIndex % photos.length]}
             style={styles.welcomeImage}
           />
         </TouchableOpacity>

@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Theme } from '../constants/index';
 
-class Button extends React.Component<ButtonProps, {}> {
+class Button extends React.Component<ButtonProps, never> {
   public static defaultProps = {
     startColor: Theme.colors.primary,
     endColor: Theme.colors.primaryShadow,
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 10,
   },
-  accent: { backgroundColor: Theme.colors.accent },
   primary: { backgroundColor: Theme.colors.primary },
   secondary: { backgroundColor: Theme.colors.secondary },
   tertiary: { backgroundColor: Theme.colors.tertiary },
@@ -94,22 +93,22 @@ const styles = StyleSheet.create({
 });
 
 interface ButtonProps {
-  style: StyleMedia;
-  opacity: number;
-  gradient: boolean;
-  color: string;
-  startColor: string;
-  endColor: string;
-  start: [number, number];
-  end: [number, number];
-  locations: number[];
-  shadow: {
+  style?: StyleMedia;
+  opacity?: number;
+  gradient?: boolean;
+  color?: string;
+  startColor?: string;
+  endColor?: string;
+  start?: [number, number];
+  end?: [number, number];
+  locations?: number[];
+  shadow?: {
     shadowColor: string;
     shadowOffset: { width: number; height: number };
     shadowOpacity: number;
     shadowRadius: number;
   };
-  children: JSX.Element[];
+  onPress: () => void;
 }
 
 export default Button;
