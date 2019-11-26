@@ -7,6 +7,7 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { Placeholder, PlaceholderLine, PlaceholderMedia, ShineOverlay } from 'rn-placeholder';
 import SvgBull from '../components/SvgBull';
 import { Layout, Theme } from '../constants/index';
+import { FOOTBAR_HEIGHT } from '../constants/Navigation';
 import { getHistory } from '../helpers/HistoryRepository';
 import { SingleGuess } from '../types/index';
 
@@ -195,6 +196,7 @@ const styles = StyleSheet.create<Styles>({
     flex: 1,
     backgroundColor: Theme.colors.white,
     paddingTop: 16,
+    paddingBottom: FOOTBAR_HEIGHT,
   },
   title: {
     textAlign: 'center',
