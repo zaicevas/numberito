@@ -19,7 +19,7 @@ interface Section {
 const LoadingPlaceholder: React.FC = () => {
   return (
     <>
-    {Array.apply(null, Array(20)).map((_, index) => (
+    {Array.apply(null, Array(16)).map((_, index) => (
         <Placeholder
           tyle={styles.icon}
           Animation={ShineOverlay}
