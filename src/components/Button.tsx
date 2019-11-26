@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ShadowStyleIOS, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { Theme } from '../constants/index';
 
 class Button extends React.Component<ButtonProps, never> {
@@ -33,8 +33,8 @@ class Button extends React.Component<ButtonProps, never> {
     const buttonStyles = [
       styles.button,
       shadow && styles.shadow,
-      color && styles[color], // predefined styles colors for backgroundColor
-      color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
+      color && styles[color],
+      color && !styles[color] && { backgroundColor: color },
       style,
     ];
 
@@ -70,7 +70,19 @@ class Button extends React.Component<ButtonProps, never> {
   }
 }
 
-const styles = StyleSheet.create({
+interface Styles {
+  button: ViewStyle;
+  shadow: ShadowStyleIOS;
+  primary: ViewStyle;
+  secondary: ViewStyle;
+  tertiary: ViewStyle;
+  black: ViewStyle;
+  white: ViewStyle;
+  gray: ViewStyle;
+  gray2: ViewStyle;
+}
+
+const styles = StyleSheet.create<Styles>({
   button: {
     borderRadius: Theme.sizes.radius,
     height: Theme.sizes.base * 3,
