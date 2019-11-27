@@ -5,7 +5,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
-import { SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
+import { SCREEN_FEEDBACK, SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
 
@@ -21,7 +21,7 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
   };
 
   public handleFeedbackPress() {
-    console.log('feedback pressed');
+    this.props.navigation.navigate(SCREEN_FEEDBACK);
   }
 
   public handleHistoryPress() {
