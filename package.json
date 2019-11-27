@@ -11,6 +11,7 @@
     "@eva-design/eva": "^1.0.1",
     "expo": "^34.0.1",
     "expo-constants": "^6.0.0",
+    "formik": "^2.0.6",
     "native-base": "^2.9.3",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
@@ -35,7 +36,8 @@
     "@types/react-navigation": "^3.0.8",
     "tslint": "^5.18.0",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "yup": "^0.27.0"
   },
   "private": true
 }
