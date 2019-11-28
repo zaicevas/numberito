@@ -22,9 +22,6 @@ const HomeStackNavigator = createStackNavigator(
     Tutorial: {
       screen: TutorialScreen,
     },
-    Feedback: {
-      screen: FeedbackScreen,
-    },
   },
   {
     initialRouteName: SCREEN_HOME,
@@ -54,9 +51,6 @@ const HistoryStackNavigator = createStackNavigator(
       }),
     },
   },
-  {
-    initialRouteName: SCREEN_HISTORY,
-  },
 );
 
 HistoryStackNavigator.navigationOptions = {
@@ -70,6 +64,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     Home: HomeStackNavigator,
     Play: PlayScreen,
     History: HistoryStackNavigator,
+    Feedback: FeedbackScreen,
   },
   {
     initialRouteName: SCREEN_HOME,
@@ -82,7 +77,6 @@ const BottomTabNavigator = createBottomTabNavigator(
       },
     },
     tabBarComponent: TabBar,
-    tabBarPosition: 'bottom',
 
     defaultNavigationOptions: (): NavigationBottomTabScreenOptions => ({
       tabBarIcon: ({ tintColor }) => (

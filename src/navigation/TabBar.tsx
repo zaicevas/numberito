@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { NavigationInjectedProps, NavigationRoute, TabScene } from 'react-navigation';
+import { HIDDEN_SCREENS_IN_TAB_BAR } from '../constants/Navigation';
 import { InputState, SCREEN_MIDDLE_BUTTON } from '../constants/Screens';
 import MiddleButton from './MiddleButton';
 import { TabBarStyles } from './Styles';
@@ -42,6 +43,9 @@ const TabBar: React.FC<TabBarProps> = ({
           const isRouteActive = routeIndex === activeRouteIndex;
           const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
           const isMiddleButtonScreen = route.routeName === SCREEN_MIDDLE_BUTTON;
+          if (HIDDEN_SCREENS_IN_TAB_BAR.includes(route.routeName)) {
+            return null;
+          }
           if (isMiddleButtonScreen) {
             return (
               <MiddleButton
