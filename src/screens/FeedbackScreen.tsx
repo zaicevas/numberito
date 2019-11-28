@@ -1,14 +1,13 @@
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
-import React from 'react';
-import { ActivityIndicator, Button, Image, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from 'react-native';
+import React, { useRef } from 'react';
+import { ActivityIndicator, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import * as yup from 'yup';
 import { Layout } from '../constants/index';
 
 const EMPTY_FIELDS_ERROR_MESSAGE = 'Dude, you have to write something!';
 
-const validationSchema = yup
-.object().shape({
+const validationSchema = yup.object().shape({
   email: yup.string()
     .label('Email')
     .email('Invalid email'),
@@ -34,18 +33,24 @@ const validationSchema = yup
     ),
 });
 
-const MyReactNativeForm = props => (
+const MyReactNativeForm = props => {
+  const emailRef = useRef();
+  const bugsRef = useRef();
+  const positiveRef = useRef();
+  const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
+  return (
   <Formik
       initialValues={{ email: '', bugs: '', positive: '' }}
       onSubmit={(values, actions) => {
-        alert(JSON.stringify(values));
+        clearFields();
         setTimeout(() => {
           actions.setSubmitting(false);
-        },         1000);
+        },         5000);
+        actions.resetForm();
       }}
       validationSchema={validationSchema}
-      validateOnChange
       validateOnBlur={false}
+      onReset={clearFields}
     >
       {({
     handleChange,
@@ -57,6 +62,7 @@ const MyReactNativeForm = props => (
     handleBlur,
     isSubmitting,
     validateForm,
+    resetForm,
   }) => (
       <View>
         <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight * 2 }}>
@@ -66,44 +72,44 @@ const MyReactNativeForm = props => (
         />
         </View>
           <TextInput
+          ref={emailRef}
           style={styles.textInput}
           onChangeText={handleChange('email')}
           placeholder="Email (optional)"
           />
           {errors.email ? (<Text style={styles.errorMessage}>{errors.email}</Text>) : null}
           <TextInput
+          ref={bugsRef}
           multiline
           style={styles.textInput}
           onChangeText={handleChange('bugs')}
           placeholder="Have you encountered any bugs?"
           />
           <TextInput
+          ref={positiveRef}
           multiline
           style={styles.textInput}
           onChangeText={handleChange('positive')}
           placeholder="Is there something you really liked in the app? :)"
           />
-          {console.log(errors)}
           {errors.positive || errors.bugs ? (<Text style={styles.errorMessage}>{errors.positive || errors.bugs}</Text>) : null}
           {isSubmitting ? (
             <ActivityIndicator />
           ) : (
-            <Button title="Submit" onPress={() => handleSubmit() && validateForm()} />
+            <Button title="Submit" onPress={() => (Keyboard.dismiss(), handleSubmit(), validateForm())} />
           )}
           </View>
       )}
     </Formik>
-);
+  ); };
 
-class FeedbackScreen extends React.Component {
-  public render() {
-    return (
-      <View >
-        <MyReactNativeForm />
-      </View>
-    );
-  }
-}
+const FeedbackScreen: React.FC = () => (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View>
+      <MyReactNativeForm />
+    </View>
+  </TouchableWithoutFeedback>
+);
 
 interface Styles {
   container: ViewStyle;
@@ -122,7 +128,7 @@ const styles = StyleSheet.create<Styles>({
   textInput: {
     backgroundColor: '#f5f6f7',
     padding: 10,
-    margin:10,
+    margin: 10,
   },
   errorMessage: {
     color: 'red',
