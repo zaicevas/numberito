@@ -38,16 +38,16 @@ const MyReactNativeForm = props => {
   const bugsRef = useRef();
   const positiveRef = useRef();
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
+  const handleSuccessfulSubmit = (values, actions) => {
+    clearFields();
+    setTimeout(() => {
+          actions.resetForm();
+        },         2000);
+  };
   return (
   <Formik
       initialValues={{ email: '', bugs: '', positive: '' }}
-      onSubmit={(values, actions) => {
-        clearFields();
-        setTimeout(() => {
-          actions.setSubmitting(false);
-        },         5000);
-        actions.resetForm();
-      }}
+      onSubmit={handleSuccessfulSubmit}
       validationSchema={validationSchema}
       validateOnBlur={false}
       onReset={clearFields}
@@ -96,7 +96,7 @@ const MyReactNativeForm = props => {
           {isSubmitting ? (
             <ActivityIndicator />
           ) : (
-            <Button title="Submit" onPress={() => (Keyboard.dismiss(), handleSubmit(), validateForm())} />
+            <Button title="Submit" onPress={() => (Keyboard.dismiss(), handleSubmit())} />
           )}
           </View>
       )}
