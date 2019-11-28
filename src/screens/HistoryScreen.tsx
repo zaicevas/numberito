@@ -98,9 +98,9 @@ class HistoryScreen extends React.Component<
     return (
       <View style={[styles.header, isActive ? styles.active : styles.inactive]}>
         <View style={styles.horizontalLayout}>
-          <View style={styles.icon}>
-            {this.getIcon(section.history.length)}
-          </View>
+      <View style={styles.guessCounter} >
+        <Text>{section.history.length}</Text>
+      </View>
           <View>
             <Text style={styles.headerText}>{section.answer}</Text>
             <Text style={styles.dateText}>{timestamp}</Text>
@@ -148,29 +148,6 @@ class HistoryScreen extends React.Component<
       );
   }
 
-  private getIcon = (guessCount: number) => {
-    if (guessCount < 10) {
-      return (
-        <MaterialCommunityIcons
-          name={`numeric-${guessCount}-box-multiple-outline`}
-          size={24}
-        />
-      );
-    }
-    if (guessCount < 1 || guessCount > 99) return null;
-    return (
-      <>
-        <MaterialCommunityIcons
-          name={`numeric-${Math.floor(guessCount / 10)}-box-multiple-outline`}
-          size={24}
-        />
-        <MaterialCommunityIcons
-          name={`numeric-${guessCount % 10}-box-multiple-outline`}
-          size={24}
-        />
-      </>
-    );
-  }
 }
 
 interface Styles {
@@ -189,6 +166,7 @@ interface Styles {
   icon: ViewStyle;
   guessInfo: ViewStyle;
   singleGuessContainer: ViewStyle;
+  guessCounter: ViewStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -257,6 +235,17 @@ const styles = StyleSheet.create<Styles>({
   singleGuessContainer: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  guessCounter: {
+    borderRadius: 100,
+    width: 32,
+    height: 32,
+    borderColor: 'black',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 8,
+    marginRight: 12,
   },
 });
 
