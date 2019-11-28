@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Formik } from 'formik';
+import { Formik, FormikActions, FormikProps } from 'formik';
 import React, { useRef } from 'react';
 import { ActivityIndicator, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import * as yup from 'yup';
@@ -33,20 +33,32 @@ const validationSchema = yup.object().shape({
     ),
 });
 
-const MyReactNativeForm = props => {
+interface Fields {
+  email: string;
+  bugs: string;
+  positive: string;
+}
+
+const initialFields: Fields = {
+  email: '',
+  bugs: '',
+  positive: '',
+};
+
+const Form: React.FC = () => {
   const emailRef = useRef();
   const bugsRef = useRef();
   const positiveRef = useRef();
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
-  const handleSuccessfulSubmit = (values, actions) => {
+  const handleSuccessfulSubmit = (_: Fields, actions: FormikActions) => {
     clearFields();
     setTimeout(() => {
-          actions.resetForm();
-        },         2000);
+      actions.resetForm();
+    },         2000);
   };
   return (
   <Formik
-      initialValues={{ email: '', bugs: '', positive: '' }}
+      initialValues={initialFields}
       onSubmit={handleSuccessfulSubmit}
       validationSchema={validationSchema}
       validateOnBlur={false}
@@ -54,20 +66,14 @@ const MyReactNativeForm = props => {
     >
       {({
     handleChange,
-    values,
     handleSubmit,
     errors,
-    isValid,
-    touched,
-    handleBlur,
     isSubmitting,
-    validateForm,
-    resetForm,
-  }) => (
+  }: FormikProps<Fields>) => (
       <View>
-        <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight * 2 }}>
+        <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight }}>
                 <Image
-          style={{ width: Layout.width * 0.4, height: Layout.width * 0.4, alignSelf: 'center' }}
+          style={{ width: Layout.width * 0.7, height: Layout.width * 0.7, alignSelf: 'center' }}
           source={require('../../assets/flame.png')}
         />
         </View>
@@ -106,7 +112,7 @@ const MyReactNativeForm = props => {
 const FeedbackScreen: React.FC = () => (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View>
-      <MyReactNativeForm />
+      <Form />
     </View>
   </TouchableWithoutFeedback>
 );
