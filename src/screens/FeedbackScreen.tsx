@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import { Formik, FormikActions, FormikProps } from 'formik';
 import React, { useRef } from 'react';
-import { ActivityIndicator, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import * as yup from 'yup';
 import { Layout } from '../constants/index';
 import { storeFeedback } from '../firebase/index';
@@ -46,12 +46,16 @@ const Form: React.FC = () => {
   const bugsRef = useRef();
   const positiveRef = useRef();
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
+  const handleStoreSuccess = (formActions: FormikActions) => {
+    formActions.resetForm();
+    Alert.alert(
+      'Feedback sent',
+      'Thank you for being awesome!',
+    );
+  };
   const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
     clearFields();
-    storeFeedback(fields);
-    setTimeout(() => {
-      actions.resetForm();
-    },         2000);
+    storeFeedback(fields).then(() => handleStoreSuccess(actions), (err) => alert(err.json()));
   };
   return (
   <Formik
