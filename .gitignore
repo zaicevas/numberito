@@ -7,4 +7,4 @@ npm-debug.*
 *.mobileprovision
 .vscode/settings.json
 todo.txt
-*.env
+.env
