@@ -136,4 +136,3 @@ interface Style {
 }
 
 export { TabBarStyles, ChiliButtonStyles, MiddleButtonStyles, SubButtonStyles, MoreButtonStyles, Styles };
-

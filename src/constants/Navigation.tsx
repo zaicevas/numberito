@@ -10,4 +10,3 @@ const HIDDEN_SCREENS_IN_TAB_BAR = [SCREEN_FEEDBACK];
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 export { MIDDLE_BUTTON_SIZE, SUB_BUTTON_SIZE, AUTO_CLOSE_MORE_BUTTON, ANIMATION_LENGTH, FOOTBAR_HEIGHT, HIDDEN_SCREENS_IN_TAB_BAR, AnimatedTouchable };
-

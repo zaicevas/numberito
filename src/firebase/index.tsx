@@ -14,4 +14,3 @@ const storeFeedback = (fields: FeedbackFields) => {
 firebase.initializeApp(firebaseConfig);
 
 export { storeFeedback };
-
