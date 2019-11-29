@@ -29,14 +29,10 @@
     "githubUrl": "https://github.com/tozaicevas/numberito",
     "extra": {
       "firebase": {
-        "apiKey": "test",
-        "authDomain": "test",
-        "databaseURL": "test",
-        "projectId": "test",
-        "storageBucket": "test",
-        "messagingSenderId": "test",
-        "appId": "test",
-        "measurementId": "test"
+        "apiKey": "AIzaSyC-ZUOu7S3euyJVRo0H6Gpxd8iSvRh5ang",
+        "authDomain": "numberito-84767.firebaseapp.com",
+        "databaseURL": "https://numberito-84767.firebaseio.com",
+        "storageBucket": "numberito-84767.appspot.com",
       }
     }
   }
