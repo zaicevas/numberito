@@ -11,6 +11,7 @@
     "@eva-design/eva": "^1.0.1",
     "expo": "^34.0.1",
     "expo-constants": "^6.0.0",
+    "firebase": "^7.5.0",
     "formik": "^2.0.6",
     "native-base": "^2.9.3",
     "react": "16.8.3",

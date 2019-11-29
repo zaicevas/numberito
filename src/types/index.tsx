@@ -18,3 +18,9 @@ export interface Slide {
   example?: React.ReactNode;
   backgroundColor: string;
 }
+
+export interface FeedbackFields {
+  email: string;
+  bugs: string;
+  positive: string;
+}

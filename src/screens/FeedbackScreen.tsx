@@ -4,6 +4,8 @@ import React, { useRef } from 'react';
 import { ActivityIndicator, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import * as yup from 'yup';
 import { Layout } from '../constants/index';
+import { storeFeedback } from '../firebase/index';
+import { FeedbackFields } from '../types/index';
 
 const EMPTY_FIELDS_ERROR_MESSAGE = 'Dude, you have to write something!';
 
@@ -33,13 +35,7 @@ const validationSchema = yup.object().shape({
     ),
 });
 
-interface Fields {
-  email: string;
-  bugs: string;
-  positive: string;
-}
-
-const initialFields: Fields = {
+const initialFields: FeedbackFields = {
   email: '',
   bugs: '',
   positive: '',
@@ -50,8 +46,9 @@ const Form: React.FC = () => {
   const bugsRef = useRef();
   const positiveRef = useRef();
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
-  const handleSuccessfulSubmit = (_: Fields, actions: FormikActions) => {
+  const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
     clearFields();
+    storeFeedback(fields);
     setTimeout(() => {
       actions.resetForm();
     },         2000);
@@ -59,7 +56,7 @@ const Form: React.FC = () => {
   return (
   <Formik
       initialValues={initialFields}
-      onSubmit={handleSuccessfulSubmit}
+      onSubmit={handleValidatedSubmit}
       validationSchema={validationSchema}
       validateOnBlur={false}
       onReset={clearFields}
@@ -69,7 +66,7 @@ const Form: React.FC = () => {
     handleSubmit,
     errors,
     isSubmitting,
-  }: FormikProps<Fields>) => (
+  }: FormikProps<FeedbackFields>) => (
       <View>
         <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight }}>
                 <Image

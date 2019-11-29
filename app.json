@@ -26,6 +26,18 @@
       "supportsTablet": true
     },
     "description": "",
-    "githubUrl": "https://github.com/tozaicevas/numberito"
+    "githubUrl": "https://github.com/tozaicevas/numberito",
+    "extra": {
+      "firebase": {
+        "apiKey": "test",
+        "authDomain": "test",
+        "databaseURL": "test",
+        "projectId": "test",
+        "storageBucket": "test",
+        "messagingSenderId": "test",
+        "appId": "test",
+        "measurementId": "test"
+      }
+    }
   }
 }
