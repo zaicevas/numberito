@@ -1,10 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import React from 'react';
-import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
+import { Layout } from '../constants/index';
 import { SCREEN_FEEDBACK, SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
@@ -22,10 +24,6 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
 
   public handleFeedbackPress() {
     this.props.navigation.navigate(SCREEN_FEEDBACK);
-  }
-
-  public handleHistoryPress() {
-    console.log('history pressed');
   }
 
   public handlePlayPress() {
@@ -73,6 +71,9 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
             </Text>
           </Button>
         </View>
+        <TouchableOpacity style={styles.helpIcon}>
+          <Ionicons name="ios-help-circle-outline" size={32} />
+        </TouchableOpacity>
       </>
     );
   }
@@ -83,6 +84,7 @@ export default HomeScreen;
 interface Style {
   container: ViewStyle;
   button: ViewStyle;
+  helpIcon: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -93,5 +95,12 @@ const styles = StyleSheet.create<Style>({
   button: {
     width: '90%',
     alignSelf: 'center',
+  },
+  helpIcon: {
+    position: 'absolute',
+    marginTop: Constants.statusBarHeight,
+    left: Layout.width - (32 + 6),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

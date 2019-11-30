@@ -3,16 +3,14 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator, NavigationBottomTabScreenOptions, NavigationInjectedProps } from 'react-navigation';
 import { Theme } from '../constants/index';
-import { SCREEN_HISTORY, SCREEN_HOME, SCREEN_TUTORIAL } from '../constants/Screens';
+import { FOOTBAR_ICON_SIZE, SCREENS_WITH_HIDDEN_TAB_BAR } from '../constants/Navigation';
+import { SCREEN_HISTORY, SCREEN_HOME } from '../constants/Screens';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
 import TutorialScreen from '../screens/TutorialScreen';
 import TabBar from './TabBar';
-
-const FOOTBAR_ICON_SIZE = 30;
-const HIDDEN_TAB_BAR_SCREENS = [SCREEN_TUTORIAL];
 
 const HomeStackNavigator = createStackNavigator(
   {
@@ -32,7 +30,7 @@ const HomeStackNavigator = createStackNavigator(
 HomeStackNavigator.navigationOptions = ({
   navigation,
 }: NavigationInjectedProps) => ({
-  tabBarVisible: !HIDDEN_TAB_BAR_SCREENS.includes(navigation.state.routes[navigation.state.index].routeName),
+  tabBarVisible: !SCREENS_WITH_HIDDEN_TAB_BAR.includes(navigation.state.routes[navigation.state.index].routeName),
 });
 
 const HistoryStackNavigator = createStackNavigator(
