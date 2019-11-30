@@ -11,7 +11,7 @@ const colors = {
   gray2: '#C5CCD6',
   red: 'red',
   lightBlue: '#48A2F8',
-  green: '#10e883',
+  green: '#0cc971',
 };
 
 const sizes = {
@@ -53,3 +53,4 @@ const fonts = {
 };
 
 export { colors, sizes, fonts };
+

@@ -1,10 +1,12 @@
+import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Formik, FormikActions, FormikProps } from 'formik';
 import React, { useRef } from 'react';
 import { ActivityIndicator, Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { WToast } from 'react-native-smart-tip';
 import * as yup from 'yup';
 import { TIMEOUT_FOR_FEEDBACK_REQUEST } from '../constants/Firebase';
-import { Layout } from '../constants/index';
+import { Layout, Theme } from '../constants/index';
 import { storeFeedback } from '../firebase/index';
 import { FeedbackFields } from '../types/index';
 
@@ -42,11 +44,22 @@ const initialFields: FeedbackFields = {
   positive: '',
 };
 
+const showSuccessToast = () => {
+  WToast.show({
+    data: 'Feedback sent',
+    textColor: Theme.colors.white,
+    backgroundColor: Theme.colors.green,
+    duration: WToast.duration.LONG,
+    position: WToast.position.TOP,
+    icon: (<AntDesign name="check" size={24} color={Theme.colors.white} />),
+  });
+};
+
 const Form: React.FC = () => {
   const emailRef = useRef();
   const bugsRef = useRef();
   const positiveRef = useRef();
-  const FEEDBACK_FAILURE_MESSAGE = 'Looks like there are internet related problems. No worries, feedback will be sent automatically later on!';
+  const FEEDBACK_FAILURE_MESSAGE = 'Looks like there are internet related problems. No worries, feedback will be sent automatically when problems are solved!';
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
   const sendFeedback = (fields: FeedbackFields) => new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(FEEDBACK_FAILURE_MESSAGE), TIMEOUT_FOR_FEEDBACK_REQUEST);
@@ -54,10 +67,7 @@ const Form: React.FC = () => {
       .catch(err => reject(err));
   });
   const handleStoreSuccess = () => {
-    Alert.alert(
-      'Feedback sent',
-      'Thank you for being awesome!',
-    );
+    showSuccessToast();
   };
   const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
     clearFields();
