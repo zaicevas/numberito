@@ -173,8 +173,8 @@ const styles = StyleSheet.create<Styles>({
   container: {
     flex: 1,
     backgroundColor: Theme.colors.white,
-    paddingTop: 16,
     paddingBottom: FOOTBAR_HEIGHT,
+    paddingTop: 16,
   },
   title: {
     textAlign: 'center',
