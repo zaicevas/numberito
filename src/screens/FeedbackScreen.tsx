@@ -1,11 +1,11 @@
 import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Formik, FormikActions, FormikProps } from 'formik';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import { WToast } from 'react-native-smart-tip';
 import * as yup from 'yup';
-import { TIMEOUT_FOR_FEEDBACK_REQUEST } from '../constants/Firebase';
+import { SEND_FEEDBACK_INTERVAL, TIMEOUT_FOR_FEEDBACK_REQUEST } from '../constants/Firebase';
 import { Layout, Theme } from '../constants/index';
 import { storeFeedback } from '../firebase/index';
 import { FeedbackFields } from '../types/index';
@@ -55,7 +55,18 @@ const showSuccessToast = () => {
   });
 };
 
+const showAntiSpamToast = () => {
+  WToast.show({
+    data: 'Please wait 5 minutes before sending feedback again',
+    textColor: Theme.colors.white,
+    backgroundColor: Theme.colors.red,
+    duration: WToast.duration.LONG,
+    position: WToast.position.TOP,
+  });
+};
+
 const Form: React.FC = () => {
+  const [isSubmittable, setIsSubmittable] = useState(true);
   const emailRef = useRef();
   const bugsRef = useRef();
   const positiveRef = useRef();
@@ -70,8 +81,15 @@ const Form: React.FC = () => {
     showSuccessToast();
   };
   const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
+    if (!isSubmittable) {
+      showAntiSpamToast();
+      actions.setSubmitting(false);
+      return;
+    }
     clearFields();
+    setTimeout(() => setIsSubmittable(true), SEND_FEEDBACK_INTERVAL);
     sendFeedback(fields)
+      .then(() => setIsSubmittable(false))
       .catch(err => Alert.alert('Feedback sending failed', err))
       .finally(() => actions.resetForm());
   };
