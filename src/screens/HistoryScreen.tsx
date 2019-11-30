@@ -60,7 +60,7 @@ interface HistoryScreenState {
   isLoading: boolean;
 }
 
-class HistoryScreen extends React.Component<
+class HistoryScreen extends React.PureComponent<
   NavigationInjectedProps,
   HistoryScreenState
   > {
