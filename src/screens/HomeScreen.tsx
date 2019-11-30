@@ -7,7 +7,7 @@ import Button from '../components/Button';
 import WelcomeBar from '../components/Home/WelcomeBar';
 import Text from '../components/Text';
 import { Layout } from '../constants/index';
-import { SCREEN_FEEDBACK, SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
+import { SCREEN_FEEDBACK, SCREEN_HELP, SCREEN_PLAY, SCREEN_TUTORIAL } from '../constants/Screens';
 
 const TITLE = 'NUMBERITO';
 
@@ -32,6 +32,10 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
 
   public handleTutorialPress() {
     this.props.navigation.navigate(SCREEN_TUTORIAL);
+  }
+
+  public handleHelpPress() {
+    this.props.navigation.navigate(SCREEN_HELP);
   }
 
   public render() {
@@ -71,7 +75,7 @@ class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
             </Text>
           </Button>
         </View>
-        <TouchableOpacity style={styles.helpIcon}>
+        <TouchableOpacity style={styles.helpIcon} onPress={() => this.handleHelpPress()}>
           <Ionicons name="ios-help-circle-outline" size={32} />
         </TouchableOpacity>
       </>

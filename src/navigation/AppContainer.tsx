@@ -6,6 +6,7 @@ import { Theme } from '../constants/index';
 import { FOOTBAR_ICON_SIZE, SCREENS_WITH_HIDDEN_TAB_BAR } from '../constants/Navigation';
 import { SCREEN_HISTORY, SCREEN_HOME } from '../constants/Screens';
 import FeedbackScreen from '../screens/FeedbackScreen';
+import HelpScreen from '../screens/HelpScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PlayScreen from '../screens/PlayScreen';
@@ -63,6 +64,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     Play: PlayScreen,
     History: HistoryStackNavigator,
     Feedback: FeedbackScreen,
+    Help: HelpScreen,
   },
   {
     initialRouteName: SCREEN_HOME,
