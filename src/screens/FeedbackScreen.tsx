@@ -3,6 +3,7 @@ import { Formik, FormikActions, FormikProps } from 'formik';
 import React, { useRef } from 'react';
 import { ActivityIndicator, Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import * as yup from 'yup';
+import { TIMEOUT_FOR_FEEDBACK_REQUEST } from '../constants/Firebase';
 import { Layout } from '../constants/index';
 import { storeFeedback } from '../firebase/index';
 import { FeedbackFields } from '../types/index';
@@ -45,9 +46,15 @@ const Form: React.FC = () => {
   const emailRef = useRef();
   const bugsRef = useRef();
   const positiveRef = useRef();
+  const FEEDBACK_FAILURE_MESSAGE = 'Looks like there are internet related problems. No worries, feedback will be sent automatically later on!';
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
-  const handleStoreSuccess = (formActions: FormikActions) => {
-    formActions.resetForm();
+  const sendFeedback = (fields: FeedbackFields) => new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(FEEDBACK_FAILURE_MESSAGE), TIMEOUT_FOR_FEEDBACK_REQUEST);
+    storeFeedback(fields)
+      .then(() => (clearTimeout(timeout), resolve()))
+      .catch(err => reject(err));
+  });
+  const handleStoreSuccess = () => {
     Alert.alert(
       'Feedback sent',
       'Thank you for being awesome!',
@@ -55,7 +62,10 @@ const Form: React.FC = () => {
   };
   const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
     clearFields();
-    storeFeedback(fields).then(() => handleStoreSuccess(actions), (err) => alert(err.json()));
+    sendFeedback(fields)
+      .then(() => handleStoreSuccess())
+      .catch(err => Alert.alert('Feedback sending failed', err))
+      .finally(() => actions.resetForm());
   };
   return (
   <Formik
@@ -63,7 +73,6 @@ const Form: React.FC = () => {
       onSubmit={handleValidatedSubmit}
       validationSchema={validationSchema}
       validateOnBlur={false}
-      onReset={clearFields}
     >
       {({
     handleChange,

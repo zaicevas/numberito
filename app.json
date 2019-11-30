@@ -32,7 +32,7 @@
         "apiKey": "AIzaSyC-ZUOu7S3euyJVRo0H6Gpxd8iSvRh5ang",
         "authDomain": "numberito-84767.firebaseapp.com",
         "databaseURL": "https://numberito-84767.firebaseio.com",
-        "storageBucket": "numberito-84767.appspot.com",
+        "storageBucket": "numberito-84767.appspot.com"
       }
     }
   }
