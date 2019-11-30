@@ -5,10 +5,9 @@ import { FeedbackFields } from '../types/index';
 const firebaseConfig = Constants.manifest.extra.firebase;
 firebase.initializeApp(firebaseConfig);
 
-const storeFeedback = (fields: FeedbackFields) => firebase
+const storeFeedback = (fields: FeedbackFields, callBack?: () => void) => firebase
         .database()
         .ref(`feedback/${new Date()}`)
-        .set(fields);
+        .set(fields, callBack);
 
 export { storeFeedback };
-

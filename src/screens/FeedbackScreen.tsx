@@ -50,8 +50,7 @@ const Form: React.FC = () => {
   const clearFields = () => (emailRef.current.clear(), bugsRef.current.clear(), positiveRef.current.clear());
   const sendFeedback = (fields: FeedbackFields) => new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(FEEDBACK_FAILURE_MESSAGE), TIMEOUT_FOR_FEEDBACK_REQUEST);
-    storeFeedback(fields)
-      .then(() => (clearTimeout(timeout), resolve()))
+    storeFeedback(fields, () => (clearTimeout(timeout), resolve(), handleStoreSuccess()))
       .catch(err => reject(err));
   });
   const handleStoreSuccess = () => {
@@ -63,7 +62,6 @@ const Form: React.FC = () => {
   const handleValidatedSubmit = (fields: FeedbackFields, actions: FormikActions) => {
     clearFields();
     sendFeedback(fields)
-      .then(() => handleStoreSuccess())
       .catch(err => Alert.alert('Feedback sending failed', err))
       .finally(() => actions.resetForm());
   };
@@ -83,7 +81,7 @@ const Form: React.FC = () => {
       <View>
         <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight }}>
                 <Image
-          style={{ width: Layout.width * 0.7, height: Layout.width * 0.7, alignSelf: 'center' }}
+          style={{ width: Layout.width * 0.6, height: Layout.width * 0.6, alignSelf: 'center' }}
           source={require('../../assets/flame.png')}
         />
         </View>
