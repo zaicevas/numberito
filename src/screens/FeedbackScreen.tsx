@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Formik, FormikActions, FormikProps } from 'formik';
 import React, { useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, Alert, Button, Image, ImageStyle, Keyboard, StyleSheet, Text, TextInput, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import { WToast } from 'react-native-smart-tip';
 import * as yup from 'yup';
 import { SEND_FEEDBACK_INTERVAL, TIMEOUT_FOR_FEEDBACK_REQUEST } from '../constants/Firebase';
@@ -107,11 +107,11 @@ const Form: React.FC = () => {
     isSubmitting,
   }: FormikProps<FeedbackFields>) => (
       <View>
-        <View style={{ paddingTop: Constants.statusBarHeight * 2, marginBottom: Constants.statusBarHeight }}>
-                <Image
-          style={{ width: Layout.width * 0.6, height: Layout.width * 0.6, alignSelf: 'center' }}
-          source={require('../../assets/flame.png')}
-        />
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/flame.png')}
+          />
         </View>
           <TextInput
           ref={emailRef}
@@ -155,6 +155,8 @@ const FeedbackScreen: React.FC = () => (
 
 interface Styles {
   container: ViewStyle;
+  image: ImageStyle;
+  imageContainer: ViewStyle;
   textInput: ViewStyle;
   errorMessage: TextStyle;
 }
@@ -166,6 +168,15 @@ const styles = StyleSheet.create<Styles>({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
     padding: 8,
+  },
+  image: {
+    width: Layout.width * 0.6,
+    height: Layout.width * 0.6,
+    alignSelf: 'center',
+  },
+  imageContainer: {
+    paddingTop: Constants.statusBarHeight * 2,
+    marginBottom: Constants.statusBarHeight,
   },
   textInput: {
     backgroundColor: '#f5f6f7',
