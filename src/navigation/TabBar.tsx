@@ -82,7 +82,7 @@ const TabBar: React.FC<TabBarProps> = ({
               }}
             >
               {renderIcon({ tintColor, route, focused: isRouteActive })}
-              {showLabel ? <Text>{getLabelText({ route })}</Text> : null}
+              {showLabel && <Text>{getLabelText({ route })}</Text>}
             </TouchableOpacity>
           );
         })}

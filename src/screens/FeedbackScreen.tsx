@@ -119,7 +119,7 @@ const Form: React.FC = () => {
           onChangeText={handleChange('email')}
           placeholder="Email (optional)"
           />
-          {errors.email ? (<Text style={styles.errorMessage}>{errors.email}</Text>) : null}
+          {errors.email && (<Text style={styles.errorMessage}>{errors.email}</Text>)}
           <TextInput
           ref={bugsRef}
           multiline
@@ -134,7 +134,7 @@ const Form: React.FC = () => {
           onChangeText={handleChange('positive')}
           placeholder="Is there something you really liked in the app? :)"
           />
-          {errors.positive || errors.bugs ? (<Text style={styles.errorMessage}>{errors.positive || errors.bugs}</Text>) : null}
+          {(errors.positive || errors.bugs) && (<Text style={styles.errorMessage}>{errors.positive || errors.bugs}</Text>)}
           {isSubmitting ? (
             <ActivityIndicator />
           ) : (
