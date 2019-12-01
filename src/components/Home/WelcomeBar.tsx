@@ -24,9 +24,7 @@ class WelcomeBar extends React.Component<WelcomeBarProps, WelcomeBarState> {
       <View style={styles.welcomeContainer}>
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity
-          onPress={() => {
-            this.setState({ currentIndex: this.state.currentIndex + 1 });
-          }}
+          onPress={() => this.setState({ currentIndex: this.state.currentIndex + 1 })}
         >
           <Image
             resizeMode="contain"
@@ -65,9 +63,9 @@ const styles = StyleSheet.create<Style>({
   title: {
     marginBottom: '10%',
     marginTop: '5%',
-    fontSize: 30,
-    fontWeight: '800',
     alignSelf: 'center',
+    fontSize: 36,
+    fontWeight: '600',
   },
 });
 
