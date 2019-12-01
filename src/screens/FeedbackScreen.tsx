@@ -138,7 +138,9 @@ const Form: React.FC = () => {
           {isSubmitting ? (
             <ActivityIndicator />
           ) : (
+            <View style={styles.submitButton} >
             <Button title="Submit" onPress={() => (Keyboard.dismiss(), handleSubmit())} />
+            </View>
           )}
           </View>
       )}
@@ -159,6 +161,7 @@ interface Styles {
   imageContainer: ViewStyle;
   textInput: ViewStyle;
   errorMessage: TextStyle;
+  submitButton: ViewStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -185,6 +188,10 @@ const styles = StyleSheet.create<Styles>({
   },
   errorMessage: {
     color: 'red',
+    alignSelf: 'center',
+  },
+  submitButton: {
+    width: '75%',
     alignSelf: 'center',
   },
 });
