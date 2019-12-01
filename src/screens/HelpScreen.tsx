@@ -37,7 +37,7 @@ const HelpScreen: React.FC<NavigationInjectedProps> = ({ navigation }) => {
       <Card style={{ paddingTop: Constants.statusBarHeight }}>
         <CardImage
           source={require('../../assets/awesome.jpg')}
-          resizeMode="center"
+          resizeMode="cover"
         />
           <CardTitle
             title="Why?"
