@@ -17,9 +17,9 @@ const PEOPLE = [
   'Louise Taylor',
   'Fatih Chelik',
   'Akshay Katira',
+  'Gustav Thormann Larsen',
   'Faustas Butkus',
   'Joris Medeisis',
-  'Gustav Thormann Larsen',
 ];
 
 const ListItem: React.FC<ListItemProps> = ({ title }) => (
