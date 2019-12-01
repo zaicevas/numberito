@@ -78,9 +78,9 @@ class HistoryScreen extends React.PureComponent<
         isLoading: true,
       });
       const history = await getHistory();
-      const historyJson = JSON.parse(history || '');
+      const historyJson = (history && JSON.parse(history)) || [];
       this.setState({
-        guesses: historyJson ? historyJson.reverse() : [],
+        guesses: historyJson.reverse(),
         isLoading: false,
       });
     });
