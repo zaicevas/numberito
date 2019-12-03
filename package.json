@@ -26,7 +26,8 @@
     "react-native-svg": "^9.5.3",
     "react-navigation": "^3.11.1",
     "rn-placeholder": "^3.0.0",
-    "rn-swipeable-panel": "^1.0.14"
+    "rn-swipeable-panel": "^1.0.14",
+    "expo-asset": "~6.0.0"
   },
   "devDependencies": {
     "@types/expo": "^32.0.13",

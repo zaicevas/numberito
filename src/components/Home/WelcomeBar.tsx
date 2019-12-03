@@ -1,10 +1,9 @@
 import React from 'react';
 import { Image, ImageStyle, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { STATUS_BAR_HEIGHT } from '../../constants/Home';
 import { Layout } from '../../constants/index';
 
-const STATUS_BAR_HEIGHT = 20;
-
-const photos = [
+const images = [
   require('../../../assets/home/bean_confident.jpg'),
   require('../../../assets/home/bean_confident2.png'),
   require('../../../assets/home/happy-sombrero.jpg'),
@@ -27,7 +26,7 @@ class WelcomeBar extends React.Component<WelcomeBarProps, WelcomeBarState> {
         >
           <Image
             resizeMode="contain"
-            source={photos[currentIndex % photos.length]}
+            source={images[currentIndex % images.length]}
             style={styles.welcomeImage}
           />
         </TouchableOpacity>
