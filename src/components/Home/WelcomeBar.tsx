@@ -9,7 +9,6 @@ const photos = [
   require('../../../assets/home/bean_confident2.png'),
   require('../../../assets/home/happy-sombrero.jpg'),
   require('../../../assets/home/happy_hispanic.jpeg'),
-  require('../../../assets/home/borat.jpeg'),
 ];
 
 class WelcomeBar extends React.Component<WelcomeBarProps, WelcomeBarState> {
