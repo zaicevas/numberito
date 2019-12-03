@@ -25,7 +25,11 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "",
+    "android": {
+      "package": "com.tozaicevas.numberito",
+      "versionCode": "1.0.0"
+    },
+    "description": "Bulls and Cows in a fresh light",
     "githubUrl": "https://github.com/tozaicevas/numberito",
     "extra": {
       "firebase": {
