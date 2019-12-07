@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "numberito",
-    "slug": "numberito",
+    "name": "Numberito",
+    "slug": "Numberito",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "com.tozaicevas.numberito",
-      "versionCode": 0,
+      "versionCode": 3,
       "permissions": []
     },
     "description": "Bulls and Cows in a fresh light",
