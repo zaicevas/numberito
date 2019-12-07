@@ -13,6 +13,7 @@ interface ListItemProps {
 
 const PEOPLE = [
   'Sabrina Nestved',
+  'Christoffer Petersen',
   'Aurimas Simkus',
   'Louise Taylor',
   'Fatih Chelik',

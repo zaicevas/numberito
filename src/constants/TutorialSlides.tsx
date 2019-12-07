@@ -91,7 +91,7 @@ const SLIDE_2 = {
   title: 'Bulls and Cows',
   text: (
     <Text>
-      After every guess you get some info:{' '}
+      After every guess you get clues:{' '}
       <Text style={styles.bullsText}>bulls</Text> and{' '}
       <Text style={styles.cowsText}>cows</Text>
     </Text>

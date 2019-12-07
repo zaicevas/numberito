@@ -38,7 +38,6 @@ class PlayScreen extends React.Component<
   > {
   public static getEmptyState = () => {
     const answer = getRandomAnswer();
-    console.log(answer);
     return {
       answer,
       input: '',
