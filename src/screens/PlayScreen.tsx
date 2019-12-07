@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import SwipeablePanel from 'rn-swipeable-panel';
 import History from '../components/Play/History';
@@ -103,7 +103,10 @@ class PlayScreen extends React.Component<
       const guess = { input, bulls, cows };
       const correctAnswer = bulls === MAX_DIGITS;
       const updatedGuesses = [...guesses, guess];
-      if (correctAnswer) updateHistory(updatedGuesses, answer);
+      if (correctAnswer) {
+        Alert.alert('Congratulations!', 'You can restart by using middle button at the bottom.');
+        updateHistory(updatedGuesses, answer);
+      }
       this.setState({
         guesses: updatedGuesses,
         input: correctAnswer ? input : '',
